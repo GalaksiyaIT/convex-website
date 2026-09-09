@@ -1,0 +1,12 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+.eslintcache
+
+# Yerel geliştirme araçlarına özgü, makineye bağlı yollar içerir (ör. tarayıcı
+# önizleme aracının dev-server komutu) — paylaşılan repoya taşınmamalı.
+.claude/
+.vscode/*
+!.vscode/extensions.json

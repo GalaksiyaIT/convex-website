@@ -1,0 +1,59 @@
+@import 'tailwindcss';
+@import './assets/fonts/roboto/roboto.css';
+
+@theme {
+  /* Brand palette — matches the Convex product UI (automl-ui-new/src/style.css) */
+  --color-purple: #6d2077;
+  --color-button-pink: #c1188b;
+  --color-pink: #af1685;
+  --color-light-pink: #f5ebf2;
+  --color-very-light-pink: #faf4fb;
+  --color-very-light-gray: #ecf1fc;
+  --color-very-light-blue: #f4f5fb;
+  --color-dark-blue: #1d4f91;
+  --color-navyblue: #123058;
+  --color-navy-dark: #141926;
+  --color-dark-navy: #1a2b4b;
+  --color-light-gray-bg: #f8f8f9;
+  --color-light-gray-border: #e2e4e7;
+  --color-darker-gray: #4a4a4a;
+  --color-close-btn-pink: #fae9f2;
+  --color-supportive-blue: #355797;
+
+  --font-sans: 'Roboto', sans-serif;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #ffffff;
+  color: var(--color-navy-dark);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-light-pink) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: var(--color-light-pink);
+  border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--color-pink);
+}
+
+.prose-convex a {
+  color: var(--color-pink);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
