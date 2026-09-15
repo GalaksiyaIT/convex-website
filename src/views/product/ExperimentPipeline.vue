@@ -6,6 +6,13 @@ import Card from '@/components/ui/Card.vue'
 import BaseIcon from '@/components/ui/BaseIcon.vue'
 import SectionHeading from '@/components/ui/SectionHeading.vue'
 import CtaBanner from '@/components/sections/CtaBanner.vue'
+import NeuralNetworkAnimation from '@/components/ui/NeuralNetworkAnimation.vue'
+
+const liveAlgorithms = [
+  { name: 'LightGBM', gini: 0.71 },
+  { name: 'Logistic Regression', gini: 0.58 },
+  { name: 'Random Forest', gini: 0.66 },
+]
 
 const capabilities = [
   {
@@ -69,6 +76,44 @@ const capabilities = [
           </div>
           <h3 class="mt-4 text-base font-semibold text-navy-dark">{{ c.title }}</h3>
           <p class="mt-2 text-sm leading-relaxed text-darker-gray">{{ c.description }}</p>
+        </Card>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Çoklu Algoritma Eğitimi'ni somutlaştıran canlı önizleme — ModelRunning ekranındaki
+       "Current Process" panelinden esinlenildi, gerçek eğitim süresini değil hızı temsil eder. -->
+  <section class="py-20">
+    <Container>
+      <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-wide text-pink">Canlı önizleme</p>
+          <h2 class="mt-1 text-2xl font-semibold text-navy-dark">
+            Aynı anda birden çok algoritma, tek ekranda
+          </h2>
+          <p class="mt-3 text-base leading-relaxed text-darker-gray">
+            LightGBM, Logistic Regression ve daha fazlasını paralel çalıştırın; her biri için Gini
+            gibi metrikler eğitim ilerledikçe canlı güncellenir. En iyi adayı seçmek için ayrı ayrı
+            deney kurmanıza gerek kalmaz.
+          </p>
+        </div>
+        <Card>
+          <p class="text-xs font-semibold uppercase tracking-wide text-darker-gray/60">
+            Current Process · risk-model-v3
+          </p>
+          <div class="mt-4 flex items-center gap-5">
+            <NeuralNetworkAnimation :size="160" :duration="4" />
+            <div class="flex-1 space-y-2">
+              <div
+                v-for="a in liveAlgorithms"
+                :key="a.name"
+                class="flex items-center justify-between rounded-lg bg-very-light-blue px-3 py-2 text-xs"
+              >
+                <span class="font-medium text-navy-dark">{{ a.name }}</span>
+                <span class="font-semibold text-navyblue">Gini {{ a.gini.toFixed(2) }}</span>
+              </div>
+            </div>
+          </div>
         </Card>
       </div>
     </Container>

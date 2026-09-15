@@ -10,14 +10,14 @@ const stories = [
     company: 'Örnek Banka',
     sector: 'Bankacılık',
     before: 'Haftalar',
-    after: 'Günler',
+    after: 'Dakikalar',
     title: 'Kredi skorlama modeli geliştirme süresi %60 kısaldı',
     summary:
-      "Scorecard modeli Experiment Pipeline'da yeniden kuruldu; birden çok algoritma aynı anda karşılaştırıldı. Sonuç: haftalar yerine günler.",
+      "Scorecard modeli Experiment Pipeline'da yeniden kuruldu; birden çok algoritma aynı anda karşılaştırıldı. Sonuç: haftalar yerine dakikalar.",
     metrics: [
       { label: 'Geliştirme süresi', value: '−60%' },
       { label: 'Gini katsayısı', value: '+8 puan' },
-      { label: 'Denetime hazırlık', value: 'Günler içinde' },
+      { label: 'Denetime hazırlık', value: 'Dakikalar içinde' },
     ],
   },
   {

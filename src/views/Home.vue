@@ -7,9 +7,11 @@ import Card from '@/components/ui/Card.vue'
 import BaseIcon from '@/components/ui/BaseIcon.vue'
 import SectionHeading from '@/components/ui/SectionHeading.vue'
 import LogoStrip from '@/components/sections/LogoStrip.vue'
-import QuoteCard from '@/components/sections/QuoteCard.vue'
+import TestimonialCarousel from '@/components/sections/TestimonialCarousel.vue'
 import StatBand from '@/components/sections/StatBand.vue'
+import VideoShowcase from '@/components/sections/VideoShowcase.vue'
 import CtaBanner from '@/components/sections/CtaBanner.vue'
+import NeuralNetworkAnimation from '@/components/ui/NeuralNetworkAnimation.vue'
 
 const stats = [
   { value: '−60%', label: 'model geliştirme süresi' },
@@ -55,7 +57,7 @@ const modules = [
         <div>
           <Eyebrow>AutoML · Model Risk Yönetimi</Eyebrow>
           <h1 class="mt-5 text-4xl sm:text-5xl font-semibold tracking-tight text-navy-dark">
-            Kredi risk modellerini günler içinde canlıya alın.
+            Kredi risk modellerini dakikalar içinde canlıya alın.
           </h1>
           <p class="mt-6 text-lg leading-relaxed text-darker-gray">
             Convex, bankacılık ve finans kuruluşları için uçtan uca bir AutoML platformu. Veri
@@ -106,15 +108,14 @@ const modules = [
               <div class="col-span-3 space-y-3">
                 <div class="rounded-xl border border-light-gray-border p-3">
                   <p class="text-[11px] font-semibold uppercase tracking-wide text-darker-gray/60">
-                    Model Performansı — Gini
+                    Model Eğitimi — Canlı
                   </p>
-                  <div class="mt-3 flex items-end gap-1.5 h-16">
-                    <div
-                      v-for="h in [40, 55, 48, 70, 62, 78, 74, 88]"
-                      :key="h"
-                      class="flex-1 rounded-t bg-pink/70"
-                      :style="{ height: h + '%' }"
-                    />
+                  <div class="mt-2 flex flex-col items-center">
+                    <NeuralNetworkAnimation :size="140" :duration="4" />
+                    <div class="-mt-2 text-center text-xs text-navy-dark">
+                      <p class="font-medium">LightGBM · Fold 4/5</p>
+                      <p class="mt-1 text-darker-gray/60">Paralel deneme sayısı: 6</p>
+                    </div>
                   </div>
                 </div>
                 <div class="rounded-xl border border-light-gray-border p-3">
@@ -141,7 +142,7 @@ const modules = [
     <Container>
       <SectionHeading
         eyebrow="Üç modülde tek akış"
-        title="Veriden canlıya, günler içinde"
+        title="Veriden canlıya, dakikalar içinde"
         description="Üç modül, tek akış: model yaşam döngüsünün tamamı Convex'te."
       />
       <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -164,6 +165,8 @@ const modules = [
     </Container>
   </section>
 
+  <VideoShowcase />
+
   <!-- "Hemen altında": müşteri logosu şeridi + Vaka Çalışmaları'ndan tek cümlelik alıntı.
        Rakamları önce, alıntıyı ardından göstermek daha ikna edici oluyor (bkz. H2O.ai,
        Domino Data Lab gibi benzer platformların anasayfa düzeni). -->
@@ -173,13 +176,8 @@ const modules = [
       <div class="mt-12 mx-auto max-w-4xl">
         <StatBand :stats="stats" />
       </div>
-      <div class="mt-8 max-w-2xl mx-auto">
-        <QuoteCard
-          quote="Kredi skorlama modellerimizi kurmak haftalar sürüyordu; Convex ile aynı süreci günler içinde, denetim izini kaybetmeden tamamlıyoruz."
-          name="A. Yılmaz"
-          title="Model Risk Yönetimi Direktörü"
-          company="Örnek Banka"
-        />
+      <div class="mt-10">
+        <TestimonialCarousel />
       </div>
     </Container>
   </section>

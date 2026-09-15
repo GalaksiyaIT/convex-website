@@ -23,9 +23,18 @@ function handleSubmit() {
 }
 
 const channels = [
-  { icon: 'mail', label: 'E-posta', value: 'iletisim@convex.ai' },
-  { icon: 'phone', label: 'Telefon', value: '+90 (212) 000 00 00' },
-  { icon: 'mapPin', label: 'Ofis', value: 'İstanbul, Türkiye' },
+  { icon: 'mail', label: 'E-posta', value: 'info@galaksiya.com.tr' },
+  {
+    icon: 'mapPin',
+    label: 'İzmir Ofisi',
+    value: 'Ege Teknopark, Ege Üniversitesi, 35100 Bornova/İzmir · +90 (232) 373 55 11',
+  },
+  {
+    icon: 'building',
+    label: 'Ankara Ofisi',
+    value:
+      'İşçi Blokları Mah. Mevlana Bulvarı (Konya Yolu), Ege Plaza No:182B Kat:3 No:5, Çankaya/Ankara · +90 (312) 473 38 25',
+  },
 ]
 </script>
 

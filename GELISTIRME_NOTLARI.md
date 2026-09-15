@@ -130,9 +130,164 @@ kısa/vurucu fragmanlara indirildi (ör. "Yorumlayın, denetleyin, onaylayın.",
 **Bilinçli olarak bu turun dışında tutulanlar:**
 - **Referanslar sayfasındaki testimonial alıntıları** — bunlar gerçek kişi ağzından çıkan
   konuşma diliyle yazıldı; pazarlama diline çevirmek sahiciliğini azaltır.
+
 - **Blog yazılarının gövde metni** (`src/content/blogPosts.js`) — bunlar SEO/organik trafik
   hedefleyen uzun-format içerik, kısa reklam metni değil.
 - **Yardım Merkezi'nin işlevsel/dokümantasyon içeriği** (Dokümantasyon, Destek, Sürüm
   Notları gövde metinleri) — sadece PageHero başlık/açıklamaları sıkılaştırıldı, adım adım
   talimatlar netlik için olduğu gibi bırakıldı.
 - **Yasal sayfalar** — hukuki/uyumluluk metni "vuruculuk" için kısaltılacak bir tür değil.
+
+## 8. Canlı Eğitim Animasyonu (Yüzde + Dallanan Sinir Uçları)
+
+`automl-ui-new`'deki `ModelRunning.vue` ekranının "Current Process" panelinden esinlenerek bir
+"model eğitiliyor" animasyonu eklendi. `main` dalındaki `ModelRunning.vue`'da bu daire aslında
+statik bir renkli daire + değişen bir sayıdan ibaret (gerçek bir animasyon değil); ama kullanıcı
+elle çizdiği bir referans görselle ("yüzdenin çevresinde renkli dallanmalar") ısrar edince
+`origin/modelRunningFix` adlı, henüz `main`'e alınmamış bir dalda gerçek kaynağı bulundu:
+`src/views/ExperimentTraining/components/NeuralNetworkAnimation.vue`. O bileşen birebir taşındı:
+[`src/components/ui/NeuralNetworkAnimation.vue`](src/components/ui/NeuralNetworkAnimation.vue).
+
+Algoritma aynen korundu: merkezde bir ilerleme halkası + yüzde + durum etiketi ("ÇALIŞIYOR" /
+"TAMAMLANDI"), çevresinde 5 renk kümesi (yeşil, mavi, mor, turuncu, kırmızı — automl-ui-new'in
+kendi paleti, site markasının mor/pembesi değil, kaynağa sadık kalmak için birebir korundu), her
+kümede "seeded random" ile üretilen 16 adet organik, dalgalı "tel/dal" (`buildHairPath`), bazı
+dallarda nabız gibi atan uç noktaları, bazılarında da SVG `<animateMotion>` ile dal boyunca akan
+küçük "sinyal" noktaları var. Orijinalde `progress` dışarıdan (gerçek API polling ile) besleniyordu;
+burada tamamen dekoratif olduğu için yüzde `requestAnimationFrame` ile kendi içinde döngüsel
+üretiliyor. `prefers-reduced-motion: reduce` tercih edilirse tüm animasyonlar durur (SVG'nin
+native `pauseAnimations()` API'siyle SMIL animasyonları, CSS `animation-play-state` ile de
+CSS animasyonları duraklatılıyor — orijinal bileşenin kendi duraklatma mekanizması).
+
+(Bu son hale gelene kadar iki ara adım denenip kullanıcı geri bildirimiyle elendi: önce sadece
+yüzde halkası + tamamlanma onay ikonu, sonra yüzdesiz/katmanlı bir "girdi→gizli katman→çıktı"
+ağ diyagramı. Kullanıcının asıl istediği, ekran görüntüsüyle netleşen bu üçüncü tasarımdı.)
+
+Üç yerde kullanıldı:
+- [Home.vue](src/views/Home.vue) hero mockup'ında, önceden statik olan "Model Performansı — Gini"
+  çubuk grafiğinin yerine "Model Eğitimi — Canlı" paneli.
+- [ExperimentPipeline.vue](src/views/product/ExperimentPipeline.vue)'da "Çoklu Algoritma Eğitimi"
+  yeteneğini somutlaştıran yeni bir "Canlı önizleme" bölümü (animasyon + algoritma/Gini listesi).
+- [Solutions.vue](src/views/Solutions.vue)'da "Bankalar Convex'i neden seçiyor" başlığının
+  yanında, hız iddiasını destekleyen küçük bir rozet (pill yerine, animasyona yer açmak için
+  `rounded-2xl` bir kutuya çevrildi).
+
+Animasyon tamamen dekoratiftir — gerçek bir eğitim sürecine bağlı değildir, sadece "dakikalar
+içinde" hız iddiasını ve modelin arka planda aktif çalıştığı hissini görsel olarak pekiştirir.
+
+## 9. Sayılarla Convex (Neden Convex sayfası)
+
+Kullanıcının Masaüstü'ndeki gerçek dosyalardan (~/Downloads/Convex Go Brochure - Updated Dec
+2025.pdf ve ~/Downloads/Convex Automated ML Platform Deck_ Customer Sharing.pptx) tekrar
+okunarak "neden Convex tercih edilir" argümanları çıkarıldı ve
+[WhyConvex.vue](src/views/WhyConvex.vue)'ye yeni bir "Sayılarla Convex" bölümü eklendi
+(itiraz-karşılama akordiyonu ile Açıklanabilirlik bölümü arasında).
+
+Not: Bu sunumlar teknik olarak Experian'ın kendi markasıyla sattığı "Experian Convex" /
+"Convex Go" ürünlerine ait — ama Galaksiya'nın kendi sitesinde (galaksiya.com) "Experian
+Convex" ayrı bir müşteri vaka çalışması olarak listeleniyor, yani Galaksiya'nın geliştirdiği
+aynı platformun Experian tarafından beyaz etiketli/ortak markalı satışı. Bu yüzden rakamlar
+Convex'in kendi platform performansına ait, doğrudan kullanılabilir kabul edildi.
+
+Eklenenler ("Convex Automated ML Platform Deck"nin "Main Benefits of Convex" tablosundan,
+Slayt 5, ve ilgili diğer slaytlardan):
+- Geleneksel yöntem vs Convex karşılaştırma kartları: Süre (~6 ay → maks. 1-2 gün, denetim
+  ve devreye alma dahil), Efor (min. 500 adam-gün → 5-10 adam-gün), Pazara çıkış süresi
+  (1-1,5 yıl gecikme → gerçek zamanlı güncelleme).
+- 4'lü istatistik bandı (StatBand): ×5 daha hızlı deney sonuçları (Slayt 3), %30+ ML
+  modellerinin geleneksel modellere kattığı minimum performans artışı (Slayt 6), %70-80 entegre
+  karar motorlarıyla devreye alma süresinde azalma (Slayt 8, orijinalde "PowerCurve" adı
+  geçiyordu — Experian'ın kendi decisioning ürünü olduğu için genelleştirildi), ×10 modelleri
+  güncel tutmanın platform maliyetine oranla getirisi/RoI (Slayt 6).
+
+Kullanılmayanlar (kaynakta var ama siteye taşınmadı): Slayt 9'daki uzun özellik listesi (çoğu
+zaten Experiment Pipeline/Model Governance sayfalarında ayrı ayrı anlatılıyor, tekrar olurdu);
+Slayt 10'daki isimsiz "Tier 2 Private Bank in Turkey" vaka çalışması rakamları (9 ay → dakikalar,
+%15 kampanya yanıt artışı, %80 churn tahmin doğruluğu) — gerçek ama anonim bir müşteriye ait
+olduğu için, mevcut mock testimonial/vaka içeriğiyle karıştırılmaması adına şimdilik eklenmedi;
+gerçek referans onaylandığında Vaka Çalışmaları sayfasına eklenmesi daha uygun olur.
+
+**Sonradan yapılan iki düzeltme:**
+- "Süre" satırının etiketi "Uçtan uca süre" olarak değiştirildi — Home.vue'daki
+  "−60% model geliştirme süresi" istatistiğiyle karıştırılmasın diye (o sadece geliştirme
+  aşamasını ölçüyor, buradaki ise denetim + devreye alma dahil tüm süreci).
+- Açıklanabilirlik bölümündeki görünür alıntı kaynağıyla ("— Convex Go ürün broşürü") tutarlı
+  olması için, istatistik bandının altına da görünür bir kaynak notu eklendi: `Kaynak: "Convex
+  Automated ML Platform Deck" ürün sunumu.`
+- "Açıklanabilirlik" kelimesi kaldırıldı; eyebrow, kaynağın kendi özellik adı olan "Full
+  transparency"yle birebir eşleşsin diye "Şeffaflık" yapıldı.
+
+**Sayfa sırası yeniden düzenlendi** (sunumdan gelen içerikler daha görünür/dikkat çekici olsun
+diye en üste alındı): PageHero → **Problem çerçevesi (yeni)** → Sayılarla Convex → Şeffaflık →
+İtirazlar akordiyonu → CtaBanner. Önceden itirazlar en üstteydi, sunum içerikleri en altta kalıyordu.
+
+Yeni eklenen "Problem çerçevesi" bölümü, "Convex Go Brochure"un "Delayed deployment = Delayed
+impact" slaytından (Sayfa 2) geliyor: %65 (işletmelerin model devreye almayı "çok yavaş" bulma
+oranı — Experian 2023 Survey on Model Building and ModelOps) ve %54 (ModelOps'un önümüzdeki
+3-5 yılda sektörü şekillendireceğini düşünen karar verici oranı — Experian & Forrester Consulting
+2024) rakamları, sayfanın en üstünde, PageHero'dan hemen sonra bir navy bölüm olarak veriliyor.
+Bunlar Convex'in kendi başarı rakamları değil, üçüncü taraf sektör araştırması olduğu için kaynak
+notu görünür şekilde eklendi (Sayılarla Convex ve Açıklanabilirlik/Şeffaflık bölümlerindeki
+kaynak gösterme pratiğiyle tutarlı).
+
+## 10. Yardım Merkezi — İlk Gerçek Video
+
+Kullanıcının verdiği `video.webm` (Convex/Experian giriş ekranını ve "You can unlock the value
+in your data" mesajını gösteren, ~15 saniyelik bir ürün tanıtım kaydı) projeye eklendi:
+[`src/assets/videos/dataset-yukleme.webm`](src/assets/videos/dataset-yukleme.webm).
+
+[Videos.vue](src/views/help/Videos.vue)'daki "Dataset yükleme ve şema doğrulama" kartı artık
+tıklanınca gerçek videoyu oynatan bir modal açıyor (`VideoShowcase.vue`'daki modal desenine
+benzer, ama iframe yerine native `<video>` elementi kullanıyor çünkü yerel bir dosya, embed
+linki değil). Süre etiketi elle yazılmadı — `onMounted`'da video metadata'sı okunup gerçek süre
+("0:15") otomatik hesaplanıyor, böylece yanlış/uydurma bir süre gösterilmiyor.
+
+Diğer 5 video kartı hâlâ gerçek dosyası olmayan mock placeholder'lar (süre etiketleri de mock
+veri — "4:12" gibi); bunlar artık tıklanamaz (cursor-pointer ve hover efekti kaldırıldı), çünkü
+tıklanabilir ama hiçbir şey yapmayan bir buton yanıltıcı olurdu. İleride gerçek videosu olmayan
+yeni bir kart eklenirse (süre alanı `null` bırakılırsa) kart otomatik olarak "Yakında" rozeti
+gösterir.
+
+Dataset kartının önizleme alanı, düz siyah kutu yerine mor→pembe degradeli bir zemin üzerinde
+"Dataset Yükleme" yazısı ve play butonu gösterecek şekilde güncellendi (kullanıcı geri
+bildirimiyle: önce dosya kartı + ilerleme çubuğu içeren daha ayrıntılı bir mockup denendi,
+"bu olmaz" denilince sade bir metin+degrade tasarıma geçildi; ilk metin denemesi "Veri Seti
+Yükleme" idi ama sayfanın geri kalanında (kart başlığı, module etiketi, docsGuides.js,
+GettingStarted.vue) tutarlı olarak "Dataset" — İngilizce terim — kullanıldığı fark edilince
+"Dataset Yükleme"ye düzeltildi). Diğer kartlar (henüz videosu olmayanlar) sade navy kutu olarak
+bırakıldı; sadece gerçek videosu olan kartlar özelleştirildi.
+
+İkinci bir kısa video (`video.webm`, ~3 saniye, aynı "You can unlock the value in your data"
+Convex/Experian giriş ekranı kaydı) [src/assets/videos/giris.webm](src/assets/videos/giris.webm)
+olarak eklendi ve ilk karta ("Convex'e giriş: ilk projenizi oluşturma") bağlandı. Bu vesileyle
+kart mockup'ı genelleştirildi: artık `v.module === 'Dataset'` gibi tek bir karta özel kontrol
+yerine, her `videos` öğesi kendi `videoUrl` + `thumbnailLabel` alanlarını taşıyor — gerçek
+videosu olan her kart otomatik olarak degrade zemin + etiket + dinamik süre alıyor, yeni bir
+video eklemek için tek yapılması gereken listeye bu iki alanı eklemek. Kartın eski "Başlangıç"
+module etiketi kullanıcı isteğiyle "Giriş" olarak değiştirildi.
+
+Üçüncü bir video (`video 2.webm`, ~23 saniye) [src/assets/videos/veri-gorsellestirme.webm]
+(src/assets/videos/veri-gorsellestirme.webm) olarak eklendi ve "Veri Görselleştirme" adıyla
+Dataset kartından hemen sonraya yerleştirildi (module: 'Dataset'). Genelleştirilmiş kart yapısı
+sayesinde ekleme sadece `videos` listesine yeni bir öğe eklemekten ibaretti — süre otomatik
+algılandı (0:24), thumbnail otomatik degrade+etiket aldı.
+
+Dördüncü bir video (`video.webm`, ~34 saniye) [src/assets/videos/data-sample.webm]
+(src/assets/videos/data-sample.webm) olarak eklendi; kart adı sonradan "Data Sample" → "Veri
+Örnekleme" olarak değiştirildi (module: 'Dataset'). Aynı şablon: listeye tek bir öğe eklemek
+yeterli oldu, süre otomatik algılandı (0:34).
+
+Beşinci, altıncı ve yedinci videolar (`03_project_test.webm`, `04_portfolio_test.webm`,
+`05_use_case_test.webm`) sırasıyla [project.webm](src/assets/videos/project.webm),
+[portfolio.webm](src/assets/videos/portfolio.webm) ve [use-case.webm]
+(src/assets/videos/use-case.webm) olarak eklendi; Veri Örnekleme kartından hemen sonraya,
+dosya adlarındaki numaralandırmaya (03/04/05) uygun sırayla yerleştirildi. Bunlar Dataset
+modülünden farklı bir konuyu (Proje, Portföy, Kullanım Senaryosu — automl-ui-new'de
+"Projects / Portfolio / Use Case" sekmeleri) gösterdiği için kendi module etiketlerini aldı:
+'Proje', 'Portföy', 'Kullanım Senaryosu'. Süreler otomatik algılandı (0:22, 0:10, 0:11).
+
+Sekizinci video (`video.webm`, ~28 MB — şimdiye kadarki en büyük dosya) [experiment-pipeline.webm]
+(src/assets/videos/experiment-pipeline.webm) olarak eklendi ve önceden sadece mock süreli
+("9:35") statik bir placeholder olan "Experiment Pipeline ile ilk deneyinizi kurma" kartına
+bağlandı. Kart artık diğerleriyle aynı degrade+etiket görünümünü alıyor, süre gerçek videodan
+otomatik algılandı (5:11, eski mock değeri değil).

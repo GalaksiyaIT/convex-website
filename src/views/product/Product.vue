@@ -47,7 +47,7 @@ const steps = [
     icon: 'rocket',
     title: 'Deploy',
     description: 'Onaylanan modeli skorlama uygulamasına bağlayın, canlı performansı izleyin.',
-    quote: '"Onaylanan model aynı gün içinde canlıya çıkabiliyor." — Deployment kullanıcısı',
+    quote: '"Onaylanan model dakikalar içinde canlıya çıkabiliyor." — Deployment kullanıcısı',
     to: '/urun/deployment',
   },
 ]
