@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://convex.ai/sitemap.xml
+Sitemap: https://convexweb.galaksiya.net/sitemap.xml
