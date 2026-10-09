@@ -11,9 +11,13 @@ defineProps({
 </script>
 
 <template>
-  <figure class="flex h-full flex-col rounded-2xl border border-light-gray-border bg-very-light-pink/40 p-8">
+  <figure
+    class="flex h-full flex-col rounded-2xl border border-light-gray-border bg-very-light-pink/40 p-8"
+  >
     <BaseIcon name="quote" sizeClass="w-8 h-8 text-pink/50" />
-    <blockquote class="mt-4 flex-1 text-lg leading-relaxed text-navy-dark">"{{ quote }}"</blockquote>
+    <blockquote class="mt-4 flex-1 text-lg leading-relaxed text-navy-dark">
+      "{{ quote }}"
+    </blockquote>
     <figcaption class="mt-6 flex items-center gap-3">
       <img
         v-if="avatar"

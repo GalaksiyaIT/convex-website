@@ -291,3 +291,237 @@ Sekizinci video (`video.webm`, ~28 MB — şimdiye kadarki en büyük dosya) [ex
 ("9:35") statik bir placeholder olan "Experiment Pipeline ile ilk deneyinizi kurma" kartına
 bağlandı. Kart artık diğerleriyle aynı degrade+etiket görünümünü alıyor, süre gerçek videodan
 otomatik algılandı (5:11, eski mock değeri değil).
+
+Dokuzuncu video (`video.webm`, ~754 KB) [scorecard.webm](src/assets/videos/scorecard.webm)
+olarak eklendi ve Experiment Pipeline kartından hemen sonraya "Skorlama Kartı (Score Card)"
+adıyla yerleştirildi (module: 'Score Card', site genelinde "scorecard" için kullanılan
+"skorlama kartı" terimiyle tutarlı). Süre otomatik algılandı (0:07).
+
+Onuncu video (Playwright test-results klasöründen: `08_application_test-...-chromium/video.webm`,
+~823 KB) [application.webm](src/assets/videos/application.webm) olarak eklendi ve Score Card
+kartından hemen sonraya "Application oluşturma" adıyla yerleştirildi (module: 'Application').
+Süre otomatik algılandı (0:10).
+
+On birinci–on yedinci videolar: kullanıcının verdiği 7 senaryo kaydı (`1_steps_1_5.webm` …
+`7_step19.webm`) `src/assets/videos/mg-*.webm` olarak eklendi ve kullanıcının verdiği tam
+başlıklarla ("Model Governance – … (Adım N)") "Model Governance" module'ü altında sıralandı:
+Deney Arama ve Model Reports (Adım 1-5), Interpret (Adım 6-11), Test Sonuçlarını İndirme
+(Adım 13), Model Nesnesini İndirme (Adım 14), Model Audit Log Oluşturma ve Doğrulama
+(Adım 16-17), Model Build İşlemi (Adım 18), Yeni Dataset ile Prediction (Adım 19).
+
+Bu 7 gerçek videoyla, önceden tek bir mock placeholder olan "Model Governance: yorumlama ve
+onay akışı" (duration: '7:20', gerçek videosu yok) kartı kaldırıldı — artık aynı konuyu çok
+daha spesifik ve gerçek içerikle 7 ayrı kart kapsıyor, mock kartı yanında tutmak yanıltıcı
+olurdu. Süreler otomatik algılandı (0:08, 0:55, 0:06, 0:06, 0:08, 0:05, 0:27).
+
+On sekizinci video (Playwright test-results klasöründen: `_scenario_custom_model_ful-...-
+create-retrain-retest--chromium/video.webm`, ~12 MB) [custom-model.webm]
+(src/assets/videos/custom-model.webm) olarak eklendi ve Model Governance – Prediction
+kartından hemen sonraya "Custom Model: oluşturma, yeniden eğitme ve yeniden test etme"
+adıyla yerleştirildi (module: 'Custom Model'). Süre otomatik algılandı (2:31).
+
+## 11. Anasayfa Sloganı
+
+Birkaç turda beyin fırtınası yapılan slogan önerilerinden kullanıcı "Yarının kararını bugün
+kurun." cümlesini seçti. Önce [Home.vue](src/views/Home.vue) hero bölümünde H1'in altında ayrı
+bir vurgu satırı olarak eklendi, sonra kullanıcı isteğiyle eski H1'in ("Kredi risk modellerini
+dakikalar içinde canlıya alın.") yerine geçti — artık anasayfanın ana başlığı bu slogan.
+
+Not: Açıklama paragrafı ("Convex, bankacılık ve finans kuruluşları için...") hâlâ değişmedi —
+sektör vurgusunu genişletme kararı (bkz. bir önceki konuşma) henüz uygulanmadı, bu yüzden H1
+artık sektör-bağımsız ama hemen altındaki paragraf hâlâ bankacılık/finansa özel. Kullanıcı
+sektör genişletme kararını netleştirdiğinde bu tutarsızlık ele alınmalı.
+
+Anasayfadan kaldırılan eski H1 ("Kredi risk modellerini dakikalar içinde canlıya alın.") boşa
+gitmedi — [Solutions.vue](src/views/Solutions.vue)'un PageHero başlığı olarak kullanıldı
+(eski başlık "Kredi, risk, denetim — tek platform" idi). Çözümler sayfası zaten tamamen kredi
+skorlama/risk modelleme senaryolarına odaklandığı için bu başlık konuyla birebir örtüşüyor.
+
+## 12. Sektör Vurgusunun Genişletilmesi (Bankacılık → Tüm Sektörler)
+
+Kullanıcı, sitenin sadece bankacılık/finans için değil tüm sektörler için konumlanmasını istedi.
+Genel site çerçevesi (sayfa-özel senaryolar değil) şu dosyalarda güncellendi:
+- [Home.vue](src/views/Home.vue): hero açıklaması ve alt bölümdeki "Bankacılık ve finans için"
+  eyebrow'u → "Her sektör için"; ilgili description'daki "kredi skorlama, risk modelleme" →
+  "model geliştirme, risk yönetimi".
+- [SiteFooter.vue](src/components/layout/SiteFooter.vue): marka açıklamasından "bankacılık ve
+  finans kuruluşları" ve "kredi skorlama" ifadeleri kaldırıldı.
+- [About.vue](src/views/About.vue): PageHero başlığı/açıklaması, "Kim olduğumuz" metni ve
+  "Denetlenebilirlik önce gelir" / "Mühendislik disiplini" değer kartları — hepsi bankacılığa
+  özel ifadelerden arındırıldı, "regüle ve yüksek riskli sektörler" gibi genel bir çerçeveye
+  taşındı. (Bu, Galaksiya'nın kendi sitesindeki (galaksiya.com) gerçek çok-sektörlü
+  konumlandırmasıyla da tutarlı — bkz. bölüm 9'daki not.)
+- [router/index.js](src/router/index.js): site geneli varsayılan meta açıklaması ve Hakkımızda
+  sayfasının meta açıklaması güncellendi.
+- [Security.vue](src/views/Security.vue): "Banka ve finans güvenlik ekipleri" → "Kurumsal
+  güvenlik ekipleri".
+
+**Bilinçli olarak henüz dokunulmayan, kullanıcıyla netleştirilmesi gereken yerler:**
+- **[Solutions.vue](src/views/Solutions.vue)** — sayfa baştan sona kredi skorlama/risk
+  modelleme senaryoları üzerine kurulu (ve bu konuşmadan hemen önce kullanıcı isteğiyle H1'i
+  de "Kredi risk modellerini dakikalar içinde canlıya alın." yapıldı). Bu sayfayı tamamen
+  sektör-bağımsız hale getirmek, gerçekte var olmayan başka sektörlere ait somut senaryolar
+  uydurmayı gerektirir — bunun yerine bankacılığı "örnek/vitrin sektör" olarak koruyup
+  ("Çözümler" sayfasını finans-özel bir alt sayfa gibi ele alıp) genel sitenin geri kalanını
+  sektör-bağımsız tutmak daha tutarlı bir seçenek gibi duruyor, ama bu kullanıcı kararı.
+- **[LogoStrip.vue](src/components/sections/LogoStrip.vue)** — "Bankacılık ve finans
+  sektöründeki ekipler tarafından kullanılıyor" ifadesi, altındaki logoların hepsi GERÇEK banka/
+  finans kurumu logosu olduğu için hâlâ doğru; "tüm sektörler" diye genelleştirmek, o an sitede
+  görünen gerçek logolarla çelişir ve yanıltıcı olur. Bu yüzden değiştirilmedi.
+- **[CaseStudies.vue](src/views/CaseStudies.vue)** ve testimonial'lar — hepsi "Örnek Banka",
+  "Örnek Finans" gibi mock banka/finans şirketleri. Sektör çeşitliliği eklemek (ör. "Örnek
+  Sigorta", "Örnek Perakende") yeni mock içerik uydurmayı gerektirir.
+- Ürün sayfalarındaki "çekirdek bankacılık sistemleri" ifadeleri (Product, Deployment,
+  ExperimentPipeline, Extensions, GettingStarted) bilinçli olarak bırakıldı — bunlar zaten
+  "CSV, veritabanı veya çekirdek bankacılık kaynakları" gibi bir örnek listesinin parçası,
+  tek başına sektör-münhasırlığı iddia etmiyor.
+
+**Düzeltme:** Kullanıcı "her sektör" / "tüm sektör" gibi açık, genelleyici ifadelerin de
+yazılmamasını istedi — sadece bankacılık-özel dil kaldırılsın, ama yerine "her sektöre hitap
+ediyoruz" diye yeni bir iddia da eklenmesin. Bu yüzden [Home.vue](src/views/Home.vue),
+[SiteFooter.vue](src/components/layout/SiteFooter.vue), [About.vue](src/views/About.vue) ve
+[router/index.js](src/router/index.js)'deki "her sektör(den)/tüm sektör" ifadeleri kaldırılıp
+sektör hiç anılmayan nötr bir dille değiştirildi (ör. "Convex, kuruluşlar için uçtan uca bir
+AutoML platformu."; eyebrow "Her sektör için" → "Hız ve Denetlenebilirlik").
+
+Anasayfadaki slogan H1'i kullanıcı isteğiyle başlık düzenine (Title Case) çevrildi: "Yarının
+Kararını Bugün Kurun."
+
+[Videos.vue](src/views/help/Videos.vue)'daki listenin en sonunda kalan, gerçek videosu olmayan
+mock "Champion/challenger karşılaştırması" (module: 'Experiment Pipeline') kartı kaldırıldı —
+liste artık "Modeli deploy etme ve application oluşturma" (henüz gerçek videosu olmayan tek
+kalan mock kart) ile bitiyor.
+
+## 13. Hakkımızda Sayfası — Galaksiya'nın Kendi Sitesinden Gerçek İçerik
+
+`galaksiya.com/about-us` ziyaret edilip [About.vue](src/views/About.vue)'daki "Kim olduğumuz"
+bölümü gerçek içerikle güncellendi. Galaksiya'nın kendi About Us sayfası, şirket adının
+kökenini ("evrendeki her yıldız/gezegen/hücrenin birbirine bağlanarak tek bir bütün oluşturması
+— Galaksiya") ve değerlerini (bütünlük, uyum, çalışan/ürün/müşterilerin birbirine bağlı bir ağ
+olarak görülmesi) anlatıyor. Bu anlatım Türkçeleştirilip Convex bağlamına bağlandı; doğrudan
+alıntı (15 kelimenin altında, tırnak + kaynak ile) eklendi: "we position all our employees,
+products, solutions, and customers as members of a network" — Galaksiya, "About Us".
+
+## 14. Yardım Merkezi Ana Sayfası — Blog Kartı Stiline Geçiş
+
+[Help.vue](src/views/help/Help.vue)'daki 4 kısayol (Başlangıç Kılavuzu, Dokümantasyon, Video
+Eğitimler, Sürüm Notları), ikon kutusu + başlık + açıklama düzeninden [Blog.vue](src/views/Blog.vue)'daki
+blog kartı düzenine çevrildi: `Badge` (kategori etiketi) + başlık + açıklama + alt satırda
+meta bilgisi ("5 adım", "4 modül", "19 video", "3 sürüm") ve "İncele →" bağlantısı — Blog
+sayfasındaki tag + başlık + özet + tarih/okuma-süresi + "Devamını oku" düzeniyle birebir aynı
+yapı. Arama kutusu ve SSS akordiyon bölümü değişmedi; sadece üstteki kısayol kartları
+"blog tarzı"na çevrildi. Diğer Yardım Merkezi alt sayfaları (Dokümantasyon'un sidebar+panel
+düzeni, Sürüm Notları'nın zaten timeline/article düzeni, Başlangıç Kılavuzu'nun numaralı adım
+listesi) kendi içeriklerine daha uygun oldukları için değiştirilmedi.
+
+## 15. Video Eğitimler Kartları — Blog Gönderisi Gibi Açıklamalı
+
+Kullanıcı, Video Eğitimler'deki her video kartının da bir blog gönderisi gibi davranmasını
+istedi (kısa bir açıklama/özet taşımasını). Videos.vue'daki (o an `src/views/help/Videos.vue`
+konumundaydı — bkz. bölüm 16, sonradan taşındı) 19 video öğesinin (mock "Modeli deploy etme..."
+kartı dahil) hepsine, o videonun/adımın ne anlattığını özetleyen bir cümlelik `description`
+alanı eklendi; template'te bu açıklama, Blog kartlarındaki özet metniyle aynı stilde
+(`text-xs leading-relaxed text-darker-gray`) başlığın altına yerleştirildi. Gerçek videosu
+olan kartlara ayrıca Blog'daki "Devamını oku" bağlantısına karşılık gelen bir "İzle →" satırı
+eklendi (mock, videosu olmayan kartta bu satır görünmüyor — zaten "Yakında" rozeti var,
+yanıltıcı bir CTA eklenmedi).
+
+## 16. Video Eğitimler — Yardım Merkezi'nden Çıkarılıp Kaynaklar'a (Blog'un Yanına) Taşındı
+
+Kullanıcı, Video Eğitimler'in Yardım Merkezi'nin bir alt sayfası olarak değil, Blog gibi
+bağımsız bir "Kaynaklar" bölümü olarak konumlanmasını istedi. Yapılan değişiklikler:
+- Dosya taşındı: `src/views/help/Videos.vue` → [src/views/Videos.vue](src/views/Videos.vue)
+  (artık Blog.vue, References.vue, CaseStudies.vue ile aynı seviyede — `src/views` kökünde).
+- Route taşındı: `/yardim/videolar` (name: `help-videos`) → `/videolar` (name: `videos`),
+  [router/index.js](src/router/index.js)'de Vaka Çalışmaları rotasının hemen ardına eklendi.
+- [nav.js](src/router/nav.js): "Video Eğitimler" `helpLinks`'ten çıkarılıp `resourceLinks`'e
+  (Kaynaklar dropdown'ı — Referanslar, Vaka Çalışmaları, Blog ile birlikte) eklendi.
+- [searchIndex.js](src/content/searchIndex.js): "Video Eğitimler" artık `helpPages` yerine
+  kendi `videoPages` dizisinde, arama sonuçlarında kategorisi "Yardım Merkezi" değil
+  "Video Eğitimler" olarak görünüyor.
+- [Help.vue](src/views/help/Help.vue): "Video Eğitimler" kısayol kartı kaldırıldı, kart grid'i
+  4'ten 3 koluna düşürüldü, arama kutusunun üstündeki açıklama metninden "video eğitimlerde"
+  ifadesi çıkarıldı.
+- Videos.vue'nun kendi PageHero eyebrow'u "Yardım Merkezi · Video Eğitimler" → sadece
+  "Video Eğitimler" oldu (Blog.vue'nun eyebrow="Blog" konvansiyonuyla tutarlı).
+
+## 17. Video Eğitimler — Her Video Yardım Merkezi İçinde Bir Blog Yazısına Dönüştü (Bölüm 16'yı Geçersiz Kılar)
+
+Kullanıcı bölüm 16'daki taşımayı geri istedi: video eğitimlerin Yardım Merkezi'nin **dışına**
+çıkmaması, ama her videonun kendi başına bir blog yazısı gibi davranması gerekiyordu — yazıya
+tıklanınca o adımın ne yaptığını anlatan bir metin, metnin altında da videonun izlenebildiği bir
+sayfa. Bölüm 14–16'da yapılan "blog tarzı liste" ve "Kaynaklar'a taşıma" denemeleri bu isteği
+karşılamadığı için tamamen geri alındı ve Blog/BlogPost mimarisiyle aynı desende yeniden kuruldu:
+
+- **Yeni içerik dosyası:** [src/content/videoGuides.js](src/content/videoGuides.js) — 19 video
+  eğitiminin tek kaynağı. Her öğe `slug`, `title`, `module`, `thumbnailLabel`, `description`
+  (kısa özet), `videoUrl` (gerçek videosu olmayan tek adım — "deployment" — için `null`), ve
+  `body` (2-3 paragraflık yazılı anlatım dizisi) taşıyor.
+- **Liste sayfası** [src/views/help/Videos.vue](src/views/help/Videos.vue) `/yardim/videolar`'da
+  kalmaya devam ediyor; artık her kart `videoGuides`'tan geliyor ve tıklanınca kendi detay
+  sayfasına gidiyor (modal/lightbox kaldırıldı).
+- **Yeni detay sayfası:** [src/views/help/VideoPost.vue](src/views/help/VideoPost.vue)
+  (`/yardim/videolar/:slug`) — BlogPost.vue ile aynı iskelet: üstte "Video Eğitimlere dön" linki
+  ve modül rozeti, ardından `guide.body`'deki paragraflar, en altta gerçek videosu olan adımlar
+  için native `<video controls>` oynatıcı (videosu olmayan adımda "yakında eklenecek" notu).
+- **Router:** [router/index.js](src/router/index.js)'e `help-video-post` route'u ve
+  `dynamicFrom: 'videoGuide'` ile başlık/description'ı `videoGuides.js`'ten türeten bir
+  `afterEach` dalı eklendi.
+- **nav.js / searchIndex.js / Help.vue** bölüm 16'da yapılan taşıma tamamen geri alındı:
+  "Video Eğitimler" tekrar `helpLinks`'te, arama sonuçlarında yine `videoGuides`'tan üretilen
+  kendi girişleriyle (`category: 'Video Eğitimler'`, `path: /yardim/videolar/:slug`), Help.vue'da
+  kısayol kartı ve 4 kolonlu grid eski haline döndü.
+- Yanlışlıkla oluşturulan üst seviye `src/views/Videos.vue` silindi.
+
+Sonuç: kullanıcının verdiği örnek tam olarak çalışıyor — "Dataset Yükleme" blog'una girilince
+önce dataset'in nasıl yüklendiği yazıyla anlatılıyor, yazının altında da o adımın ekran kaydı
+izlenebiliyor.
+
+*(Not: Bu bölümün ardından "Video Eğitimler" başlığını/listeleme sayfasını kaldırıp videoları
+Help.vue'ya gömen bir deneme yapıldı, ardından kullanıcı bu son işlemi geri almak isteyip
+"Video Eğitimler" diye bir başlık olabilir dediği için tamamen bu bölümdeki (17) hâline geri
+döndürüldü — `/yardim/videolar` listeleme sayfası, kısayol kartı ve tüm başlıklar duruyor.)*
+
+## 18. Video Metinleri — Gerçek Video İçeriğiyle Eşleştirme
+
+Kullanıcı, video eğitimlerdeki yazılı anlatımların (`description` + `body`) gerçekten o videoda
+gösterilenle örtüşmesini istedi. Videolar orijinal olarak sadece dosya adı/başlığa bakılarak
+yazılmıştı; bazı paragraflar videoda hiç gösterilmeyen adımları anlatıyordu (örn. "giriş"
+videosunda "ilk projenizi oluşturma" iddiası — video aslında sadece login ekranından "Genel
+Bakış" (Statistics Overview) panosuna geçişi gösteriyor).
+
+Yapılan çalışma: `ffmpeg` ile [src/assets/videos](src/assets/videos) altındaki 18 gerçek `.webm`
+dosyasının her birinden birden fazla kare (video süresine göre 3-12 kare) çıkarılıp incelendi,
+gerçekte hangi ekranların/diyalogların gösterildiği tespit edildi ve
+[src/content/videoGuides.js](src/content/videoGuides.js) içindeki ilgili 17 girişin (`deployment`
+hariç — o adımın videosu yok, metni değişmedi) `description` ve `body` alanları buna göre
+yeniden yazıldı. Önemli düzeltmeler:
+- **giris**: "ilk proje oluşturma" iddiası kaldırıldı; video aslında login + Statistics Overview
+  panosunu (departman/proje filtreleri, özet metrik kartları, son deneyler listesi) gösteriyor.
+- **proje / portfoy / kullanim-senaryosu**: bunların sol menüde ayrı ayrı ekranlar olduğu
+  varsayılmıştı; gerçekte hepsi "Projects" ekranındaki **Projects / Portfolio / Use Case**
+  sekmeleri. Metinler bu sekme yapısına ve gerçekte gösterilen "Department Assignment" akışına
+  göre düzeltildi.
+- **experiment-pipeline**: jenerik "feature engineering + eğitim" anlatımı, videoda görülen tam
+  adım listesiyle (Data Preparation, Data Exploration, Feature Engineering alt adımları, Feature
+  Selection alt adımları, Pipeline Summary, Model/Model Running canlı yüzde göstergesi, Interpret
+  Model, Tune Model) değiştirildi.
+- **score-card**: "Score Card Generation" modalının gerçek seçenekleri (Automatic/Custom
+  Generation), Target Score/Odds/PDO parametreleri ve özellik bazlı skor tablosu eklendi.
+- **application**: "onaylı modele bağlı canlı uç nokta" iddiası kaldırıldı; video sadece
+  Model Governance'ın Applications listesinden isim + proje seçerek application oluşturmayı
+  gösteriyor (isim kuralları: azami 20 karakter, sadece harf/rakam, ilk karakter rakam olamaz).
+- **mg-audit-log**: "otomatik adım/parametre kaydı" iddiası kaldırıldı; gerçek akış Audit
+  State (Pass/Fail/Reviewing/Cancelled) seçimi + dosya yükleme + geçmiş audit dosyaları listesi.
+- **veri-ornekleme (data-sample)**: "örnekleme yöntemi seçme" iddiası kaldırıldı; gerçekte tek
+  tıkla oluşturulan bir örnek, dataset'in "2 Versions" etiketiyle yeni bir versiyonu oluyor.
+- **custom-model**: akış, gerçekte görülen Custom Models listesi (durum: In Progress) →
+  Experiments listesindeki Train/Test Score'lu deney kaydı → Model Results sayfası üzerinden
+  anlatılacak şekilde yeniden yazıldı.
+- **mg-test-sonuclari / mg-model-indirme / mg-model-build**: bu üç kısa video sadece Model
+  Governance'ta deneyi arayıp Actions menüsündeki bir simgeye ulaşmayı gösteriyor; metinler
+  görülmeyen diyalog detayları iddia etmeyecek şekilde sadeleştirildi.
+- **dataset-yukleme / veri-gorsellestirme / mg-deney-arama / mg-interpret / mg-prediction**:
+  genel akış zaten doğruydu, ekranlardaki gerçek alan adlarıyla (örn. "Distribution Plots For
+  Numeric/Category Columns", "Correlation Matrix", "Predict With Dataset" penceresi) daha
+  kesin hale getirildi.

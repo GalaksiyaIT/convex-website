@@ -16,8 +16,8 @@ const linkedinUrl = null
         <div class="col-span-2 sm:col-span-3 lg:col-span-2">
           <LogoMark sizeClass="h-7 w-auto" />
           <p class="mt-4 max-w-xs text-sm leading-relaxed text-darker-gray">
-            Bankacılık ve finans kuruluşları için AutoML, kredi skorlama ve model risk yönetimi
-            platformu. Galaksiya tarafından geliştirilir.
+            Kuruluşlar için AutoML ve model risk yönetimi platformu. Galaksiya tarafından
+            geliştirilir.
           </p>
           <div class="mt-5 flex items-center gap-3">
             <a

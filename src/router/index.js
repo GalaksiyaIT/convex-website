@@ -1,9 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { blogPosts } from '@/content/blogPosts'
+import { videoGuides } from '@/content/videoGuides'
 
 const Home = () => import('@/views/Home.vue')
 const Product = () => import('@/views/product/Product.vue')
+const DataManagement = () => import('@/views/product/DataManagement.vue')
 const ExperimentPipeline = () => import('@/views/product/ExperimentPipeline.vue')
+const CustomModels = () => import('@/views/product/CustomModels.vue')
 const ModelGovernance = () => import('@/views/product/ModelGovernance.vue')
 const Deployment = () => import('@/views/product/Deployment.vue')
 const Extensions = () => import('@/views/product/Extensions.vue')
@@ -22,6 +25,7 @@ const Help = () => import('@/views/help/Help.vue')
 const GettingStarted = () => import('@/views/help/GettingStarted.vue')
 const Documentation = () => import('@/views/help/Documentation.vue')
 const Videos = () => import('@/views/help/Videos.vue')
+const VideoPost = () => import('@/views/help/VideoPost.vue')
 const ReleaseNotes = () => import('@/views/help/ReleaseNotes.vue')
 const Support = () => import('@/views/help/Support.vue')
 
@@ -34,7 +38,7 @@ const NotFound = () => import('@/views/NotFound.vue')
 
 const SITE_NAME = 'Convex'
 const DEFAULT_DESCRIPTION =
-  "Convex; bankacılık ve finans kuruluşları için kredi skorlama, risk modelleme ve model governance'ı tek platformda birleştiren AutoML platformudur."
+  "Convex; model geliştirme, risk modelleme ve model governance'ı tek platformda birleştiren AutoML platformudur."
 
 const router = createRouter({
   history: createWebHistory(),
@@ -63,6 +67,16 @@ const router = createRouter({
       },
     },
     {
+      path: '/urun/veri-yonetimi',
+      name: 'data-management',
+      component: DataManagement,
+      meta: {
+        title: 'Veri Yönetimi',
+        description:
+          'Dosyadan ya da veritabanından veri alın, birleştirin, sürümleyin ve sentetik veri üretin.',
+      },
+    },
+    {
       path: '/urun/experiment-pipeline',
       name: 'experiment-pipeline',
       component: ExperimentPipeline,
@@ -72,12 +86,23 @@ const router = createRouter({
       },
     },
     {
+      path: '/urun/ozel-modeller',
+      name: 'custom-models',
+      component: CustomModels,
+      meta: {
+        title: 'Özel Modeller',
+        description:
+          'Dışarıda eğitilmiş modelleri getirin, sürümleyin, yeniden eğitin ve karşılaştırın.',
+      },
+    },
+    {
       path: '/urun/model-governance',
       name: 'model-governance',
       component: ModelGovernance,
       meta: {
         title: 'Model Governance',
-        description: 'Modeli yorumlayın, denetim izini tutun, onay sürecinden geçirin.',
+        description:
+          'Modeli yorumlayın, raporlayın, denetim kaydını tutun ve yeniden eğitimi yönetin.',
       },
     },
     {
@@ -86,7 +111,7 @@ const router = createRouter({
       component: Deployment,
       meta: {
         title: 'Deployment & Application',
-        description: 'Onaylanan modeli canlıya alın, skorlama uygulamasına bağlayın.',
+        description: 'Modeli canlıya alın, izleyin, REST API ve batch ile skorlayın.',
       },
     },
     {
@@ -105,7 +130,7 @@ const router = createRouter({
       component: Solutions,
       meta: {
         title: 'Çözümler',
-        description: 'Kredi skorlama, risk modelleme ve model denetimi senaryoları.',
+        description: 'Tahmin modelleme, risk modelleme ve model denetimi senaryoları.',
       },
     },
     {
@@ -169,7 +194,7 @@ const router = createRouter({
       component: About,
       meta: {
         title: 'Hakkımızda',
-        description: "Convex, Galaksiya'nın bankacılık sektörüne yönelik AutoML ürünüdür.",
+        description: "Convex, Galaksiya'nın AutoML ürünüdür.",
       },
     },
     {
@@ -185,7 +210,11 @@ const router = createRouter({
       path: '/iletisim/tesekkur',
       name: 'contact-thank-you',
       component: ContactThankYou,
-      meta: { title: 'Talebiniz Alındı', description: DEFAULT_DESCRIPTION },
+      meta: {
+        title: 'Talebiniz Alındı',
+        description:
+          'Demo talebiniz bize ulaştı; ekibimiz genellikle 1 iş günü içinde size dönüş yapar.',
+      },
     },
 
     {
@@ -221,7 +250,15 @@ const router = createRouter({
       component: Videos,
       meta: {
         title: 'Video Eğitimler',
-        description: 'Adım adım ekran kayıtları.',
+        description: 'Adım adım yazılı kılavuzlar ve ekran kayıtları.',
+      },
+    },
+    {
+      path: '/yardim/videolar/:slug',
+      name: 'help-video-post',
+      component: VideoPost,
+      meta: {
+        dynamicFrom: 'videoGuide',
       },
     },
     {
@@ -247,25 +284,40 @@ const router = createRouter({
       path: '/gizlilik-politikasi',
       name: 'privacy',
       component: Privacy,
-      meta: { title: 'Gizlilik Politikası', description: DEFAULT_DESCRIPTION },
+      meta: {
+        title: 'Gizlilik Politikası',
+        description:
+          'Convex web sitesinde kişisel verilerinizin nasıl toplandığı, kullanıldığı ve korunduğu.',
+      },
     },
     {
       path: '/kvkk-aydinlatma-metni',
       name: 'kvkk',
       component: Kvkk,
-      meta: { title: 'KVKK Aydınlatma Metni', description: DEFAULT_DESCRIPTION },
+      meta: {
+        title: 'KVKK Aydınlatma Metni',
+        description:
+          '6698 sayılı KVKK kapsamında kişisel verilerin işlenmesine ilişkin aydınlatma metni.',
+      },
     },
     {
       path: '/kullanim-sartlari',
       name: 'terms',
       component: Terms,
-      meta: { title: 'Kullanım Şartları', description: DEFAULT_DESCRIPTION },
+      meta: {
+        title: 'Kullanım Şartları',
+        description: 'Convex web sitesinin kullanımına ilişkin şartlar ve koşullar.',
+      },
     },
     {
       path: '/cerez-politikasi',
       name: 'cookies',
       component: Cookies,
-      meta: { title: 'Çerez Politikası', description: DEFAULT_DESCRIPTION },
+      meta: {
+        title: 'Çerez Politikası',
+        description:
+          'Convex web sitesinde kullanılan çerezler ve tercihlerinizi nasıl yönetebileceğiniz.',
+      },
     },
 
     {
@@ -295,6 +347,12 @@ router.afterEach((to) => {
     const post = blogPosts.find((p) => p.slug === to.params.slug)
     title = post?.title ?? 'Blog'
     description = post?.excerpt ?? DEFAULT_DESCRIPTION
+  }
+
+  if (to.meta?.dynamicFrom === 'videoGuide') {
+    const guide = videoGuides.find((v) => v.slug === to.params.slug)
+    title = guide?.title ?? 'Video Eğitimler'
+    description = guide?.description ?? DEFAULT_DESCRIPTION
   }
 
   document.title = title ? `${title} · ${SITE_NAME}` : SITE_NAME

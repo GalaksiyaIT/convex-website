@@ -7,48 +7,71 @@ import BaseIcon from '@/components/ui/BaseIcon.vue'
 import SectionHeading from '@/components/ui/SectionHeading.vue'
 import CtaBanner from '@/components/sections/CtaBanner.vue'
 import NeuralNetworkAnimation from '@/components/ui/NeuralNetworkAnimation.vue'
+import ProductVideo from '@/components/sections/ProductVideo.vue'
 
+// Model Results ekranındaki gibi: aynı deneyde seçilen algoritmalar, Train/Test skorlarıyla yan yana.
 const liveAlgorithms = [
-  { name: 'LightGBM', gini: 0.71 },
-  { name: 'Logistic Regression', gini: 0.58 },
-  { name: 'Random Forest', gini: 0.66 },
+  { name: 'LightGBM', train: 0.74, test: 0.71 },
+  { name: 'CatBoost', train: 0.73, test: 0.7 },
+  { name: 'XGBoost', train: 0.75, test: 0.69 },
+  { name: 'Random Forest', train: 0.78, test: 0.66 },
+  { name: 'Logistic Regression', train: 0.61, test: 0.58 },
 ]
 
 const capabilities = [
   {
     icon: 'upload',
-    title: 'Veri Hazırlama',
+    title: 'Problem Tanımı ve Veri Keşfi',
     description:
-      'CSV, veritabanı veya çekirdek bankacılık kaynaklarından veri alın; şema doğrulama otomatik çalışır.',
+      'Sınıflandırma, regresyon ya da kümeleme; problem tipinizi ve hedef değişkeninizi seçin. Data Exploration ile her sütunun istatistiklerini tek bakışta görün.',
   },
   {
-    icon: 'filter',
-    title: 'Feature Selection',
+    icon: 'barChart',
+    title: 'Veri Dengesi Kontrolü',
     description:
-      'Eksik değer eşiği, tekil değer filtresi ve varyans eşiği ile gereksiz özellikleri eleyin.',
+      'Hedef değişkende az görülen sınıflar için Oversampling, Undersampling ya da Class Weight seçin; dengesiz veri modeli yanıltmasın.',
   },
   {
     icon: 'layers',
     title: 'Feature Engineering',
-    description: 'WOE/binning, encoding, ölçekleme — hepsi geri alınabilir.',
+    description:
+      'Outlier Detection (Z-Score), Feature Generation (Adaptive Binning/WoE, Fixed Width Binning, kendi formülünüz), Basic Transformation, Missing Value Imputation, Encoding (One-Hot, Label) ve Scaling (Min Max, Standard, Robust, Mean Normalization).',
+  },
+  {
+    icon: 'filter',
+    title: 'Feature Selection — 9 yöntem',
+    description:
+      'Missing Value Threshold, Single Unique Value Filter, Variance Threshold, Correlation Based Filtering, VIF Analysis, Feature Importance Reduction, Univariate Gini Filtering, Stepwise Elimination ve Recursive Feature Elimination.',
+  },
+  {
+    icon: 'gitBranch',
+    title: 'İzlenebilir ve Geri Alınabilir',
+    description:
+      "Uygulanan her adımı Revert ile geri alın ya da iş akışını sıfırlayın. Pipeline Summary'de hangi veri sürümüyle hangi adımların uygulandığını tek ekranda görün.",
   },
   {
     icon: 'cpu',
     title: 'Çoklu Algoritma Eğitimi',
     description:
-      'LightGBM, Logistic Regression ve daha fazlasını paralel çalıştırıp Gini, KS, AUC gibi metriklerle karşılaştırın.',
+      "Logistic Regression, LightGBM, XGBoost, CatBoost, Random Forest ve SGD arasından aynı deneyde birden fazlasını seçin, parametrelerini ayarlayın; Model Running'de eğitimi ve kayıtları canlı izleyin.",
   },
   {
-    icon: 'barChart',
+    icon: 'server',
+    title: 'Dağıtık Eğitim',
+    description:
+      'Büyük veride dağıtık eğitimi tek anahtarla açın; önerilen worker, CPU ve bellek ayarlarıyla eğitimi birden fazla makineye bölün.',
+  },
+  {
+    icon: 'eye',
+    title: 'Yorumlama ve İnce Ayar',
+    description:
+      'Interpret Model ile modelleri karşılaştırın, değişken katkılarını inceleyin; Tune Model ile Auto Optimize ya da Grid Search kullanarak hiperparametreleri iyileştirin — deneyden çıkmadan.',
+  },
+  {
+    icon: 'workflow',
     title: 'Challenger Karşılaştırma',
     description:
-      'Yeni modeli mevcut üretim modeliyle yan yana karşılaştırıp geçiş kararını veriye dayandırın.',
-  },
-  {
-    icon: 'gitBranch',
-    title: 'Tekrarlanabilirlik',
-    description:
-      'Her deney sürümlenir; hangi veri ve parametrelerle hangi sonucun alındığını her zaman görün.',
+      'Yeniden eğitilen model challenger deneyi olarak oluşur; mevcut modelle metrik metrik karşılaştırıp geçiş kararını veriye dayandırın. Hem deney modellerinde hem özel modellerde.',
   },
 ]
 </script>
@@ -57,7 +80,7 @@ const capabilities = [
   <PageHero
     eyebrow="Ürün · Experiment Pipeline"
     title="Veriden modele, tek ve izlenebilir akış"
-    description="Kod yazmadan deney kurun — veri hazırlama, feature engineering ve model eğitimi tek ekranda."
+    description="Kod yazmadan deney kurun — problem tanımı, feature engineering, feature selection ve model eğitimi tek akışta."
   >
     <template #actions>
       <AppButton to="/iletisim" showTrailingIcon>Demo Talep Et</AppButton>
@@ -81,36 +104,44 @@ const capabilities = [
     </Container>
   </section>
 
-  <!-- Çoklu Algoritma Eğitimi'ni somutlaştıran canlı önizleme — ModelRunning ekranındaki
-       "Current Process" panelinden esinlenildi, gerçek eğitim süresini değil hızı temsil eder. -->
+  <!-- Çoklu Algoritma Eğitimi'ni somutlaştıran önizleme — Model Results ekranındaki
+       Train/Test skor karşılaştırmasından esinlenildi; değerler örnektir. -->
   <section class="py-20">
     <Container>
       <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
         <div>
-          <p class="text-xs font-semibold uppercase tracking-wide text-pink">Canlı önizleme</p>
+          <p class="text-xs font-semibold uppercase tracking-wide text-pink">Model sonuçları</p>
           <h2 class="mt-1 text-2xl font-semibold text-navy-dark">
-            Aynı anda birden çok algoritma, tek ekranda
+            Aynı deneyde birden çok algoritma, tek ekranda
           </h2>
           <p class="mt-3 text-base leading-relaxed text-darker-gray">
-            LightGBM, Logistic Regression ve daha fazlasını paralel çalıştırın; her biri için Gini
-            gibi metrikler eğitim ilerledikçe canlı güncellenir. En iyi adayı seçmek için ayrı ayrı
-            deney kurmanıza gerek kalmaz.
+            Logistic Regression, LightGBM, XGBoost, CatBoost, Random Forest ve SGD arasından
+            seçtiğiniz algoritmaları tek deneyde birlikte eğitin. Eğitim bittiğinde her modelin
+            Train ve Test skorları Model Results'ta yan yana gelir; en iyi adayı seçmek için ayrı
+            ayrı deney kurmanıza gerek kalmaz.
           </p>
         </div>
         <Card>
-          <p class="text-xs font-semibold uppercase tracking-wide text-darker-gray/60">
-            Current Process · risk-model-v3
+          <p class="text-xs font-semibold tracking-wide text-darker-gray/60">
+            MODEL RESULTS · risk-model-v3
           </p>
-          <div class="mt-4 flex items-center gap-5">
-            <NeuralNetworkAnimation :size="160" :duration="4" />
-            <div class="flex-1 space-y-2">
+          <div class="mt-4 flex flex-col items-center gap-5 sm:flex-row">
+            <NeuralNetworkAnimation :size="160" :duration="4" :show-progress="false" />
+            <div class="w-full flex-1 space-y-2">
+              <div
+                class="flex items-center justify-between px-3 text-[11px] font-medium text-darker-gray/60"
+              >
+                <span>Model</span><span>Train · Test Gini</span>
+              </div>
               <div
                 v-for="a in liveAlgorithms"
                 :key="a.name"
                 class="flex items-center justify-between rounded-lg bg-very-light-blue px-3 py-2 text-xs"
               >
                 <span class="font-medium text-navy-dark">{{ a.name }}</span>
-                <span class="font-semibold text-navyblue">Gini {{ a.gini.toFixed(2) }}</span>
+                <span class="font-semibold text-navyblue"
+                  >{{ a.train.toFixed(2) }} · {{ a.test.toFixed(2) }}</span
+                >
               </div>
             </div>
           </div>
@@ -119,13 +150,19 @@ const capabilities = [
     </Container>
   </section>
 
-  <section class="bg-light-gray-bg py-20">
+  <ProductVideo
+    slug="tanitim-02-deney"
+    title="Deney iş akışını baştan sona izleyin"
+    description="Problem tanımından feature engineering ve seçimine, model eğitiminden yorumlama ve ince ayara kadar tüm adımlar iki dakikada."
+  />
+
+  <section class="py-20">
     <Container narrow>
       <SectionHeading
         align="center"
         eyebrow="Neden önemli"
         title="Ekip eğitimi olmadan, kod yazmadan"
-        description="Risk ve kredi analistleri, veri bilimci olmadan da deney kurabilir — her adım görsel arayüzden yönetilir."
+        description="İş ve risk analistleri, veri bilimci olmadan da deney kurabilir — her adım görsel arayüzden yönetilir."
       />
     </Container>
   </section>

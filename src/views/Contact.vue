@@ -89,7 +89,7 @@ const channels = [
                 rows="4"
                 required
                 class="mt-1.5 block w-full rounded-lg border border-light-gray-border px-3.5 py-2.5 text-sm text-navy-dark focus:border-pink focus:outline-none"
-                placeholder="Örn. kredi skorlama modellerimizi Convex'e taşımayı değerlendiriyoruz."
+                placeholder="Örn. mevcut modellerimizi Convex'e taşımayı değerlendiriyoruz."
               />
             </label>
             <AppButton type="submit" size="lg" showTrailingIcon>Demo Talep Et</AppButton>

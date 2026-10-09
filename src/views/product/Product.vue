@@ -7,38 +7,46 @@ import Card from '@/components/ui/Card.vue'
 import BaseIcon from '@/components/ui/BaseIcon.vue'
 import SectionHeading from '@/components/ui/SectionHeading.vue'
 import CtaBanner from '@/components/sections/CtaBanner.vue'
+import ProductVideo from '@/components/sections/ProductVideo.vue'
 
 const steps = [
   {
     icon: 'upload',
     title: 'Veri Yükleme',
     description:
-      "Dataset'lerinizi veya çekirdek bankacılık verilerini doğrudan bağlayın. Şema kontrolü otomatik çalışır.",
-    quote: '"Veri hazırlama artık ayrı bir ekip beklemiyor." — Experiment Pipeline kullanıcısı',
+      'CSV yükleyin ya da ilişkisel veritabanınızdan sorguyla veri alın; birleştirin, sürümleyin, sentetik veri üretin.',
+    quote: '"Veri hazırlama artık ayrı bir ekip beklemiyor." — Veri Yönetimi kullanıcısı',
+    to: '/urun/veri-yonetimi',
   },
   {
     icon: 'layers',
     title: 'Feature Engineering',
-    description: 'WOE/binning, eksik değer doldurma, özellik üretimi — hepsi izlenebilir.',
+    description:
+      'Aykırı değer tespiti, WOE/binning, eksik değer doldurma, encoding, ölçekleme ve 9 feature selection yöntemi — hepsi geri alınabilir.',
     quote: '"Her dönüşümü geri alabiliyoruz, bu bize büyük güven veriyor." — Risk modelleme ekibi',
   },
   {
     icon: 'cpu',
     title: 'Model Eğitimi',
-    description: 'LightGBM, Logistic Regression ve daha fazlasını paralel deneyin.',
+    description:
+      "Logistic Regression, LightGBM, XGBoost, CatBoost, Random Forest ve SGD'yi aynı deneyde eğitip sonuçları yan yana karşılaştırın. Dışarıda eğittiğiniz modelleri de Özel Modeller ile getirip aynı akışta yönetin.",
     quote:
       '“Deneme sayısını üçe katladık, süreyi yarıya indirdik.” — Experiment Pipeline kullanıcısı',
+    to: '/urun/experiment-pipeline',
+    extra: { to: '/urun/ozel-modeller', label: 'Özel Modelleri incele' },
   },
   {
     icon: 'eye',
     title: 'Yorumlama',
     description: 'SHAP tabanlı katkı analizleriyle her skorun neden o sonucu verdiğini açıklayın.',
-    quote: '"Denetçiye artık modelin mantığını dakikalar içinde anlatabiliyoruz." — İç denetim ekibi',
+    quote:
+      '"Denetçiye artık modelin mantığını dakikalar içinde anlatabiliyoruz." — İç denetim ekibi',
   },
   {
     icon: 'shield',
     title: 'Governance',
-    description: 'Model kartı, denetim izi, onay akışı — üretime çıkmadan önce.',
+    description:
+      'Model Report, Validation Report, Audit Log, skor kartı ve zamanlayıcı — üretime çıkmadan önce.',
     quote:
       '“Denetim ekibi artık modelin nasıl karar verdiğini dakikalar içinde görebiliyor.” — Model Governance kullanıcısı',
     to: '/urun/model-governance',
@@ -46,14 +54,17 @@ const steps = [
   {
     icon: 'rocket',
     title: 'Deploy',
-    description: 'Onaylanan modeli skorlama uygulamasına bağlayın, canlı performansı izleyin.',
+    description:
+      'Modeli tek tıkla canlıya alın, REST API ya da batch ile skorlayın, canlı performansı izleyin.',
     quote: '"Onaylanan model dakikalar içinde canlıya çıkabiliyor." — Deployment kullanıcısı',
     to: '/urun/deployment',
   },
 ]
 
 const modules = [
+  { to: '/urun/veri-yonetimi', icon: 'database', title: 'Veri Yönetimi' },
   { to: '/urun/experiment-pipeline', icon: 'layers', title: 'Experiment Pipeline' },
+  { to: '/urun/ozel-modeller', icon: 'upload', title: 'Özel Modeller' },
   { to: '/urun/model-governance', icon: 'eye', title: 'Model Governance' },
   { to: '/urun/deployment', icon: 'rocket', title: 'Deployment & Application' },
   { to: '/urun/eklentiler', icon: 'plug', title: 'Eklentiler' },
@@ -104,19 +115,31 @@ const modules = [
               Modülü incele
               <BaseIcon name="arrowRight" sizeClass="w-3.5 h-3.5" />
             </RouterLink>
+            <RouterLink
+              v-if="step.extra"
+              :to="step.extra.to"
+              class="mt-3 ml-5 inline-flex items-center gap-1.5 text-sm font-medium text-pink"
+            >
+              {{ step.extra.label }}
+              <BaseIcon name="arrowRight" sizeClass="w-3.5 h-3.5" />
+            </RouterLink>
           </div>
         </div>
       </div>
     </Container>
   </section>
 
-  <section class="bg-light-gray-bg py-20">
+  <ProductVideo
+    slug="tanitim-filmi"
+    eyebrow="Tanıtım filmi"
+    title="Convex'i baştan sona izleyin"
+    description="Veriden canlıdaki modele kadar tüm yetenekler tek bir filmde: veri, deney, özel modeller, yönetişim, dağıtım ve batch skorlama."
+  />
+
+  <section class="py-20">
     <Container>
-      <SectionHeading
-        title="Modüller"
-        description="Her modülü kendi sayfasında inceleyin."
-      />
-      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <SectionHeading title="Modüller" description="Her modülü kendi sayfasında inceleyin." />
+      <div class="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-6 lg:grid-cols-6">
         <RouterLink v-for="m in modules" :key="m.to" :to="m.to">
           <Card hover class="h-full text-center">
             <div

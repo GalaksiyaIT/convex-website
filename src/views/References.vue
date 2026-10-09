@@ -8,7 +8,7 @@ import Badge from '@/components/ui/Badge.vue'
 import CtaBanner from '@/components/sections/CtaBanner.vue'
 import { testimonials } from '@/content/testimonials'
 
-const sectors = ['Tümü', 'Bankacılık', 'Finans']
+const sectors = ['Tümü', ...new Set(testimonials.map((t) => t.sector))]
 const activeSector = ref('Tümü')
 const filtered = computed(() =>
   activeSector.value === 'Tümü'
@@ -54,7 +54,11 @@ const filtered = computed(() =>
           </blockquote>
           <figcaption class="mt-6">
             <div class="flex items-center gap-3">
-              <img :src="t.avatar" :alt="t.name" class="h-10 w-10 flex-shrink-0 rounded-full object-cover" />
+              <img
+                :src="t.avatar"
+                :alt="t.name"
+                class="h-10 w-10 flex-shrink-0 rounded-full object-cover"
+              />
               <div>
                 <p class="text-sm font-semibold text-navy-dark">{{ t.name }}</p>
                 <p class="text-xs text-darker-gray">{{ t.title }}, {{ t.company }}</p>

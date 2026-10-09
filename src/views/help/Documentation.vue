@@ -41,18 +41,22 @@ const active = ref(0)
           <div class="rounded-2xl border border-light-gray-border p-6">
             <h2 class="text-lg font-semibold text-navy-dark">{{ modules[active].title }}</h2>
             <ul class="mt-5 divide-y divide-light-gray-border">
-              <li
-                v-for="guide in modules[active].guides"
-                :key="guide"
-                class="flex items-center justify-between gap-4 py-3.5 text-sm"
-              >
-                <span class="text-navy-dark">{{ guide }}</span>
-                <BaseIcon name="chevronRight" sizeClass="w-4 h-4 text-darker-gray/50" />
+              <li v-for="guide in modules[active].guides" :key="guide.title">
+                <RouterLink
+                  :to="guide.video ? `/yardim/videolar/${guide.video}` : '/yardim/dokumantasyon'"
+                  class="group flex items-center justify-between gap-4 py-3.5 text-sm"
+                >
+                  <span class="text-navy-dark group-hover:text-pink">{{ guide.title }}</span>
+                  <span class="flex items-center gap-1.5 text-xs text-darker-gray/60">
+                    <BaseIcon v-if="guide.video" name="playCircle" sizeClass="w-4 h-4 text-pink" />
+                    <BaseIcon name="chevronRight" sizeClass="w-4 h-4 text-darker-gray/50" />
+                  </span>
+                </RouterLink>
               </li>
             </ul>
             <p class="mt-6 border-t border-light-gray-border pt-5 text-xs text-darker-gray/70">
-              Bu bölüm; en çok destek talebi alan konulardan başlanarak kademeli olarak
-              genişletilecektir.
+              Her başlık, ilgili video eğitime ve adım adım yazılı anlatımına bağlanır. Bu bölüm
+              kademeli olarak genişletilecektir.
             </p>
           </div>
         </div>

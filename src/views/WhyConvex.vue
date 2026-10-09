@@ -18,7 +18,8 @@ const problemStats = [
   },
   {
     value: '%54',
-    label: "karar verici, önümüzdeki 3-5 yılda ModelOps'un sektörlerini şekillendireceğini düşünüyor",
+    label:
+      "karar verici, önümüzdeki 3-5 yılda ModelOps'un sektörlerini şekillendireceğini düşünüyor",
   },
 ]
 
@@ -28,7 +29,7 @@ const comparisonRows = [
   {
     label: 'Uçtan uca süre',
     traditional: '~6 ay',
-    convex: 'Denetim ve devreye alma dahil maks. 1-2 gün',
+    convex: 'Denetim ve devreye alma dahil dakikalar içinde',
   },
   {
     label: 'Efor',
@@ -46,7 +47,10 @@ const comparisonRows = [
 // entegre devreye alma) derlenen rakamlar.
 const benefitStats = [
   { value: '×5', label: 'daha hızlı deney sonuçları' },
-  { value: '%30+', label: 'ML modellerinin geleneksel modellere kattığı minimum performans artışı' },
+  {
+    value: '%30+',
+    label: 'ML modellerinin geleneksel modellere kattığı minimum performans artışı',
+  },
   { value: '%70-80', label: 'entegre karar motorlarıyla devreye alma süresinde azalma' },
   { value: '×10', label: 'modelleri güncel tutmanın platform maliyetine oranla getirisi (RoI)' },
 ]
@@ -67,11 +71,11 @@ const objections = [
   },
   {
     q: 'Ekibimiz kod yazmadan kullanabilir mi?',
-    a: 'Evet. Risk ve kredi analistleri, veri bilimci desteği olmadan görsel arayüzden deney kurabilir. İleri düzey kullanıcı isterse parametrelere ince ayar yapar.',
+    a: 'Evet. İş ve risk analistleri, veri bilimci desteği olmadan görsel arayüzden deney kurabilir. İleri düzey kullanıcı isterse parametrelere ince ayar yapar.',
   },
   {
     q: 'Mevcut sistemlerimizle nasıl konuşur?',
-    a: 'Çekirdek bankacılık sistemleri, veri ambarları ve karar motorlarıyla API üzerinden konuşur. Detaylar Eklentiler sayfasında.',
+    a: 'Veriyi ilişkisel veritabanlarınızdan sorguyla alır, Sync ile güncel tutar. Canlıdaki model karar motorlarınıza ve çekirdek sistemlerinize REST API ile, toplu işlerde batch ile skor sunar. Detaylar Eklentiler sayfasında.',
     to: '/urun/eklentiler',
     linkLabel: 'Eklentiler sayfasına git',
   },
@@ -100,7 +104,9 @@ const objections = [
        görünür/dikkat çekici olması için sayfanın en üstüne alındı. -->
   <section class="bg-navy-dark py-16 text-white">
     <Container narrow>
-      <blockquote class="border-l-2 border-pink pl-4 text-lg italic leading-relaxed text-very-light-blue/90 sm:text-xl">
+      <blockquote
+        class="border-l-2 border-pink pl-4 text-lg italic leading-relaxed text-very-light-blue/90 sm:text-xl"
+      >
         "Model devreye alma hızı artık sadece teknik bir mesele değil — stratejik bir mesele."
       </blockquote>
       <div class="mt-8 grid gap-6 sm:grid-cols-2">
@@ -124,7 +130,7 @@ const objections = [
       <SectionHeading
         eyebrow="Sayılarla Convex"
         title="Geleneksel model geliştirmeye kıyasla"
-        description="Aynı işi yapan iki süreç — biri aylar, diğeri günler sürüyor."
+        description="Aynı işi yapan iki süreç — biri aylar sürüyor, diğeri dakikalar."
       />
       <div class="mt-10 grid gap-4">
         <div
@@ -134,7 +140,8 @@ const objections = [
         >
           <p class="text-sm font-semibold text-navy-dark">{{ row.label }}</p>
           <div class="rounded-lg bg-light-gray-bg px-3.5 py-2.5 text-sm text-darker-gray">
-            <span class="block text-[11px] font-semibold uppercase tracking-wide text-darker-gray/50"
+            <span
+              class="block text-[11px] font-semibold uppercase tracking-wide text-darker-gray/50"
               >Geleneksel Yöntem</span
             >
             {{ row.traditional }}
@@ -174,16 +181,16 @@ const objections = [
       </blockquote>
       <p class="mt-4 text-base leading-relaxed text-very-light-blue/80">
         Convex, her tahminin arkasındaki gerekçeyi "güvenin bize" demek zorunda kalmadan, somut
-        raporlarla ortaya koyar. Model geliştirme sürecinde otomatik üretilen analizler, denetim
-        ve regülasyon görüşmelerinde doğrudan kullanılabilir:
+        raporlarla ortaya koyar. Model geliştirme sürecinde otomatik üretilen analizler, denetim ve
+        regülasyon görüşmelerinde doğrudan kullanılabilir:
       </p>
       <div class="mt-6 flex flex-wrap gap-2">
         <Badge v-for="r in explainabilityReports" :key="r" tone="pink">{{ r }}</Badge>
       </div>
       <p class="mt-6 text-sm leading-relaxed text-very-light-blue/70">
-        SHAP tabanlı katkı analizleri her skorun hangi değişkenlerden etkilendiğini gösterirken;
-        PSI ve VIF analizleri model kararlılığını ve değişkenler arası çoklu doğrusallığı ölçer.
-        Hepsi, kod yazmadan, otomatik oluşturulan model dokümantasyonunun bir parçasıdır.
+        SHAP tabanlı katkı analizleri her skorun hangi değişkenlerden etkilendiğini gösterirken; PSI
+        ve VIF analizleri model kararlılığını ve değişkenler arası çoklu doğrusallığı ölçer. Hepsi,
+        kod yazmadan, otomatik oluşturulan model dokümantasyonunun bir parçasıdır.
       </p>
     </Container>
   </section>

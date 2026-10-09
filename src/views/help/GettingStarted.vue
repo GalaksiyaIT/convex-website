@@ -13,22 +13,22 @@ const steps = [
   {
     title: 'İlk projenizi oluşturun',
     description:
-      'Bir proje, ilişkili dataset\'leri ve deneyleri bir arada tutar. Sol menüden "Yeni Proje" ile başlayın.',
+      'Bir proje, ilişkili deneyleri bir arada tutar. Projects sayfasında "New Project" ile başlayın; projeyi bir portföy ve kullanım senaryosuyla ilişkilendirebilirsiniz.',
   },
   {
     title: 'Dataset yükleyin',
     description:
-      'CSV dosyası yükleyebilir veya kurumunuzun veritabanı/çekirdek bankacılık sistemine bağlanabilirsiniz. Şema doğrulaması otomatik yapılır.',
+      'Data Sets sayfasında "New Data Set" ile CSV dosyası yükleyin ya da ilişkisel veritabanınızdan sorguyla veri alın. Yüklenen veri setini Visualize Dataset ile hemen inceleyebilirsiniz.',
   },
   {
     title: 'İlk deneyinizi kurun',
     description:
-      'Experiment Pipeline üzerinden feature engineering adımlarını tanımlayıp bir veya birden çok algoritma ile eğitim başlatın.',
+      'Experiments sayfasında deneyinizi oluşturun; problem tipini ve hedefi seçin, feature engineering ve feature selection adımlarını uygulayıp bir veya birden çok algoritmayla eğitimi başlatın.',
   },
   {
-    title: "Sonuçları karşılaştırın ve governance'a gönderin",
+    title: 'Sonuçları karşılaştırın ve raporlayın',
     description:
-      'Eğitilen modelleri Gini, KS gibi metriklerle karşılaştırın; seçtiğiniz modeli onay akışına gönderin.',
+      "Model Results'ta modellerin Train ve Test skorlarını karşılaştırın. Model Governance'ta seçtiğiniz modeli yorumlayın, Model Report ve Validation Report alın, onay durumunu Model Audit Log'da kaydedin.",
   },
 ]
 </script>

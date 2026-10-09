@@ -30,7 +30,7 @@ export const blogPosts = [
       'Bu üç bilginin manuel olarak bir araya getirilmesi haftalar sürebilir. Denetim izinin sistemin doğal bir parçası olması — her deneyin otomatik sürümlenmesi, her onayın kayıt altına alınması — bu süreci günler yerine saatlere indirir.',
     ],
     relatedTo: '/urun/model-governance',
-    relatedLabel: 'Model Governance modülünün denetim iznini nasıl tuttuğunu görün',
+    relatedLabel: 'Model Governance modülünün denetim izini nasıl tuttuğunu görün',
   },
   {
     slug: 'woe-binning-yeniden-bakis',
@@ -45,7 +45,7 @@ export const blogPosts = [
       "Pratik öneri: WOE/binning'i tamamen terk etmek yerine, feature engineering adımında bir seçenek olarak tutup, hangi değişkenlerin bu şekilde ele alınacağına veri ve regülasyon gereksinimine göre karar vermek.",
     ],
     relatedTo: '/urun/experiment-pipeline',
-    relatedLabel: 'Experiment Pipeline\'daki feature engineering adımlarını inceleyin',
+    relatedLabel: "Experiment Pipeline'daki feature engineering adımlarını inceleyin",
   },
   {
     slug: 'kredi-risk-modellerinde-aciklanabilirlik',
@@ -60,6 +60,6 @@ export const blogPosts = [
       'Model dokümantasyonunun (model kartının) bu üç soruyu otomatik olarak, güncel veriyle yanıtlaması; her yeni model sürümünde bu dokümantasyonun manuel olarak yeniden hazırlanması ihtiyacını ortadan kaldırır.',
     ],
     relatedTo: '/urun/model-governance',
-    relatedLabel: 'Model Governance\'ın yorumlama ekranını inceleyin',
+    relatedLabel: "Model Governance'ın yorumlama ekranını inceleyin",
   },
 ]

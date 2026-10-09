@@ -11,32 +11,58 @@ import TestimonialCarousel from '@/components/sections/TestimonialCarousel.vue'
 import StatBand from '@/components/sections/StatBand.vue'
 import VideoShowcase from '@/components/sections/VideoShowcase.vue'
 import CtaBanner from '@/components/sections/CtaBanner.vue'
-import NeuralNetworkAnimation from '@/components/ui/NeuralNetworkAnimation.vue'
+import { ref, onMounted } from 'vue'
+import hizliBakisUrl from '@/assets/videos/irem/hizli-bakis.webm'
+import hizliBakisPoster from '@/assets/posters/hizli-bakis.jpg'
 
+// Ürün ekranlarından doğrulanabilir sayılar (müşteri iddiası değil).
 const stats = [
-  { value: '−60%', label: 'model geliştirme süresi' },
-  { value: '×3', label: 'paralel çalıştırılan deneme sayısı' },
-  { value: '−70%', label: 'denetime hazırlık süresi' },
-  { value: '+8p', label: 'Gini katsayısında iyileşme' },
+  { value: '6', label: 'algoritma: LR, LightGBM, XGBoost, CatBoost, Random Forest, SGD' },
+  { value: '9', label: 'feature selection yöntemi' },
+  { value: '2', label: 'sentetik veri yöntemi: CTGAN ve CART' },
+  { value: '1 tık', label: 'ile modeli canlıya dağıtım' },
 ]
+
+const heroVideo = ref(null)
+const reduceMotion =
+  typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+
+onMounted(() => {
+  const v = heroVideo.value
+  if (!v) return
+  v.muted = true // autoplay için tarayıcılar sessiz olmasını şart koşar
+  if (!reduceMotion) v.play().catch(() => {})
+})
 
 const modules = [
   {
+    icon: 'database',
+    title: 'Veri Yönetimi',
+    description: 'Veriyi alın, birleştirin, sürümleyin, sentetik veri üretin.',
+    to: '/urun/veri-yonetimi',
+  },
+  {
     icon: 'layers',
     title: 'Experiment Pipeline',
-    description: 'Veriden modele: feature engineering ve eğitim tek akışta.',
+    description: 'Kod yazmadan feature engineering ve model eğitimi.',
     to: '/urun/experiment-pipeline',
+  },
+  {
+    icon: 'upload',
+    title: 'Özel Modeller',
+    description: 'Kendi modelinizi getirin, sürümleyin, yeniden eğitin.',
+    to: '/urun/ozel-modeller',
   },
   {
     icon: 'eye',
     title: 'Model Governance',
-    description: 'Yorumlayın, denetleyin, onaylayın.',
+    description: 'Yorumlayın, raporlayın, denetim kaydını tutun.',
     to: '/urun/model-governance',
   },
   {
     icon: 'rocket',
     title: 'Deployment & Application',
-    description: 'Onaylanan modeli dakikalar içinde canlıya alın.',
+    description: 'Canlıya alın, izleyin, API ve batch ile skorlayın.',
     to: '/urun/deployment',
   },
 ]
@@ -57,80 +83,47 @@ const modules = [
         <div>
           <Eyebrow>AutoML · Model Risk Yönetimi</Eyebrow>
           <h1 class="mt-5 text-4xl sm:text-5xl font-semibold tracking-tight text-navy-dark">
-            Kredi risk modellerini dakikalar içinde canlıya alın.
+            Yarının Kararını Bugün Kurun.
           </h1>
           <p class="mt-6 text-lg leading-relaxed text-darker-gray">
-            Convex, bankacılık ve finans kuruluşları için uçtan uca bir AutoML platformu. Veri
-            hazırlamaktan canlıya almaya, her adım denetlenebilir.
+            Convex, kuruluşlar için uçtan uca bir AutoML platformu. Veri hazırlamaktan canlıya
+            almaya, her adım denetlenebilir.
           </p>
           <div class="mt-8">
             <AppButton to="/iletisim" size="lg" showTrailingIcon>Demo Talep Et</AppButton>
           </div>
         </div>
 
+        <!-- Hızlı bakış: gerçek ürün ekranlarından 36 sn'lik sessiz döngü (tanıtım filmi
+             çekimlerinden; kişi adı/token görünen kareler çıkarıldı). Hareketi azaltma tercihi
+             olanlarda otomatik oynatılmaz, kapak + oynatıcı kontrolleri gösterilir. -->
         <div class="relative">
           <div
-            class="rounded-2xl border border-light-gray-border bg-white shadow-2xl shadow-navy-dark/10"
+            class="overflow-hidden rounded-2xl border border-light-gray-border bg-navy-dark shadow-2xl shadow-navy-dark/10"
           >
-            <div class="flex items-center gap-1.5 border-b border-light-gray-border px-4 py-3">
-              <span class="h-2.5 w-2.5 rounded-full bg-light-gray-border" />
-              <span class="h-2.5 w-2.5 rounded-full bg-light-gray-border" />
-              <span class="h-2.5 w-2.5 rounded-full bg-light-gray-border" />
-              <span class="ml-3 text-xs text-darker-gray/60"
-                >Experiment Pipeline · risk-model-v3</span
-              >
-            </div>
-            <div class="grid grid-cols-5 gap-3 p-5">
-              <div class="col-span-2 space-y-2 rounded-xl bg-very-light-blue p-3">
-                <p class="text-[11px] font-semibold uppercase tracking-wide text-navyblue">
-                  Adımlar
-                </p>
-                <div
-                  v-for="(step, i) in [
-                    'Veri Yükleme',
-                    'Feature Eng.',
-                    'Model Eğitimi',
-                    'Governance',
-                    'Deploy',
-                  ]"
-                  :key="step"
-                  class="flex items-center gap-2 rounded-lg px-2 py-1.5 text-xs"
-                  :class="i === 2 ? 'bg-purple text-white' : 'bg-white text-navy-dark'"
-                >
-                  <span
-                    class="flex h-4 w-4 items-center justify-center rounded-full text-[10px]"
-                    :class="i === 2 ? 'bg-white/20' : 'bg-very-light-pink text-pink'"
-                    >{{ i + 1 }}</span
-                  >
-                  {{ step }}
-                </div>
-              </div>
-              <div class="col-span-3 space-y-3">
-                <div class="rounded-xl border border-light-gray-border p-3">
-                  <p class="text-[11px] font-semibold uppercase tracking-wide text-darker-gray/60">
-                    Model Eğitimi — Canlı
-                  </p>
-                  <div class="mt-2 flex flex-col items-center">
-                    <NeuralNetworkAnimation :size="140" :duration="4" />
-                    <div class="-mt-2 text-center text-xs text-navy-dark">
-                      <p class="font-medium">LightGBM · Fold 4/5</p>
-                      <p class="mt-1 text-darker-gray/60">Paralel deneme sayısı: 6</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="rounded-xl border border-light-gray-border p-3">
-                  <p class="text-[11px] font-semibold uppercase tracking-wide text-darker-gray/60">
-                    Governance Durumu
-                  </p>
-                  <div class="mt-2 flex items-center gap-2">
-                    <BaseIcon name="checkCircle" sizeClass="w-4 h-4 text-success-150" />
-                    <span class="text-xs text-navy-dark"
-                      >Denetim onayı tamamlandı — deploy’a hazır</span
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
+            <video
+              ref="heroVideo"
+              :src="hizliBakisUrl"
+              :poster="hizliBakisPoster"
+              class="aspect-video w-full"
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              :controls="reduceMotion"
+              :autoplay="!reduceMotion"
+              aria-label="Convex'e hızlı bakış: veri birleştirme, deney, eğitim, doğrulama, dağıtım ve izleme ekranları"
+            />
+          </div>
+          <div class="mt-4 flex flex-wrap items-center justify-between gap-2 text-sm">
+            <span class="text-darker-gray">Ürün ekranlarından kısa bir tur</span>
+            <RouterLink
+              to="/yardim/videolar/tanitim-filmi"
+              class="inline-flex items-center gap-1.5 font-medium text-pink"
+            >
+              Tam tanıtım filmini izle (7 dk)
+              <BaseIcon name="arrowRight" sizeClass="w-3.5 h-3.5" />
+            </RouterLink>
           </div>
         </div>
       </div>
@@ -141,11 +134,11 @@ const modules = [
   <section class="py-20">
     <Container>
       <SectionHeading
-        eyebrow="Üç modülde tek akış"
+        eyebrow="Tek platformda tek akış"
         title="Veriden canlıya, dakikalar içinde"
-        description="Üç modül, tek akış: model yaşam döngüsünün tamamı Convex'te."
+        description="Veriden canlıdaki modele: model yaşam döngüsünün tamamı Convex'te."
       />
-      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
         <RouterLink v-for="mod in modules" :key="mod.to" :to="mod.to">
           <Card hover class="h-full">
             <div
@@ -186,9 +179,9 @@ const modules = [
     <Container narrow class="text-center">
       <SectionHeading
         align="center"
-        eyebrow="Bankacılık ve finans için"
+        eyebrow="Hız ve Denetlenebilirlik"
         title="Hızlı çalışın. Denetimde şaşırmayın."
-        description="Kredi skorlama, risk modelleme ve model denetiminde hem hız hem denetlenebilirlik."
+        description="Model geliştirme, risk yönetimi ve model denetiminde hem hız hem denetlenebilirlik."
       />
       <RouterLink
         to="/cozumler"

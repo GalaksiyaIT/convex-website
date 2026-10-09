@@ -1,5 +1,6 @@
 <script setup>
 import Container from '@/components/ui/Container.vue'
+import { caps } from '@/utils/caps'
 
 defineProps({
   eyebrow: { type: String, default: '' },
@@ -29,7 +30,7 @@ defineProps({
           class="text-xs font-semibold uppercase tracking-wider mb-4"
           :class="tone === 'dark' ? 'text-very-light-pink' : 'text-pink'"
         >
-          {{ eyebrow }}
+          {{ caps(eyebrow) }}
         </p>
         <h1
           class="text-4xl sm:text-5xl font-semibold tracking-tight"

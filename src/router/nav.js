@@ -4,19 +4,29 @@
 export const productLinks = [
   { to: '/urun', label: 'Genel Bakış', description: 'Uçtan uca AutoML akışı' },
   {
+    to: '/urun/veri-yonetimi',
+    label: 'Veri Yönetimi',
+    description: 'Veri alma, birleştirme, sürümleme, sentetik veri',
+  },
+  {
     to: '/urun/experiment-pipeline',
     label: 'Experiment Pipeline',
     description: 'Veri hazırlama, feature engineering, model eğitimi',
   },
   {
+    to: '/urun/ozel-modeller',
+    label: 'Özel Modeller',
+    description: 'Dış modelleri getirme, sürümleme, yeniden eğitim',
+  },
+  {
     to: '/urun/model-governance',
     label: 'Model Governance',
-    description: 'Yorumlama, denetim, onay süreçleri',
+    description: 'Yorumlama, raporlar, denetim kaydı, skor kartı',
   },
   {
     to: '/urun/deployment',
     label: 'Deployment & Application',
-    description: 'Modelleri canlıya alma ve uygulamalar',
+    description: 'Canlıya alma, izleme, API ve batch skorlama',
   },
   {
     to: '/urun/eklentiler',

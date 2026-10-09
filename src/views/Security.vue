@@ -56,7 +56,7 @@ const topics = [
     tone="dark"
     eyebrow="Güvenlik & Uyumluluk"
     title="Güvenlik ekibiniz sormadan, biz cevaplıyoruz"
-    description="Banka ve finans güvenlik ekiplerinin satın alma öncesi ilk sorduğu konuları topladık."
+    description="Kurumsal güvenlik ekiplerinin satın alma öncesi ilk sorduğu konuları topladık."
   >
     <template #actions>
       <AppButton to="/iletisim" showTrailingIcon>Demo Talep Et</AppButton>

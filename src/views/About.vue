@@ -11,12 +11,13 @@ const values = [
     icon: 'shield',
     title: 'Denetlenebilirlik önce gelir',
     description:
-      'Bankacılık ve finans alanında çalıştığımız için her özelliği "bu nasıl denetlenir" sorusuyla tasarlıyoruz.',
+      'Regüle ve yüksek riskli sektörlerde çalıştığımız için her özelliği "bu nasıl denetlenir" sorusuyla tasarlıyoruz.',
   },
   {
     icon: 'cpu',
     title: 'Mühendislik disiplini',
-    description: 'Kredi skorlama ve risk modellemede yıllarca saha deneyimi olan bir ekip geliştiriyor.',
+    description:
+      'Risk modelleme ve karar otomasyonunda yıllarca saha deneyimi olan bir ekip geliştiriyor.',
   },
   {
     icon: 'eye',
@@ -30,22 +31,32 @@ const values = [
 <template>
   <PageHero
     eyebrow="Hakkımızda"
-    title="Galaksiya, bankacılık için model geliştirme altyapısı kurar"
-    description="Convex, Galaksiya'nın bankacılık ve finans sektörüne yönelik AutoML ve model risk yönetimi ürünüdür."
+    title="Galaksiya, model geliştirme altyapısı kurar"
+    description="Convex, Galaksiya'nın regüle ve veri yoğun sektörlere yönelik AutoML ve model risk yönetimi ürünüdür."
   />
 
   <section class="py-20">
     <Container narrow>
       <SectionHeading title="Kim olduğumuz" />
       <p class="mt-4 text-base leading-relaxed text-darker-gray">
-        Galaksiya, bankacılık sektörüne veri bilimi ve yazılım mühendisliği çözümleri üreten bir
-        ekip. Convex bu deneyimden doğdu: deneyleri tekrarlanabilir kılmak, modeli denetime
-        hazırlamak, ekip içi bilgi kaybını önlemek — kredi skorlama ve risk modelleme ekiplerinin
-        her gün karşılaştığı sorunlara doğrudan cevap.
+        Galaksiya adını, evrendeki her yıldızın, gezegenin ve hücrenin birbirine bağlanarak tek bir
+        bütün oluşturmasından alır. Şirket de çalışanlarını, ürünlerini ve müşterilerini aynı
+        şekilde görür:
+      </p>
+      <blockquote
+        class="mt-5 border-l-2 border-pink pl-4 text-base italic leading-relaxed text-darker-gray"
+      >
+        "we position all our employees, products, solutions, and customers as members of a network"
+        <footer class="mt-1 text-xs not-italic text-darker-gray/60">— Galaksiya, "About Us"</footer>
+      </blockquote>
+      <p class="mt-5 text-base leading-relaxed text-darker-gray">
+        Convex bu yaklaşımın somut bir çıktısı: deneyleri tekrarlanabilir kılmak, modeli denetime
+        hazırlamak, ekip içi bilgi kaybını önlemek — bankacılıktan sigortacılığa, perakendeden
+        telekoma, veriye dayalı karar alan her ekibin her gün karşılaştığı sorunlara doğrudan cevap.
       </p>
       <p class="mt-4 text-base leading-relaxed text-darker-gray">
-        Ürünü, regülasyon ortamını yakından bilen bir mühendislik ekibiyle geliştiriyoruz — her
-        karar, "bu üretimde nasıl denetlenir" sorusundan geçiyor.
+        Ürünü, güçlü değerlere ve bütünlük anlayışına dayanan bir mühendislik ekibiyle
+        geliştiriyoruz — her karar, "bu üretimde nasıl denetlenir" sorusundan geçiyor.
       </p>
     </Container>
   </section>

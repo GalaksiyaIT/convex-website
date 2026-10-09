@@ -9,6 +9,7 @@ import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
 const props = defineProps({
   size: { type: Number, default: 220 }, // px — 360x360 viewBox bu boyuta ölçeklenir
   duration: { type: Number, default: 5 }, // saniye — yüzde halkasının bir turu
+  showProgress: { type: Boolean, default: true }, // false: yalnız dal animasyonu (bitmiş sonuç kartları için)
 })
 
 const svgEl = ref(null)
@@ -209,27 +210,42 @@ const clusters = CLUSTER_COLORS.map((_, i) => buildCluster(i, i * 72 - 90))
       </g>
 
       <!-- Merkez disk -->
-      <circle cx="180" cy="180" r="72" fill="rgba(255,255,255,0.78)" />
-      <circle cx="180" cy="180" r="72" stroke="rgba(195,22,117,0.14)" stroke-width="5" fill="none" />
-      <circle
-        cx="180"
-        cy="180"
-        r="72"
-        fill="none"
-        stroke="rgb(195,22,117)"
-        stroke-width="5"
-        stroke-linecap="round"
-        transform="rotate(-90 180 180)"
-        :stroke-dasharray="ringCircumference"
-        :stroke-dashoffset="ringOffset"
-        class="nn-progress-ring"
-      />
-      <text x="180" y="176" text-anchor="middle" dominant-baseline="middle" class="nn-center-pct">
-        {{ percent }}%
-      </text>
-      <text x="180" y="204" text-anchor="middle" dominant-baseline="middle" class="nn-center-status">
-        {{ statusLabel }}
-      </text>
+      <template v-if="showProgress">
+        <circle cx="180" cy="180" r="72" fill="rgba(255,255,255,0.78)" />
+        <circle
+          cx="180"
+          cy="180"
+          r="72"
+          stroke="rgba(195,22,117,0.14)"
+          stroke-width="5"
+          fill="none"
+        />
+        <circle
+          cx="180"
+          cy="180"
+          r="72"
+          fill="none"
+          stroke="rgb(195,22,117)"
+          stroke-width="5"
+          stroke-linecap="round"
+          transform="rotate(-90 180 180)"
+          :stroke-dasharray="ringCircumference"
+          :stroke-dashoffset="ringOffset"
+          class="nn-progress-ring"
+        />
+        <text x="180" y="176" text-anchor="middle" dominant-baseline="middle" class="nn-center-pct">
+          {{ percent }}%
+        </text>
+        <text
+          x="180"
+          y="204"
+          text-anchor="middle"
+          dominant-baseline="middle"
+          class="nn-center-status"
+        >
+          {{ statusLabel }}
+        </text>
+      </template>
     </svg>
   </div>
 </template>

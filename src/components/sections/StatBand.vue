@@ -29,7 +29,10 @@ const colsClass = computed(() => `sm:grid-cols-${Math.min(props.stats.length, 4)
       >
         {{ stat.value }}
       </p>
-      <p class="mt-1.5 text-sm leading-snug" :class="tone === 'dark' ? 'text-very-light-blue/70' : 'text-darker-gray'">
+      <p
+        class="mt-1.5 text-sm leading-snug"
+        :class="tone === 'dark' ? 'text-very-light-blue/70' : 'text-darker-gray'"
+      >
         {{ stat.label }}
       </p>
     </div>

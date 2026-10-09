@@ -3,6 +3,7 @@ import { ref, watch, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import BaseIcon from '@/components/ui/BaseIcon.vue'
 import { searchSite } from '@/content/searchIndex'
+import { caps } from '@/utils/caps'
 
 const open = ref(false)
 const query = ref('')
@@ -95,7 +96,7 @@ defineExpose({ show })
           @click="go(item.path)"
         >
           <span class="text-xs font-medium uppercase tracking-wide text-pink">{{
-            item.category
+            caps(item.category)
           }}</span>
           <span class="text-sm font-medium text-navy-dark">{{ item.title }}</span>
           <span class="text-xs text-darker-gray">{{ item.description }}</span>

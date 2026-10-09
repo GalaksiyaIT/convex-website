@@ -24,10 +24,10 @@ const stories = [
     company: 'Örnek Finans',
     sector: 'Finans',
     before: 'Manuel dokümantasyon',
-    after: 'Otomatik model kartı',
+    after: 'Otomatik model raporu',
     title: 'Model denetim süreçleri Model Governance ile otomatikleşti',
     summary:
-      "İç denetim, model kararlarını incelemek için manuel dokümantasyona bağımlıydı. Model Governance'ın otomatik model kartı ve denetim iziyle inceleme süresi kısaldı.",
+      "İç denetim, model kararlarını incelemek için manuel dokümantasyona bağımlıydı. Model Governance'ın otomatik Model Report, Validation Report ve Audit Log kaydıyla inceleme süresi kısaldı.",
     metrics: [
       { label: 'Audit hazırlık süresi', value: '−70%' },
       { label: 'İzlenen model sayısı', value: '40+' },
@@ -41,7 +41,7 @@ const stories = [
     after: '3 deneme/hafta',
     title: 'Risk modelleme ekibi deneme sayısını üçe katladı',
     summary:
-      "PD ve LGD modellerinde her deney manuel scriptle yürütülüyordu. Experiment Pipeline'a geçişle paralel deneme kapasitesi arttı, sonuçlar otomatik karşılaştırıldı.",
+      "PD ve LGD modellerinde her deney manuel scriptle yürütülüyordu. Experiment Pipeline'a geçişle birden fazla algoritma aynı deneyde eğitildi, sonuçlar otomatik karşılaştırıldı.",
     metrics: [
       { label: 'Deneme sayısı', value: '×3' },
       { label: 'Model geliştirme süresi', value: '−50%' },

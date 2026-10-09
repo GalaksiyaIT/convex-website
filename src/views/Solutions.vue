@@ -11,7 +11,7 @@ const reasons = [
   {
     icon: 'eye',
     title: 'Açıklanabilir & Denetlenebilir',
-    description: 'Her skorun gerekçesi SHAP ile regülatöre gösterilebilir.',
+    description: 'Her tahminin gerekçesi SHAP ile denetçilere ve iş birimlerine gösterilebilir.',
   },
   {
     icon: 'server',
@@ -21,7 +21,8 @@ const reasons = [
   {
     icon: 'plug',
     title: 'Mevcut Sistemlerle Entegre',
-    description: 'Çekirdek bankacılık sistemleri ve karar motorlarıyla API üzerinden konuşur.',
+    description:
+      'Veriyi ilişkisel veritabanlarınızdan alır; canlıdaki model karar motorlarınıza REST API ile, toplu işlerde batch ile skor sunar.',
   },
   {
     icon: 'workflow',
@@ -30,7 +31,7 @@ const reasons = [
   },
   {
     icon: 'gitBranch',
-    title: 'Basel/BDDK Uyumlu',
+    title: 'Regülasyona Hazır',
     description: 'Model risk yönetimi çerçevelerinin beklediği izlenebilirlik ve versiyonlama.',
   },
 ]
@@ -38,26 +39,26 @@ const reasons = [
 const scenarios = [
   {
     icon: 'barChart',
-    title: 'Kredi Skorlama',
-    eyebrow: 'Bireysel ve kurumsal kredi',
+    title: 'Tahmin Modelleme',
+    eyebrow: 'Sınıflandırma ve regresyon',
     description:
-      "Geleneksel scorecard'ın yanına makine öğrenmesini katın, ayrım gücünü artırın — karar sürecinizi değiştirmeden.",
+      'Mevcut istatistiksel yöntemlerin yanına makine öğrenmesini katın, ayrım gücünü artırın — karar sürecinizi değiştirmeden.',
     points: [
-      'Mevcut scorecard süreciyle yan yana karşılaştırma',
+      'Mevcut modelinizle yan yana karşılaştırma',
       'WOE/binning ile açıklanabilir feature engineering',
-      'Onay sürecine entegre model governance',
+      'Model Audit Log ile onay kaydı ve Validation Report',
     ],
   },
   {
     icon: 'shield',
-    title: 'Risk Modelleme',
-    eyebrow: 'PD, LGD ve sermaye yeterliliği',
+    title: 'Risk ve Karar Modelleri',
+    eyebrow: 'Olasılık, kayıp ve eğilim tahmini',
     description:
-      "PD ve LGD modellerini; Basel ve BDDK'nın beklediği izlenebilirlik ve versiyonlamayla kurun.",
+      'Olasılık ve kayıp tahmini gibi modelleri; regülasyonun ya da kurum içi politikaların beklediği izlenebilirlik ve versiyonlamayla kurun.',
     points: [
       'Champion/challenger karşılaştırması',
       'Zaman içinde model sapmasının (drift) izlenmesi',
-      'Regülatöre sunulabilir model dokümantasyonu',
+      'Denetime sunulabilir model dokümantasyonu',
     ],
   },
   {
@@ -69,23 +70,23 @@ const scenarios = [
     points: [
       'SHAP tabanlı katkı analizleri',
       'Tüm model versiyonlarının denetim izi',
-      'Rol bazlı erişim ve onay kayıtları',
+      'Departman bazlı erişim ve Audit Log onay kayıtları',
     ],
   },
 ]
 
-// H2O.ai'nin finans sektörü sayfasındaki gibi, somut kullanım senaryolarının
-// tek bakışta tarandığı bir liste — üç ana senaryonun altını dolduruyor.
+// Somut kullanım senaryolarının tek bakışta tarandığı, sektöre bağlı olmayan bir liste —
+// üç ana senaryonun altını dolduruyor.
 const useCases = [
-  'Bireysel kredi başvuru skorlama',
-  'KOBİ ve kurumsal kredi değerlendirmesi',
-  'Temerrüt olasılığı (PD) modelleme',
-  'Kayıp oranı (LGD) tahmini',
-  'Kredi kartı limit artışı skorlaması',
+  'Müşteri edinimi ve başvuru skorlama',
+  'Pazarlama hedefleme ve yanıt tahmini',
+  'Müşteri kaybı (churn) tahmini',
+  'Dolandırıcılık (fraud) tespiti',
+  'Temerrüt ve kayıp olasılığı modelleme',
   'Erken uyarı ve tahsilat önceliklendirme',
   'Model doğrulama ve bağımsız gözden geçirme',
-  'Stres testi senaryo analizi',
-  'Regülatöre sunulacak model raporlama',
+  'Senaryo ve stres testi analizi',
+  'Denetime sunulacak model raporlama',
   'Portföy bazında risk izleme',
   'Champion/challenger model karşılaştırması',
   'Açıklanabilirlik ve denetim dokümantasyonu',
@@ -95,20 +96,19 @@ const useCases = [
 <template>
   <PageHero
     eyebrow="Çözümler"
-    title="Kredi, risk, denetim — tek platform"
-    description="Convex, kredi skorlama, risk modelleme ve model denetiminde hız ve regülasyon uyumunu bir arada verir."
+    title="Modellerinizi dakikalar içinde canlıya alın."
+    description="Convex, tahmin modelleme, risk modelleme ve model denetiminde hız ile denetlenebilirliği bir arada verir."
   >
     <template #actions>
       <AppButton to="/iletisim" showTrailingIcon>Demo Talep Et</AppButton>
     </template>
   </PageHero>
 
-  <!-- Kısa "neden bankalar bunu seçiyor" özeti — H2O.ai'nin finans sektörü sayfasındaki
-       5'li nedenler ızgarasından esinlenildi. -->
+  <!-- Kısa "neden Convex" özeti: 5'li nedenler ızgarası. -->
   <section class="border-b border-light-gray-border bg-light-gray-bg py-14">
     <Container>
       <p class="text-xs font-semibold uppercase tracking-wide text-darker-gray/60">
-        Bankalar Convex'i neden seçiyor
+        Ekipler Convex'i neden seçiyor
       </p>
       <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
         <div v-for="r in reasons" :key="r.title">
@@ -183,6 +183,6 @@ const useCases = [
 
   <CtaBanner
     title="Senaryonuzu birlikte değerlendirelim"
-    description="Kendi veri setiniz ve regülasyon gereksinimleriniz üzerinden kısa bir demo planlayalım."
+    description="Kendi veri setiniz ve gereksinimleriniz üzerinden kısa bir demo planlayalım."
   />
 </template>

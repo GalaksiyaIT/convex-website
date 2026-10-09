@@ -3,6 +3,9 @@ import { ref, computed } from 'vue'
 import { RouterLink } from 'vue-router'
 import Container from '@/components/ui/Container.vue'
 import Card from '@/components/ui/Card.vue'
+import Badge from '@/components/ui/Badge.vue'
+import { videoGuides } from '@/content/videoGuides'
+import { docsGuides } from '@/content/docsGuides'
 import BaseIcon from '@/components/ui/BaseIcon.vue'
 
 const query = ref('')
@@ -10,38 +13,42 @@ const query = ref('')
 const shortcuts = [
   {
     to: '/yardim/baslangic',
-    icon: 'rocket',
+    tag: 'Kılavuz',
     title: 'Başlangıç Kılavuzu',
-    description: 'İlk gün izlenecek kurulum ve temel kullanım adımları',
+    description: 'İlk gün izlenecek kurulum ve temel kullanım adımları.',
+    meta: '5 adım',
   },
   {
     to: '/yardim/dokumantasyon',
-    icon: 'bookOpen',
+    tag: 'Dokümantasyon',
     title: 'Dokümantasyon',
-    description: 'Modül modül kullanım kılavuzları',
+    description: 'Modül modül kullanım kılavuzları.',
+    meta: `${docsGuides.length} modül`,
   },
   {
     to: '/yardim/videolar',
-    icon: 'playCircle',
+    tag: 'Video',
     title: 'Video Eğitimler',
-    description: 'Adım adım ekran kayıtları',
+    description: 'Her adımın yazılı anlatımı ve ekran kaydı.',
+    meta: `${videoGuides.filter((v) => !v.hidden).length} video`,
   },
   {
     to: '/yardim/surum-notlari',
-    icon: 'gitBranch',
+    tag: 'Sürüm Notları',
     title: 'Sürüm Notları',
-    description: 'Yeni özellik ve iyileştirme duyuruları',
+    description: 'Yeni özellik ve iyileştirme duyuruları.',
+    meta: '3 sürüm',
   },
 ]
 
 const faqs = [
   {
     q: 'Yeni bir dataset nasıl yüklerim?',
-    a: 'Dataset yükleme adımlarının tamamı Dokümantasyon > Dataset Yükleme bölümünde anlatılıyor; CSV, veritabanı bağlantısı ve API ile yükleme seçeneklerinin hepsi desteklenir.',
+    a: 'Dataset yükleme adımlarının tamamı Dokümantasyon > Veri Yönetimi bölümünde anlatılıyor; bilgisayarınızdan CSV yükleyebilir, ilişkisel veritabanınızdan sorguyla veri alabilir ya da mevcut veri setlerini birleştirebilirsiniz.',
   },
   {
-    q: 'Model Governance onay akışını kim yönetir?',
-    a: 'Onay akışındaki adımları (risk, denetim, iş birimi) kurum yöneticiniz tanımlar. Kendi rolünüzle ilgili yetkileri göremiyorsanız Destek Talebi açabilirsiniz.',
+    q: 'Bir modelin onay durumunu nerede takip ederim?',
+    a: "Model Governance'ta modelin More actions menüsündeki Model Audit Log ekranında onay durumu ve ilgili belgeler tek kayıtta tutulur. Validation Report'u ekranda inceleyebilir, isterseniz PDF olarak e-postayla da alabilirsiniz.",
   },
   {
     q: 'Yeni sürümde neler değişti, nasıl takip ederim?',
@@ -81,7 +88,7 @@ const filteredFaqs = computed(() => {
           <input
             v-model="query"
             type="text"
-            placeholder="Örn. dataset yükleme, model onayı, API anahtarı..."
+            placeholder="Örn. veri yükleme, Audit Log, Model Monitoring..."
             class="w-full rounded-xl border border-light-gray-border bg-white py-3.5 pl-11 pr-4 text-sm text-navy-dark shadow-sm focus:border-pink focus:outline-none"
           />
         </div>
@@ -92,15 +99,22 @@ const filteredFaqs = computed(() => {
   <section class="py-16">
     <Container>
       <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        <RouterLink v-for="s in shortcuts" :key="s.to" :to="s.to">
-          <Card hover class="h-full">
-            <div
-              class="flex h-11 w-11 items-center justify-center rounded-xl bg-very-light-pink text-pink"
-            >
-              <BaseIcon :name="s.icon" sizeClass="w-5 h-5" />
+        <RouterLink v-for="s in shortcuts" :key="s.to" :to="s.to" class="block">
+          <Card hover class="flex h-full flex-col">
+            <Badge tone="navy">{{ s.tag }}</Badge>
+            <h3 class="mt-4 text-base font-semibold leading-snug text-navy-dark">
+              {{ s.title }}
+            </h3>
+            <p class="mt-2 flex-1 text-sm leading-relaxed text-darker-gray">
+              {{ s.description }}
+            </p>
+            <div class="mt-5 flex items-center justify-between text-xs text-darker-gray/70">
+              <span>{{ s.meta }}</span>
+              <span class="inline-flex items-center gap-1 font-medium text-pink">
+                İncele
+                <BaseIcon name="arrowRight" sizeClass="w-3 h-3" />
+              </span>
             </div>
-            <h3 class="mt-4 text-sm font-semibold text-navy-dark">{{ s.title }}</h3>
-            <p class="mt-1.5 text-xs leading-relaxed text-darker-gray">{{ s.description }}</p>
           </Card>
         </RouterLink>
       </div>

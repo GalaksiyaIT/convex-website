@@ -37,7 +37,9 @@ defineProps({
     <p class="text-center text-xs font-medium uppercase tracking-wider text-darker-gray/70">
       {{ label }}
     </p>
-    <div class="mt-6 [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]">
+    <div
+      class="mt-6 [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]"
+    >
       <Marquee :duration="30" gap="1.5rem">
         <div
           v-for="item in logos"

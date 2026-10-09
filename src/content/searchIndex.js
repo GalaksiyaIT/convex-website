@@ -1,5 +1,6 @@
 import { blogPosts } from '@/content/blogPosts'
 import { docsGuides } from '@/content/docsGuides'
+import { videoGuides } from '@/content/videoGuides'
 
 // Site geneli arama — blog, dokümantasyon ve ürün sayfalarını tek kutudan tarar
 // (bkz. site planı "Ortak alanlar" bölümü). Bir arama backend'i olmadığı için
@@ -7,18 +8,28 @@ import { docsGuides } from '@/content/docsGuides'
 const productPages = [
   { title: 'Ürün — Genel Bakış', description: 'Uçtan uca AutoML akışı', path: '/urun' },
   {
+    title: 'Veri Yönetimi',
+    description: 'Veri alma, birleştirme, sürümleme, sentetik veri',
+    path: '/urun/veri-yonetimi',
+  },
+  {
+    title: 'Özel Modeller',
+    description: 'Dış modelleri getirme, sürümleme, yeniden eğitim',
+    path: '/urun/ozel-modeller',
+  },
+  {
     title: 'Experiment Pipeline',
     description: 'Veri hazırlama, feature engineering, model eğitimi',
     path: '/urun/experiment-pipeline',
   },
   {
     title: 'Model Governance',
-    description: 'Yorumlama, denetim, onay süreçleri',
+    description: 'Yorumlama, raporlar, denetim kaydı, skor kartı',
     path: '/urun/model-governance',
   },
   {
     title: 'Deployment & Application',
-    description: 'Modelleri canlıya alma ve uygulamalar',
+    description: 'Canlıya alma, izleme, API ve batch skorlama',
     path: '/urun/deployment',
   },
   {
@@ -28,7 +39,7 @@ const productPages = [
   },
   {
     title: 'Çözümler',
-    description: 'Kredi skorlama, risk modelleme, model denetimi',
+    description: 'Tahmin modelleme, risk modelleme, model denetimi',
     path: '/cozumler',
   },
   {
@@ -50,7 +61,6 @@ const helpPages = [
     description: 'İlk gün kurulum ve temel kullanım adımları',
     path: '/yardim/baslangic',
   },
-  { title: 'Video Eğitimler', description: 'Adım adım ekran kayıtları', path: '/yardim/videolar' },
   {
     title: 'Sürüm Notları',
     description: 'Yeni özellik ve iyileştirme duyuruları',
@@ -59,11 +69,20 @@ const helpPages = [
   { title: 'Destek Talebi', description: 'Ekibimize doğrudan ulaşın', path: '/yardim/destek' },
 ]
 
+// Her video eğitimi kendi yazılı sayfasıyla ayrı ayrı aranabilir (blogEntries ile aynı desen).
+const videoEntries = videoGuides
+  .filter((v) => !v.hidden)
+  .map((v) => ({
+    title: v.title,
+    description: `Video Eğitimler · ${v.module}`,
+    path: `/yardim/videolar/${v.slug}`,
+  }))
+
 const docPages = docsGuides.flatMap((mod) =>
   mod.guides.map((guide) => ({
-    title: guide,
+    title: guide.title,
     description: `Dokümantasyon · ${mod.title}`,
-    path: '/yardim/dokumantasyon',
+    path: guide.video ? `/yardim/videolar/${guide.video}` : '/yardim/dokumantasyon',
   })),
 )
 
@@ -76,6 +95,7 @@ const blogEntries = blogPosts.map((post) => ({
 export const searchIndex = [
   ...productPages.map((p) => ({ ...p, category: 'Ürün' })),
   ...blogEntries.map((p) => ({ ...p, category: 'Blog' })),
+  ...videoEntries.map((p) => ({ ...p, category: 'Video Eğitimler' })),
   ...docPages.map((p) => ({ ...p, category: 'Dokümantasyon' })),
   ...helpPages.map((p) => ({ ...p, category: 'Yardım Merkezi' })),
 ]

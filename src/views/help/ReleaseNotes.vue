@@ -9,9 +9,9 @@ const releases = [
     date: '2026-08-20',
     tag: 'Yeni',
     items: [
-      "Model Governance'a champion/challenger karşılaştırma ekranı eklendi.",
+      'Yeniden eğitilen modeller için challenger karşılaştırma ekranı eklendi (deney modelleri ve özel modeller).',
       "Experiment Pipeline'da varyans eşiği ile feature selection desteği eklendi.",
-      'Prediction izleme ekranında drift uyarıları eklendi.',
+      "Model Monitoring'e Monitoring Profiles ile eşik bazlı uyarı e-postaları eklendi.",
     ],
   },
   {
@@ -19,8 +19,8 @@ const releases = [
     date: '2026-07-15',
     tag: 'İyileştirme',
     items: [
-      'Dataset yükleme sırasında şema doğrulama hataları daha açıklayıcı hale getirildi.',
-      'Model kartı PDF çıktısına denetim izi özeti eklendi.',
+      'Veritabanı kaynaklı veri setleri için Sync Dataset eklendi.',
+      'Validation Report PDF olarak e-postayla alınabilir hale geldi.',
     ],
   },
   {
@@ -28,8 +28,8 @@ const releases = [
     date: '2026-06-02',
     tag: 'Yeni',
     items: [
-      'LightGBM için otomatik hiperparametre arama desteği eklendi.',
-      'Application ekranına API anahtarı yönetimi eklendi.',
+      "Tune Model'e Auto Optimize ve Grid Search ile hiperparametre arama desteği eklendi.",
+      "Model Deployment'a Sample API Request eklendi.",
     ],
   },
 ]

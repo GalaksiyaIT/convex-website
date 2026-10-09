@@ -65,7 +65,10 @@ const post = computed(() => blogPosts.find((p) => p.slug === route.params.slug))
     <section class="flex min-h-[50vh] items-center justify-center py-20">
       <Container narrow class="text-center">
         <h1 class="text-2xl font-semibold text-navy-dark">Yazı bulunamadı</h1>
-        <RouterLink to="/blog" class="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-pink">
+        <RouterLink
+          to="/blog"
+          class="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-pink"
+        >
           Bloga dön
         </RouterLink>
       </Container>
