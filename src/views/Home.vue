@@ -12,11 +12,19 @@ import StatBand from '@/components/sections/StatBand.vue'
 import VideoShowcase from '@/components/sections/VideoShowcase.vue'
 import CtaBanner from '@/components/sections/CtaBanner.vue'
 import { computed, ref, onMounted } from 'vue'
-import { useCopy } from '@/i18n'
-import hizliBakisUrl from '@/assets/videos/irem/hizli-bakis.webm'
-import hizliBakisPoster from '@/assets/posters/hizli-bakis.jpg'
+import { useCopy, locale } from '@/i18n'
+import hizliBakisTrUrl from '@/assets/videos/irem/hizli-bakis.webm'
+import hizliBakisTrPoster from '@/assets/posters/hizli-bakis.jpg'
+import { quickLookEn } from '@/content/en/videoMedia'
 
 const heroVideo = ref(null)
+// Hızlı bakış döngüsü dile göre: İngilizce ekran yazılı sürüm ya da Türkçe.
+const hizliBakisUrl = computed(() =>
+  locale.value === 'tr' ? hizliBakisTrUrl : quickLookEn.videoUrl,
+)
+const hizliBakisPoster = computed(() =>
+  locale.value === 'tr' ? hizliBakisTrPoster : quickLookEn.posterUrl,
+)
 const reduceMotion =
   typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
 

@@ -21,6 +21,7 @@ import mgPredictionVideoUrl from '@/assets/videos/mg-yeni-dataset-prediction.web
 import customModelVideoUrl from '@/assets/videos/custom-model.webm'
 import { iremVideoGuides } from '@/content/iremVideoGuides'
 import { videoGuidesEn } from '@/content/en/videoGuides'
+import { videoMediaEn } from '@/content/en/videoMedia'
 
 // Eski (ilk) video seti: dosyalar ve detay sayfaları korunur, /yardim/videolar listesinde şimdilik gösterilmez.
 const legacyVideoGuides = [
@@ -578,7 +579,8 @@ const legacyVideoGuides = [
 
 // Listede yalnız İrem sesli yeni set (akış sırasıyla) görünür; eski set `hidden: true` ile gizlenir.
 // Türkçe metin bu dosyada ve iremVideoGuides.js'te; İngilizce karşılıklar slug bazında
-// content/en/videoGuides.js'te (adım metinleri `steps` ile aynı sırada). Videoların sesi Türkçedir.
+// content/en/videoGuides.js'te (adım metinleri `steps` ile aynı sırada). İngilizce sesli video,
+// kapak ve adım zamanları content/en/videoMedia.js'te; olmayan videolarda Türkçe kayıt kullanılır.
 const videoGuidesTr = [
   ...iremVideoGuides,
   ...legacyVideoGuides.map((v) => ({ ...v, hidden: true })),
@@ -586,11 +588,16 @@ const videoGuidesTr = [
 
 const videoGuidesEnMerged = videoGuidesTr.map((v) => {
   const en = videoGuidesEn[v.slug]
-  if (!en) return v
+  const media = videoMediaEn[v.slug]
+  if (!en && !media) return v
   return {
     ...v,
     ...en,
-    steps: v.steps?.map((step, i) => ({ ...step, text: en.steps?.[i] ?? step.text })),
+    ...(media && { videoUrl: media.videoUrl, posterUrl: media.posterUrl }),
+    steps: v.steps?.map((step, i) => ({
+      time: media?.stepTimes?.[i] ?? step.time,
+      text: en?.steps?.[i] ?? step.text,
+    })),
   }
 })
 
