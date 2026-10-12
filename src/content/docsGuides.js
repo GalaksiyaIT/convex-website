@@ -1,7 +1,9 @@
 // Dokümantasyon sayfasının (Documentation.vue) ve site geneli aramanın ortak veri
 // kaynağı — modül modül kılavuz başlıkları burada tanımlı. `video`: ilgili Video Eğitim'in
 // slug'ı (content/videoGuides.js); başlık o videonun yazılı anlatımına bağlanır.
-export const docsGuides = [
+import { docsGuidesEn } from '@/content/en/docsGuides'
+
+const docsGuidesTr = [
   {
     icon: 'upload',
     title: 'Veri Yönetimi',
@@ -56,3 +58,14 @@ export const docsGuides = [
     ],
   },
 ]
+
+// İngilizce başlıklar aynı sırayla content/en/docsGuides.js'te.
+const docsGuidesEnMerged = docsGuidesTr.map((mod, i) => ({
+  ...mod,
+  title: docsGuidesEn[i]?.title ?? mod.title,
+  guides: mod.guides.map((g, j) => ({ ...g, title: docsGuidesEn[i]?.guides?.[j] ?? g.title })),
+}))
+
+export function getDocsGuides(locale) {
+  return locale === 'tr' ? docsGuidesTr : docsGuidesEnMerged
+}

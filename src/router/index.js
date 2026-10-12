@@ -1,6 +1,8 @@
+import { watch } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import { blogPosts } from '@/content/blogPosts'
-import { videoGuides } from '@/content/videoGuides'
+import { getBlogPosts } from '@/content/blogPosts'
+import { getVideoGuides } from '@/content/videoGuides'
+import { locale, t } from '@/i18n'
 
 const Home = () => import('@/views/Home.vue')
 const Product = () => import('@/views/product/Product.vue')
@@ -37,8 +39,10 @@ const Cookies = () => import('@/views/legal/Cookies.vue')
 const NotFound = () => import('@/views/NotFound.vue')
 
 const SITE_NAME = 'Convex'
-const DEFAULT_DESCRIPTION =
-  "Convex; model geliştirme, risk modelleme ve model governance'ı tek platformda birleştiren AutoML platformudur."
+const DEFAULT_DESCRIPTION = {
+  en: 'Convex is an AutoML platform that brings model development, risk modeling and model governance together on a single platform.',
+  tr: "Convex; model geliştirme, risk modelleme ve model governance'ı tek platformda birleştiren AutoML platformudur.",
+}
 
 const router = createRouter({
   history: createWebHistory(),
@@ -52,7 +56,7 @@ const router = createRouter({
       name: 'home',
       component: Home,
       meta: {
-        title: 'AutoML ve Model Risk Yönetimi',
+        title: { en: 'AutoML and Model Risk Management', tr: 'AutoML ve Model Risk Yönetimi' },
         description: DEFAULT_DESCRIPTION,
       },
     },
@@ -62,8 +66,11 @@ const router = createRouter({
       name: 'product',
       component: Product,
       meta: {
-        title: 'Ürün',
-        description: 'Veri yüklemekten deploy’a kadar uçtan uca AutoML akışı.',
+        title: { en: 'Product', tr: 'Ürün' },
+        description: {
+          en: 'An end-to-end AutoML workflow, from data upload to deployment.',
+          tr: 'Veri yüklemekten deploy’a kadar uçtan uca AutoML akışı.',
+        },
       },
     },
     {
@@ -71,9 +78,11 @@ const router = createRouter({
       name: 'data-management',
       component: DataManagement,
       meta: {
-        title: 'Veri Yönetimi',
-        description:
-          'Dosyadan ya da veritabanından veri alın, birleştirin, sürümleyin ve sentetik veri üretin.',
+        title: { en: 'Data Management', tr: 'Veri Yönetimi' },
+        description: {
+          en: 'Ingest data from files or databases, merge and version it, and generate synthetic data.',
+          tr: 'Dosyadan ya da veritabanından veri alın, birleştirin, sürümleyin ve sentetik veri üretin.',
+        },
       },
     },
     {
@@ -81,8 +90,11 @@ const router = createRouter({
       name: 'experiment-pipeline',
       component: ExperimentPipeline,
       meta: {
-        title: 'Experiment Pipeline',
-        description: 'Veri hazırlama, feature engineering ve model eğitimini tek akışta yürütün.',
+        title: { en: 'Experiment Pipeline', tr: 'Experiment Pipeline' },
+        description: {
+          en: 'Run data preparation, feature engineering and model training in a single flow.',
+          tr: 'Veri hazırlama, feature engineering ve model eğitimini tek akışta yürütün.',
+        },
       },
     },
     {
@@ -90,9 +102,11 @@ const router = createRouter({
       name: 'custom-models',
       component: CustomModels,
       meta: {
-        title: 'Özel Modeller',
-        description:
-          'Dışarıda eğitilmiş modelleri getirin, sürümleyin, yeniden eğitin ve karşılaştırın.',
+        title: { en: 'Custom Models', tr: 'Özel Modeller' },
+        description: {
+          en: 'Bring in externally trained models, version, retrain and compare them.',
+          tr: 'Dışarıda eğitilmiş modelleri getirin, sürümleyin, yeniden eğitin ve karşılaştırın.',
+        },
       },
     },
     {
@@ -100,9 +114,11 @@ const router = createRouter({
       name: 'model-governance',
       component: ModelGovernance,
       meta: {
-        title: 'Model Governance',
-        description:
-          'Modeli yorumlayın, raporlayın, denetim kaydını tutun ve yeniden eğitimi yönetin.',
+        title: { en: 'Model Governance', tr: 'Model Governance' },
+        description: {
+          en: 'Interpret and report on models, keep an audit log and manage retraining.',
+          tr: 'Modeli yorumlayın, raporlayın, denetim kaydını tutun ve yeniden eğitimi yönetin.',
+        },
       },
     },
     {
@@ -110,8 +126,11 @@ const router = createRouter({
       name: 'deployment',
       component: Deployment,
       meta: {
-        title: 'Deployment & Application',
-        description: 'Modeli canlıya alın, izleyin, REST API ve batch ile skorlayın.',
+        title: { en: 'Deployment & Application', tr: 'Deployment & Application' },
+        description: {
+          en: 'Take models live, monitor them, and score via REST API and batch.',
+          tr: 'Modeli canlıya alın, izleyin, REST API ve batch ile skorlayın.',
+        },
       },
     },
     {
@@ -119,8 +138,11 @@ const router = createRouter({
       name: 'extensions',
       component: Extensions,
       meta: {
-        title: 'Eklentiler',
-        description: 'Hangi veri kaynaklarına ve algoritma paketlerine bağlanabildiğinizi görün.',
+        title: { en: 'Extensions', tr: 'Eklentiler' },
+        description: {
+          en: 'See which data sources and algorithm packages you can connect to.',
+          tr: 'Hangi veri kaynaklarına ve algoritma paketlerine bağlanabildiğinizi görün.',
+        },
       },
     },
 
@@ -129,8 +151,11 @@ const router = createRouter({
       name: 'solutions',
       component: Solutions,
       meta: {
-        title: 'Çözümler',
-        description: 'Tahmin modelleme, risk modelleme ve model denetimi senaryoları.',
+        title: { en: 'Solutions', tr: 'Çözümler' },
+        description: {
+          en: 'Predictive modeling, risk modeling and model audit scenarios.',
+          tr: 'Tahmin modelleme, risk modelleme ve model denetimi senaryoları.',
+        },
       },
     },
     {
@@ -138,8 +163,11 @@ const router = createRouter({
       name: 'why-convex',
       component: WhyConvex,
       meta: {
-        title: 'Neden Convex',
-        description: 'Karar vermeden önce sorulacak sorulara doğrudan cevaplar.',
+        title: { en: 'Why Convex', tr: 'Neden Convex' },
+        description: {
+          en: 'Straight answers to the questions to ask before you decide.',
+          tr: 'Karar vermeden önce sorulacak sorulara doğrudan cevaplar.',
+        },
       },
     },
     {
@@ -147,8 +175,11 @@ const router = createRouter({
       name: 'security',
       component: Security,
       meta: {
-        title: 'Güvenlik & Uyumluluk',
-        description: 'Veri saklama, on-prem/cloud seçenekleri, KVKK uyumu.',
+        title: { en: 'Security & Compliance', tr: 'Güvenlik & Uyumluluk' },
+        description: {
+          en: 'Data retention, on-prem/cloud options, KVKK compliance.',
+          tr: 'Veri saklama, on-prem/cloud seçenekleri, KVKK uyumu.',
+        },
       },
     },
     {
@@ -156,8 +187,11 @@ const router = createRouter({
       name: 'blog',
       component: Blog,
       meta: {
-        title: 'Blog',
-        description: 'AutoML, model risk yönetimi ve regülasyon üzerine yazılar.',
+        title: { en: 'Blog', tr: 'Blog' },
+        description: {
+          en: 'Articles on AutoML, model risk management and regulation.',
+          tr: 'AutoML, model risk yönetimi ve regülasyon üzerine yazılar.',
+        },
       },
     },
     {
@@ -175,8 +209,11 @@ const router = createRouter({
       name: 'references',
       component: References,
       meta: {
-        title: 'Referanslar',
-        description: 'Convex kullanan ekiplerden kısa alıntılar.',
+        title: { en: 'References', tr: 'Referanslar' },
+        description: {
+          en: 'Short quotes from teams using Convex.',
+          tr: 'Convex kullanan ekiplerden kısa alıntılar.',
+        },
       },
     },
     {
@@ -184,8 +221,11 @@ const router = createRouter({
       name: 'case-studies',
       component: CaseStudies,
       meta: {
-        title: 'Vaka Çalışmaları',
-        description: 'Mevcut müşterilerin elde ettiği somut, ölçülebilir sonuçlar.',
+        title: { en: 'Case Studies', tr: 'Vaka Çalışmaları' },
+        description: {
+          en: 'Concrete, measurable results achieved by existing customers.',
+          tr: 'Mevcut müşterilerin elde ettiği somut, ölçülebilir sonuçlar.',
+        },
       },
     },
     {
@@ -193,8 +233,11 @@ const router = createRouter({
       name: 'about',
       component: About,
       meta: {
-        title: 'Hakkımızda',
-        description: "Convex, Galaksiya'nın AutoML ürünüdür.",
+        title: { en: 'About Us', tr: 'Hakkımızda' },
+        description: {
+          en: "Convex is Galaksiya's AutoML product.",
+          tr: "Convex, Galaksiya'nın AutoML ürünüdür.",
+        },
       },
     },
     {
@@ -202,8 +245,11 @@ const router = createRouter({
       name: 'contact',
       component: Contact,
       meta: {
-        title: 'İletişim / Demo Talebi',
-        description: 'Formu doldurun, ekibimiz genellikle 1 iş günü içinde dönüş yapar.',
+        title: { en: 'Contact / Request a Demo', tr: 'İletişim / Demo Talebi' },
+        description: {
+          en: 'Fill in the form; our team usually responds within 1 business day.',
+          tr: 'Formu doldurun, ekibimiz genellikle 1 iş günü içinde dönüş yapar.',
+        },
       },
     },
     {
@@ -211,9 +257,11 @@ const router = createRouter({
       name: 'contact-thank-you',
       component: ContactThankYou,
       meta: {
-        title: 'Talebiniz Alındı',
-        description:
-          'Demo talebiniz bize ulaştı; ekibimiz genellikle 1 iş günü içinde size dönüş yapar.',
+        title: { en: 'Request Received', tr: 'Talebiniz Alındı' },
+        description: {
+          en: "We've received your demo request; our team usually responds within 1 business day.",
+          tr: 'Demo talebiniz bize ulaştı; ekibimiz genellikle 1 iş günü içinde size dönüş yapar.',
+        },
       },
     },
 
@@ -222,8 +270,11 @@ const router = createRouter({
       name: 'help',
       component: Help,
       meta: {
-        title: 'Yardım Merkezi',
-        description: 'Arama kutusu ve SSS ile giriş noktası.',
+        title: { en: 'Help Center', tr: 'Yardım Merkezi' },
+        description: {
+          en: 'Your starting point, with search and FAQ.',
+          tr: 'Arama kutusu ve SSS ile giriş noktası.',
+        },
       },
     },
     {
@@ -231,8 +282,11 @@ const router = createRouter({
       name: 'help-getting-started',
       component: GettingStarted,
       meta: {
-        title: 'Başlangıç Kılavuzu',
-        description: 'İlk gün izlenecek kurulum ve temel kullanım adımları.',
+        title: { en: 'Getting Started', tr: 'Başlangıç Kılavuzu' },
+        description: {
+          en: 'Setup and basic usage steps for your first day.',
+          tr: 'İlk gün izlenecek kurulum ve temel kullanım adımları.',
+        },
       },
     },
     {
@@ -240,8 +294,11 @@ const router = createRouter({
       name: 'help-docs',
       component: Documentation,
       meta: {
-        title: 'Dokümantasyon',
-        description: 'Modül modül kullanım kılavuzları.',
+        title: { en: 'Documentation', tr: 'Dokümantasyon' },
+        description: {
+          en: 'Usage guides, module by module.',
+          tr: 'Modül modül kullanım kılavuzları.',
+        },
       },
     },
     {
@@ -249,8 +306,11 @@ const router = createRouter({
       name: 'help-videos',
       component: Videos,
       meta: {
-        title: 'Video Eğitimler',
-        description: 'Adım adım yazılı kılavuzlar ve ekran kayıtları.',
+        title: { en: 'Video Tutorials', tr: 'Video Eğitimler' },
+        description: {
+          en: 'Step-by-step written guides and screen recordings.',
+          tr: 'Adım adım yazılı kılavuzlar ve ekran kayıtları.',
+        },
       },
     },
     {
@@ -266,8 +326,11 @@ const router = createRouter({
       name: 'help-release-notes',
       component: ReleaseNotes,
       meta: {
-        title: 'Sürüm Notları',
-        description: 'Yeni özellik ve iyileştirme duyuruları.',
+        title: { en: 'Release Notes', tr: 'Sürüm Notları' },
+        description: {
+          en: 'Announcements of new features and improvements.',
+          tr: 'Yeni özellik ve iyileştirme duyuruları.',
+        },
       },
     },
     {
@@ -275,8 +338,8 @@ const router = createRouter({
       name: 'help-support',
       component: Support,
       meta: {
-        title: 'Destek Talebi',
-        description: 'Ekibimize doğrudan ulaşın.',
+        title: { en: 'Support Request', tr: 'Destek Talebi' },
+        description: { en: 'Reach our team directly.', tr: 'Ekibimize doğrudan ulaşın.' },
       },
     },
 
@@ -285,9 +348,11 @@ const router = createRouter({
       name: 'privacy',
       component: Privacy,
       meta: {
-        title: 'Gizlilik Politikası',
-        description:
-          'Convex web sitesinde kişisel verilerinizin nasıl toplandığı, kullanıldığı ve korunduğu.',
+        title: { en: 'Privacy Policy', tr: 'Gizlilik Politikası' },
+        description: {
+          en: 'How your personal data is collected, used and protected on the Convex website.',
+          tr: 'Convex web sitesinde kişisel verilerinizin nasıl toplandığı, kullanıldığı ve korunduğu.',
+        },
       },
     },
     {
@@ -295,9 +360,11 @@ const router = createRouter({
       name: 'kvkk',
       component: Kvkk,
       meta: {
-        title: 'KVKK Aydınlatma Metni',
-        description:
-          '6698 sayılı KVKK kapsamında kişisel verilerin işlenmesine ilişkin aydınlatma metni.',
+        title: { en: 'KVKK Privacy Notice', tr: 'KVKK Aydınlatma Metni' },
+        description: {
+          en: 'Privacy notice on the processing of personal data under Turkish Personal Data Protection Law No. 6698 (KVKK).',
+          tr: '6698 sayılı KVKK kapsamında kişisel verilerin işlenmesine ilişkin aydınlatma metni.',
+        },
       },
     },
     {
@@ -305,8 +372,11 @@ const router = createRouter({
       name: 'terms',
       component: Terms,
       meta: {
-        title: 'Kullanım Şartları',
-        description: 'Convex web sitesinin kullanımına ilişkin şartlar ve koşullar.',
+        title: { en: 'Terms of Use', tr: 'Kullanım Şartları' },
+        description: {
+          en: 'Terms and conditions for using the Convex website.',
+          tr: 'Convex web sitesinin kullanımına ilişkin şartlar ve koşullar.',
+        },
       },
     },
     {
@@ -314,9 +384,11 @@ const router = createRouter({
       name: 'cookies',
       component: Cookies,
       meta: {
-        title: 'Çerez Politikası',
-        description:
-          'Convex web sitesinde kullanılan çerezler ve tercihlerinizi nasıl yönetebileceğiniz.',
+        title: { en: 'Cookie Policy', tr: 'Çerez Politikası' },
+        description: {
+          en: 'Cookies used on the Convex website and how to manage your preferences.',
+          tr: 'Convex web sitesinde kullanılan çerezler ve tercihlerinizi nasıl yönetebileceğiniz.',
+        },
       },
     },
 
@@ -324,7 +396,10 @@ const router = createRouter({
       path: '/:pathMatch(.*)*',
       name: 'not-found',
       component: NotFound,
-      meta: { title: 'Sayfa Bulunamadı', description: DEFAULT_DESCRIPTION },
+      meta: {
+        title: { en: 'Page Not Found', tr: 'Sayfa Bulunamadı' },
+        description: DEFAULT_DESCRIPTION,
+      },
     },
   ],
 })
@@ -339,24 +414,29 @@ function setMetaTag(name, content) {
   tag.setAttribute('content', content)
 }
 
-router.afterEach((to) => {
-  let title = to.meta?.title
-  let description = to.meta?.description ?? DEFAULT_DESCRIPTION
+function applyRouteMeta(to) {
+  let title = t(to.meta?.title)
+  let description = t(to.meta?.description ?? DEFAULT_DESCRIPTION)
 
   if (to.meta?.dynamicFrom === 'blogPost') {
-    const post = blogPosts.find((p) => p.slug === to.params.slug)
+    const post = getBlogPosts(locale.value).find((p) => p.slug === to.params.slug)
     title = post?.title ?? 'Blog'
-    description = post?.excerpt ?? DEFAULT_DESCRIPTION
+    description = post?.excerpt ?? t(DEFAULT_DESCRIPTION)
   }
 
   if (to.meta?.dynamicFrom === 'videoGuide') {
-    const guide = videoGuides.find((v) => v.slug === to.params.slug)
-    title = guide?.title ?? 'Video Eğitimler'
-    description = guide?.description ?? DEFAULT_DESCRIPTION
+    const guide = getVideoGuides(locale.value).find((v) => v.slug === to.params.slug)
+    title = guide?.title ?? t({ en: 'Video Tutorials', tr: 'Video Eğitimler' })
+    description = guide?.description ?? t(DEFAULT_DESCRIPTION)
   }
 
   document.title = title ? `${title} · ${SITE_NAME}` : SITE_NAME
   setMetaTag('description', description)
-})
+}
+
+router.afterEach((to) => applyRouteMeta(to))
+
+// Dil değiştiğinde aynı sayfanın başlığını/description'ını yeni dilde yeniden yaz.
+watch(locale, () => applyRouteMeta(router.currentRoute.value))
 
 export default router

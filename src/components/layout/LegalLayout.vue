@@ -1,5 +1,6 @@
 <script setup>
 import Container from '@/components/ui/Container.vue'
+import { t } from '@/i18n'
 
 defineProps({
   title: { type: String, required: true },
@@ -12,7 +13,7 @@ defineProps({
     <Container narrow>
       <h1 class="text-3xl font-semibold tracking-tight text-navy-dark">{{ title }}</h1>
       <p v-if="updatedAt" class="mt-2 text-sm text-darker-gray/70">
-        Son güncelleme: {{ updatedAt }}
+        {{ t({ en: 'Last updated:', tr: 'Son güncelleme:' }) }} {{ updatedAt }}
       </p>
     </Container>
   </section>

@@ -1,4 +1,5 @@
 <script setup>
+import { computed } from 'vue'
 import alternatifBank from '@/assets/logos/alternatif-bank.png'
 import odeabank from '@/assets/logos/odeabank.png'
 import isFaktoring from '@/assets/logos/is-faktoring.png'
@@ -10,12 +11,10 @@ import teraYatirim from '@/assets/logos/tera-yatirim.svg?url'
 import emlakKatilim from '@/assets/logos/emlak-katilim.svg?url'
 import dunyaKatilim from '@/assets/logos/dunya-katilim.svg?url'
 import Marquee from '@/components/ui/MarqueeRow.vue'
+import { t } from '@/i18n'
 
-defineProps({
-  label: {
-    type: String,
-    default: 'Bankacılık ve finans sektöründeki ekipler tarafından kullanılıyor',
-  },
+const props = defineProps({
+  label: { type: String, default: undefined },
   logos: {
     type: Array,
     default: () => [
@@ -30,12 +29,21 @@ defineProps({
     ],
   },
 })
+
+const labelText = computed(
+  () =>
+    props.label ??
+    t({
+      en: 'Used by teams across banking and finance',
+      tr: 'Bankacılık ve finans sektöründeki ekipler tarafından kullanılıyor',
+    }),
+)
 </script>
 
 <template>
   <div class="border-t border-light-gray-border py-10">
     <p class="text-center text-xs font-medium uppercase tracking-wider text-darker-gray/70">
-      {{ label }}
+      {{ labelText }}
     </p>
     <div
       class="mt-6 [mask-image:linear-gradient(to_right,transparent,black_5%,black_95%,transparent)]"

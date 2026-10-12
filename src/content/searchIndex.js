@@ -1,113 +1,197 @@
-import { blogPosts } from '@/content/blogPosts'
-import { docsGuides } from '@/content/docsGuides'
-import { videoGuides } from '@/content/videoGuides'
+import { getBlogPosts } from '@/content/blogPosts'
+import { getDocsGuides } from '@/content/docsGuides'
+import { getVideoGuides } from '@/content/videoGuides'
+import { locale } from '@/i18n'
 
 // Site geneli arama — blog, dokümantasyon ve ürün sayfalarını tek kutudan tarar
 // (bkz. site planı "Ortak alanlar" bölümü). Bir arama backend'i olmadığı için
-// statik bir indeks üzerinden istemci tarafında filtreleniyor.
+// statik bir indeks üzerinden istemci tarafında filtreleniyor. İndeks dil başına
+// bir kez kurulup önbelleğe alınıyor.
 const productPages = [
-  { title: 'Ürün — Genel Bakış', description: 'Uçtan uca AutoML akışı', path: '/urun' },
   {
-    title: 'Veri Yönetimi',
-    description: 'Veri alma, birleştirme, sürümleme, sentetik veri',
+    title: { en: 'Product — Overview', tr: 'Ürün — Genel Bakış' },
+    description: { en: 'End-to-end AutoML workflow', tr: 'Uçtan uca AutoML akışı' },
+    path: '/urun',
+  },
+  {
+    title: { en: 'Data Management', tr: 'Veri Yönetimi' },
+    description: {
+      en: 'Data ingestion, joining, versioning, synthetic data',
+      tr: 'Veri alma, birleştirme, sürümleme, sentetik veri',
+    },
     path: '/urun/veri-yonetimi',
   },
   {
-    title: 'Özel Modeller',
-    description: 'Dış modelleri getirme, sürümleme, yeniden eğitim',
+    title: { en: 'Custom Models', tr: 'Özel Modeller' },
+    description: {
+      en: 'Importing external models, versioning, retraining',
+      tr: 'Dış modelleri getirme, sürümleme, yeniden eğitim',
+    },
     path: '/urun/ozel-modeller',
   },
   {
     title: 'Experiment Pipeline',
-    description: 'Veri hazırlama, feature engineering, model eğitimi',
+    description: {
+      en: 'Data preparation, feature engineering, model training',
+      tr: 'Veri hazırlama, feature engineering, model eğitimi',
+    },
     path: '/urun/experiment-pipeline',
   },
   {
     title: 'Model Governance',
-    description: 'Yorumlama, raporlar, denetim kaydı, skor kartı',
+    description: {
+      en: 'Interpretation, reports, audit log, scorecard',
+      tr: 'Yorumlama, raporlar, denetim kaydı, skor kartı',
+    },
     path: '/urun/model-governance',
   },
   {
     title: 'Deployment & Application',
-    description: 'Canlıya alma, izleme, API ve batch skorlama',
+    description: {
+      en: 'Go-live, monitoring, API and batch scoring',
+      tr: 'Canlıya alma, izleme, API ve batch skorlama',
+    },
     path: '/urun/deployment',
   },
   {
-    title: 'Eklentiler',
-    description: 'Veri kaynağı ve algoritma entegrasyonları',
+    title: { en: 'Extensions', tr: 'Eklentiler' },
+    description: {
+      en: 'Data source and algorithm integrations',
+      tr: 'Veri kaynağı ve algoritma entegrasyonları',
+    },
     path: '/urun/eklentiler',
   },
   {
-    title: 'Çözümler',
-    description: 'Tahmin modelleme, risk modelleme, model denetimi',
+    title: { en: 'Solutions', tr: 'Çözümler' },
+    description: {
+      en: 'Predictive modeling, risk modeling, model auditing',
+      tr: 'Tahmin modelleme, risk modelleme, model denetimi',
+    },
     path: '/cozumler',
   },
   {
-    title: 'Neden Convex',
-    description: 'Sık sorulan itirazlara doğrudan cevaplar',
+    title: { en: 'Why Convex', tr: 'Neden Convex' },
+    description: {
+      en: 'Straight answers to common objections',
+      tr: 'Sık sorulan itirazlara doğrudan cevaplar',
+    },
     path: '/neden-convex',
   },
   {
-    title: 'Güvenlik & Uyumluluk',
-    description: 'Veri saklama, on-prem/cloud, KVKK uyumu',
+    title: { en: 'Security & Compliance', tr: 'Güvenlik & Uyumluluk' },
+    description: {
+      en: 'Data retention, on-prem/cloud, KVKK compliance',
+      tr: 'Veri saklama, on-prem/cloud, KVKK uyumu',
+    },
     path: '/guvenlik',
   },
 ]
 
 const helpPages = [
-  { title: 'Yardım Merkezi', description: 'SSS ve arama ile giriş noktası', path: '/yardim' },
   {
-    title: 'Başlangıç Kılavuzu',
-    description: 'İlk gün kurulum ve temel kullanım adımları',
+    title: { en: 'Help Center', tr: 'Yardım Merkezi' },
+    description: {
+      en: 'Entry point with FAQs and search',
+      tr: 'SSS ve arama ile giriş noktası',
+    },
+    path: '/yardim',
+  },
+  {
+    title: { en: 'Getting Started Guide', tr: 'Başlangıç Kılavuzu' },
+    description: {
+      en: 'Day-one setup and basic usage steps',
+      tr: 'İlk gün kurulum ve temel kullanım adımları',
+    },
     path: '/yardim/baslangic',
   },
   {
-    title: 'Sürüm Notları',
-    description: 'Yeni özellik ve iyileştirme duyuruları',
+    title: { en: 'Release Notes', tr: 'Sürüm Notları' },
+    description: {
+      en: 'New feature and improvement announcements',
+      tr: 'Yeni özellik ve iyileştirme duyuruları',
+    },
     path: '/yardim/surum-notlari',
   },
-  { title: 'Destek Talebi', description: 'Ekibimize doğrudan ulaşın', path: '/yardim/destek' },
+  {
+    title: { en: 'Support Request', tr: 'Destek Talebi' },
+    description: { en: 'Reach our team directly', tr: 'Ekibimize doğrudan ulaşın' },
+    path: '/yardim/destek',
+  },
 ]
 
-// Her video eğitimi kendi yazılı sayfasıyla ayrı ayrı aranabilir (blogEntries ile aynı desen).
-const videoEntries = videoGuides
-  .filter((v) => !v.hidden)
-  .map((v) => ({
-    title: v.title,
-    description: `Video Eğitimler · ${v.module}`,
-    path: `/yardim/videolar/${v.slug}`,
+const labels = {
+  en: {
+    product: 'Product',
+    blog: 'Blog',
+    videos: 'Video Tutorials',
+    docs: 'Documentation',
+    help: 'Help Center',
+  },
+  tr: {
+    product: 'Ürün',
+    blog: 'Blog',
+    videos: 'Video Eğitimler',
+    docs: 'Dokümantasyon',
+    help: 'Yardım Merkezi',
+  },
+}
+
+const pick = (value, lang) =>
+  value != null && typeof value === 'object' ? (value[lang] ?? value.en) : value
+
+const cache = {}
+
+export function buildSearchIndex(lang) {
+  if (cache[lang]) return cache[lang]
+  const l = labels[lang] ?? labels.en
+  const localize = (p) => ({
+    ...p,
+    title: pick(p.title, lang),
+    description: pick(p.description, lang),
+  })
+
+  // Her video eğitimi kendi yazılı sayfasıyla ayrı ayrı aranabilir (blogEntries ile aynı desen).
+  const videoEntries = getVideoGuides(lang)
+    .filter((v) => !v.hidden)
+    .map((v) => ({
+      title: v.title,
+      description: `${l.videos} · ${v.module}`,
+      path: `/yardim/videolar/${v.slug}`,
+    }))
+
+  const docPages = getDocsGuides(lang).flatMap((mod) =>
+    mod.guides.map((guide) => ({
+      title: guide.title,
+      description: `${l.docs} · ${mod.title}`,
+      path: guide.video ? `/yardim/videolar/${guide.video}` : '/yardim/dokumantasyon',
+    })),
+  )
+
+  const blogEntries = getBlogPosts(lang).map((post) => ({
+    title: post.title,
+    description: `${l.blog} · ${post.tag}`,
+    path: `/blog/${post.slug}`,
   }))
 
-const docPages = docsGuides.flatMap((mod) =>
-  mod.guides.map((guide) => ({
-    title: guide.title,
-    description: `Dokümantasyon · ${mod.title}`,
-    path: guide.video ? `/yardim/videolar/${guide.video}` : '/yardim/dokumantasyon',
-  })),
-)
-
-const blogEntries = blogPosts.map((post) => ({
-  title: post.title,
-  description: `Blog · ${post.tag}`,
-  path: `/blog/${post.slug}`,
-}))
-
-export const searchIndex = [
-  ...productPages.map((p) => ({ ...p, category: 'Ürün' })),
-  ...blogEntries.map((p) => ({ ...p, category: 'Blog' })),
-  ...videoEntries.map((p) => ({ ...p, category: 'Video Eğitimler' })),
-  ...docPages.map((p) => ({ ...p, category: 'Dokümantasyon' })),
-  ...helpPages.map((p) => ({ ...p, category: 'Yardım Merkezi' })),
-]
+  cache[lang] = [
+    ...productPages.map((p) => ({ ...localize(p), category: l.product })),
+    ...blogEntries.map((p) => ({ ...p, category: l.blog })),
+    ...videoEntries.map((p) => ({ ...p, category: l.videos })),
+    ...docPages.map((p) => ({ ...p, category: l.docs })),
+    ...helpPages.map((p) => ({ ...localize(p), category: l.help })),
+  ]
+  return cache[lang]
+}
 
 export function searchSite(query) {
-  const q = query.trim().toLocaleLowerCase('tr')
+  const lang = locale.value
+  const q = query.trim().toLocaleLowerCase(lang)
   if (!q) return []
-  return searchIndex
+  return buildSearchIndex(lang)
     .filter(
       (item) =>
-        item.title.toLocaleLowerCase('tr').includes(q) ||
-        item.description.toLocaleLowerCase('tr').includes(q),
+        item.title.toLocaleLowerCase(lang).includes(q) ||
+        item.description.toLocaleLowerCase(lang).includes(q),
     )
     .slice(0, 20)
 }

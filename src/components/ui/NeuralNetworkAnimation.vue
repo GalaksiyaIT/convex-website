@@ -5,6 +5,7 @@
 // Orijinali dışarıdan gerçek bir `progress` prop'uyla besleniyordu (API polling);
 // burada tamamen dekoratif olduğu için yüzde kendi içinde döngüsel olarak üretiliyor.
 import { ref, computed, watch, onMounted, onUnmounted } from 'vue'
+import { t } from '@/i18n'
 
 const props = defineProps({
   size: { type: Number, default: 220 }, // px — 360x360 viewBox bu boyuta ölçeklenir
@@ -50,7 +51,11 @@ onUnmounted(() => {
 
 watch(active, syncAnimationState)
 
-const statusLabel = computed(() => (percent.value >= 100 ? 'TAMAMLANDI' : 'ÇALIŞIYOR'))
+const statusLabel = computed(() =>
+  percent.value >= 100
+    ? t({ en: 'COMPLETED', tr: 'TAMAMLANDI' })
+    : t({ en: 'RUNNING', tr: 'ÇALIŞIYOR' }),
+)
 
 const RADIUS = 72
 const ringCircumference = 2 * Math.PI * RADIUS

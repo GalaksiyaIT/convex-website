@@ -1,20 +1,43 @@
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import Container from '@/components/ui/Container.vue'
 import PageHero from '@/components/sections/PageHero.vue'
 import BaseIcon from '@/components/ui/BaseIcon.vue'
-import { docsGuides as modules } from '@/content/docsGuides'
+import { getDocsGuides } from '@/content/docsGuides'
+import { locale, useCopy } from '@/i18n'
 
+const modules = computed(() => getDocsGuides(locale.value))
 const active = ref(0)
+
+const c = useCopy({
+  en: {
+    eyebrow: 'Help Center · Documentation',
+    title: 'Module-by-module user guides',
+    description:
+      'Guides that map one-to-one to the product modules, designed so you can find answers on your own.',
+    footnote:
+      'Each topic links to its video tutorial and step-by-step written walkthrough. This section will keep growing over time.',
+    helpful: 'Was this helpful?',
+    yes: 'Yes, it helped',
+    no: 'No, I’d like to open a support ticket',
+  },
+  tr: {
+    eyebrow: 'Yardım Merkezi · Dokümantasyon',
+    title: 'Modül modül kullanım kılavuzları',
+    description:
+      'Ürün modülleriyle birebir eşleşen kılavuzlar — kendi kendinize cevap bulmanız için tasarlandı.',
+    footnote:
+      'Her başlık, ilgili video eğitime ve adım adım yazılı anlatımına bağlanır. Bu bölüm kademeli olarak genişletilecektir.',
+    helpful: 'Bu yardımcı oldu mu?',
+    yes: 'Evet, yardımcı oldu',
+    no: 'Hayır, destek talebi açmak istiyorum',
+  },
+})
 </script>
 
 <template>
-  <PageHero
-    eyebrow="Yardım Merkezi · Dokümantasyon"
-    title="Modül modül kullanım kılavuzları"
-    description="Ürün modülleriyle birebir eşleşen kılavuzlar — kendi kendinize cevap bulmanız için tasarlandı."
-  />
+  <PageHero :eyebrow="c.eyebrow" :title="c.title" :description="c.description" />
 
   <section class="py-20">
     <Container>
@@ -55,8 +78,7 @@ const active = ref(0)
               </li>
             </ul>
             <p class="mt-6 border-t border-light-gray-border pt-5 text-xs text-darker-gray/70">
-              Her başlık, ilgili video eğitime ve adım adım yazılı anlatımına bağlanır. Bu bölüm
-              kademeli olarak genişletilecektir.
+              {{ c.footnote }}
             </p>
           </div>
         </div>
@@ -66,19 +88,19 @@ const active = ref(0)
 
   <section class="border-t border-light-gray-border py-10">
     <Container narrow class="flex flex-col items-center gap-3 text-center">
-      <p class="text-sm text-darker-gray">Bu yardımcı oldu mu?</p>
+      <p class="text-sm text-darker-gray">{{ c.helpful }}</p>
       <div class="flex gap-3">
         <button
           type="button"
           class="rounded-lg border border-light-gray-border px-4 py-2 text-sm font-medium text-navy-dark hover:border-pink hover:text-pink"
         >
-          Evet, yardımcı oldu
+          {{ c.yes }}
         </button>
         <RouterLink
           to="/yardim/destek"
           class="rounded-lg border border-light-gray-border px-4 py-2 text-sm font-medium text-navy-dark hover:border-pink hover:text-pink"
         >
-          Hayır, destek talebi açmak istiyorum
+          {{ c.no }}
         </RouterLink>
       </div>
     </Container>

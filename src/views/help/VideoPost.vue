@@ -5,10 +5,35 @@ import Container from '@/components/ui/Container.vue'
 import Badge from '@/components/ui/Badge.vue'
 import BaseIcon from '@/components/ui/BaseIcon.vue'
 import CtaBanner from '@/components/sections/CtaBanner.vue'
-import { videoGuides } from '@/content/videoGuides'
+import { getVideoGuides } from '@/content/videoGuides'
+import { locale, useCopy } from '@/i18n'
 
 const route = useRoute()
-const guide = computed(() => videoGuides.find((v) => v.slug === route.params.slug))
+const videoGuides = computed(() => getVideoGuides(locale.value))
+const guide = computed(() => videoGuides.value.find((v) => v.slug === route.params.slug))
+
+const c = useCopy({
+  en: {
+    back: 'Back to Video Tutorials',
+    videoLabel: 'Video',
+    durationSuffix: 'video',
+    narrationNote: 'Narration is in Turkish; the step-by-step captions below are in English.',
+    noVideo: 'The video recording for this step is coming soon.',
+    comingNext: 'Next in the series, coming soon:',
+    nextVideo: 'Next video',
+    notFound: 'Video not found',
+  },
+  tr: {
+    back: 'Video Eğitimlere dön',
+    videoLabel: 'Video',
+    durationSuffix: 'video',
+    narrationNote: '',
+    noVideo: 'Bu adımın video kaydı yakında eklenecek.',
+    comingNext: 'Serinin sıradaki bölümü yakında:',
+    nextVideo: 'Sıradaki video',
+    notFound: 'Video bulunamadı',
+  },
+})
 const duration = ref(guide.value?.duration ?? null)
 const videoEl = ref(null)
 const currentTime = ref(0)
@@ -38,10 +63,12 @@ function seekToStep(step) {
 }
 
 // Bileşen video sayfaları arasında yeniden kullanılır (arama, geri/ileri): süre ve
-// oynatma konumu her slug değişiminde sıfırlanıp yeniden hesaplanır.
+// oynatma konumu her slug değişiminde sıfırlanıp yeniden hesaplanır. Dil değişiminde
+// (aynı slug) video ve oynatma konumu korunur.
 watch(
-  guide,
-  (g) => {
+  () => guide.value?.slug,
+  (slug) => {
+    const g = guide.value
     duration.value = g?.duration ?? null
     currentTime.value = 0
     if (!g?.videoUrl) return
@@ -49,7 +76,7 @@ watch(
     probe.preload = 'metadata'
     probe.src = g.videoUrl
     probe.onloadedmetadata = () => {
-      if (guide.value === g) duration.value = formatDuration(probe.duration)
+      if (guide.value?.slug === slug) duration.value = formatDuration(probe.duration)
     }
   },
   { immediate: true },
@@ -60,8 +87,8 @@ watch(
 const nextGuide = computed(() => {
   const g = guide.value
   if (!g || g.hidden) return null
-  if (g.next) return videoGuides.find((v) => v.slug === g.next) ?? null
-  const visible = videoGuides.filter((v) => !v.hidden)
+  if (g.next) return videoGuides.value.find((v) => v.slug === g.next) ?? null
+  const visible = videoGuides.value.filter((v) => !v.hidden)
   return visible[visible.findIndex((v) => v.slug === g.slug) + 1] ?? null
 })
 </script>
@@ -77,14 +104,16 @@ const nextGuide = computed(() => {
               class="inline-flex items-center gap-1.5 text-sm font-medium text-pink"
             >
               <BaseIcon name="arrowRight" sizeClass="w-3.5 h-3.5 rotate-180" />
-              Video Eğitimlere dön
+              {{ c.back }}
             </RouterLink>
           </div>
           <Badge tone="navy" class="mt-5">{{ guide.module }}</Badge>
           <h1 class="mt-4 text-3xl sm:text-4xl font-semibold tracking-tight text-navy-dark">
             {{ guide.title }}
           </h1>
-          <p v-if="duration" class="mt-3 text-sm text-darker-gray/70">{{ duration }} video</p>
+          <p v-if="duration" class="mt-3 text-sm text-darker-gray/70">
+            {{ duration }} {{ c.durationSuffix }}
+          </p>
         </div>
       </Container>
     </section>
@@ -96,7 +125,9 @@ const nextGuide = computed(() => {
         </div>
 
         <div v-if="guide.videoUrl" class="mt-10">
-          <p class="text-xs font-semibold uppercase tracking-wide text-darker-gray/60">Video</p>
+          <p class="text-xs font-semibold uppercase tracking-wide text-darker-gray/60">
+            {{ c.videoLabel }}
+          </p>
           <div class="mt-3 overflow-hidden rounded-2xl border border-light-gray-border bg-black">
             <video
               ref="videoEl"
@@ -108,6 +139,9 @@ const nextGuide = computed(() => {
               @timeupdate="currentTime = $event.target.currentTime"
             />
           </div>
+          <p v-if="c.narrationNote" class="mt-3 text-xs italic text-darker-gray/70">
+            {{ c.narrationNote }}
+          </p>
 
           <ol v-if="guide.steps?.length" class="mt-4 space-y-2">
             <li v-for="(step, i) in guide.steps" :key="i">
@@ -140,7 +174,7 @@ const nextGuide = computed(() => {
           v-else
           class="mt-10 rounded-2xl border border-light-gray-border bg-light-gray-bg p-6 text-center text-sm text-darker-gray"
         >
-          Bu adımın video kaydı yakında eklenecek.
+          {{ c.noVideo }}
         </div>
 
         <div v-if="guide.comingNext || nextGuide" class="mt-10 space-y-3">
@@ -148,7 +182,7 @@ const nextGuide = computed(() => {
             v-if="guide.comingNext"
             class="rounded-xl border border-dashed border-light-gray-border px-4 py-3 text-sm text-darker-gray"
           >
-            Serinin sıradaki bölümü yakında:
+            {{ c.comingNext }}
             <span class="font-semibold text-navy-dark">{{ guide.comingNext }}</span>
           </p>
           <RouterLink
@@ -157,7 +191,7 @@ const nextGuide = computed(() => {
             class="group flex items-center justify-between gap-4 rounded-2xl border border-light-gray-border p-5 transition-colors hover:border-pink/40 hover:bg-very-light-pink"
           >
             <span>
-              <span class="block text-xs font-semibold text-pink">Sıradaki video</span>
+              <span class="block text-xs font-semibold text-pink">{{ c.nextVideo }}</span>
               <span class="mt-1 block font-semibold text-navy-dark group-hover:text-pink">
                 {{ nextGuide.title }}
               </span>
@@ -174,12 +208,12 @@ const nextGuide = computed(() => {
   <template v-else>
     <section class="flex min-h-[50vh] items-center justify-center py-20">
       <Container narrow class="text-center">
-        <h1 class="text-2xl font-semibold text-navy-dark">Video bulunamadı</h1>
+        <h1 class="text-2xl font-semibold text-navy-dark">{{ c.notFound }}</h1>
         <RouterLink
           to="/yardim/videolar"
           class="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-pink"
         >
-          Video Eğitimlere dön
+          {{ c.back }}
         </RouterLink>
       </Container>
     </section>

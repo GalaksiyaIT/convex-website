@@ -1,7 +1,11 @@
 <script setup>
 import QuoteCard from '@/components/sections/QuoteCard.vue'
 import Marquee from '@/components/ui/MarqueeRow.vue'
-import { testimonials } from '@/content/testimonials'
+import { computed } from 'vue'
+import { getTestimonials } from '@/content/testimonials'
+import { locale } from '@/i18n'
+
+const testimonials = computed(() => getTestimonials(locale.value))
 </script>
 
 <template>

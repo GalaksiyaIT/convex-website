@@ -4,6 +4,30 @@ import { useRouter } from 'vue-router'
 import BaseIcon from '@/components/ui/BaseIcon.vue'
 import { searchSite } from '@/content/searchIndex'
 import { caps } from '@/utils/caps'
+import { locale, useCopy } from '@/i18n'
+
+const c = useCopy({
+  en: {
+    openLabel: 'Search the site',
+    dialogLabel: 'Search within the site',
+    inputLabel: 'Search query',
+    placeholder: 'Search the blog, documentation or product pages...',
+    close: 'Close',
+    noResultsBefore: 'No results found for "',
+    noResultsAfter: '".',
+    startTyping: 'Start typing to search.',
+  },
+  tr: {
+    openLabel: 'Sitede ara',
+    dialogLabel: 'Site içinde ara',
+    inputLabel: 'Arama sorgusu',
+    placeholder: 'Blog, dokümantasyon veya ürün sayfalarında ara...',
+    close: 'Kapat',
+    noResultsBefore: '"',
+    noResultsAfter: '" için bir sonuç bulunamadı.',
+    startTyping: 'Aramaya başlamak için yazın.',
+  },
+})
 
 const open = ref(false)
 const query = ref('')
@@ -12,7 +36,8 @@ const dialogRef = ref(null)
 const router = useRouter()
 
 const results = ref([])
-watch(query, (q) => {
+// Dil değişince de sonuçlar yeni dilin indeksinden yeniden hesaplanır.
+watch([query, locale], ([q]) => {
   results.value = searchSite(q)
 })
 
@@ -55,7 +80,7 @@ defineExpose({ show })
 <template>
   <button
     class="flex h-9 w-9 items-center justify-center rounded-lg text-navy-dark hover:bg-light-gray-bg"
-    aria-label="Sitede ara"
+    :aria-label="c.openLabel"
     @click="show"
   >
     <BaseIcon name="search" sizeClass="w-5 h-5" />
@@ -71,7 +96,7 @@ defineExpose({ show })
       ref="dialogRef"
       role="dialog"
       aria-modal="true"
-      aria-label="Site içinde ara"
+      :aria-label="c.dialogLabel"
       class="w-full max-w-xl rounded-2xl bg-white shadow-2xl"
     >
       <div class="flex items-center gap-3 border-b border-light-gray-border px-4 py-3.5">
@@ -80,12 +105,14 @@ defineExpose({ show })
           ref="inputRef"
           v-model="query"
           type="text"
-          aria-label="Arama sorgusu"
-          placeholder="Blog, dokümantasyon veya ürün sayfalarında ara..."
+          :aria-label="c.inputLabel"
+          :placeholder="c.placeholder"
           class="flex-1 text-sm text-navy-dark focus:outline-none"
           @keydown.esc="close"
         />
-        <button class="text-xs text-darker-gray/60 hover:text-pink" @click="close">Kapat</button>
+        <button class="text-xs text-darker-gray/60 hover:text-pink" @click="close">
+          {{ c.close }}
+        </button>
       </div>
 
       <div class="max-h-96 overflow-y-auto p-2">
@@ -103,10 +130,10 @@ defineExpose({ show })
         </button>
 
         <p v-if="query && !results.length" class="px-3 py-6 text-center text-sm text-darker-gray">
-          "{{ query }}" için bir sonuç bulunamadı.
+          {{ c.noResultsBefore }}{{ query }}{{ c.noResultsAfter }}
         </p>
         <p v-if="!query" class="px-3 py-6 text-center text-sm text-darker-gray/70">
-          Aramaya başlamak için yazın.
+          {{ c.startTyping }}
         </p>
       </div>
     </div>

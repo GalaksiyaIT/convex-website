@@ -1,6 +1,8 @@
 // Blog içeriğinin tek kaynağı — hem liste (Blog.vue) hem detay (BlogPost.vue)
 // sayfası buradan besleniyor ki yazı sonundaki ürün sayfası linki tutarlı kalsın.
-export const blogPosts = [
+import { blogPostsEn } from '@/content/en/blogPosts'
+
+const blogPostsTr = [
   {
     slug: 'automl-kredi-skorlama-tamamlar-mi',
     tag: 'AutoML',
@@ -63,3 +65,10 @@ export const blogPosts = [
     relatedLabel: "Model Governance'ın yorumlama ekranını inceleyin",
   },
 ]
+
+// İngilizce metinler slug bazında content/en/blogPosts.js'te.
+const blogPostsEnMerged = blogPostsTr.map((post) => ({ ...post, ...blogPostsEn[post.slug] }))
+
+export function getBlogPosts(locale) {
+  return locale === 'tr' ? blogPostsTr : blogPostsEnMerged
+}

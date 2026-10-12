@@ -1,4 +1,5 @@
 <script setup>
+import { computed } from 'vue'
 import Container from '@/components/ui/Container.vue'
 import PageHero from '@/components/sections/PageHero.vue'
 import AppButton from '@/components/ui/AppButton.vue'
@@ -6,60 +7,110 @@ import Card from '@/components/ui/Card.vue'
 import BaseIcon from '@/components/ui/BaseIcon.vue'
 import SectionHeading from '@/components/ui/SectionHeading.vue'
 import CtaBanner from '@/components/sections/CtaBanner.vue'
+import { useCopy } from '@/i18n'
 
-const groups = [
-  {
-    icon: 'database',
-    title: 'Veri Kaynakları',
-    items: [
-      'CSV dosya yükleme',
-      'İlişkisel veritabanları (Query Builder ile sorgu)',
-      'Merged dataset ile çoklu kaynak birleştirme',
-      'Sync ile veritabanı kaynaklı veri setlerini güncelleme',
+const groupIcons = ['database', 'cpu', 'plug']
+
+const c = useCopy({
+  en: {
+    heroEyebrow: 'Product · Extensions',
+    heroTitle: 'A platform that speaks to your existing infrastructure',
+    heroDescription:
+      'See which data sources it connects to and which algorithms it extends with, all in one place.',
+    cta: 'Request a Demo',
+    sectionTitle: 'For your technical evaluation',
+    sectionDescription: 'Straight answers to the integration questions your team asks early on.',
+    groups: [
+      {
+        title: 'Data Sources',
+        items: [
+          'CSV file upload',
+          'Relational databases (queries via Query Builder)',
+          'Multi-source merging with Merged dataset',
+          'Refreshing database-backed datasets with Sync',
+        ],
+      },
+      {
+        title: 'Algorithm Packages',
+        items: [
+          'Logistic Regression, LightGBM, XGBoost, CatBoost, Random Forest, SGD',
+          'Score Card generation (Target Score, Target Odds, PDO)',
+          'Synthetic data: CTGAN and CART',
+          'Custom Models: bring your own model (.pkl / .zip)',
+        ],
+      },
+      {
+        title: 'System Integrations',
+        items: [
+          'Decision engine integration via REST API (predict)',
+          'Batch scoring: from database to database',
+          'Identity and access management (SSO)',
+          'Monitoring reports and alerts by email',
+        ],
+      },
     ],
+    ctaTitle: "Let's talk about your integration needs",
+    ctaDescription:
+      'Let’s evaluate together with your technical team how we connect to your existing systems.',
   },
-  {
-    icon: 'cpu',
-    title: 'Algoritma Paketleri',
-    items: [
-      'Logistic Regression, LightGBM, XGBoost, CatBoost, Random Forest, SGD',
-      'Score Card üretimi (Target Score, Target Odds, PDO)',
-      'Sentetik veri: CTGAN ve CART',
-      'Özel Modeller: kendi modelinizi (.pkl / .zip) getirin',
+  tr: {
+    heroEyebrow: 'Ürün · Eklentiler',
+    heroTitle: 'Mevcut altyapınızla konuşan bir platform',
+    heroDescription:
+      'Hangi veri kaynaklarına bağlandığını, hangi algoritmalarla genişlediğini burada görün.',
+    cta: 'Demo Talep Et',
+    sectionTitle: 'Teknik değerlendirme için',
+    sectionDescription: 'Ekibinizin erken aşamada sorduğu entegrasyon sorularına doğrudan cevap.',
+    groups: [
+      {
+        title: 'Veri Kaynakları',
+        items: [
+          'CSV dosya yükleme',
+          'İlişkisel veritabanları (Query Builder ile sorgu)',
+          'Merged dataset ile çoklu kaynak birleştirme',
+          'Sync ile veritabanı kaynaklı veri setlerini güncelleme',
+        ],
+      },
+      {
+        title: 'Algoritma Paketleri',
+        items: [
+          'Logistic Regression, LightGBM, XGBoost, CatBoost, Random Forest, SGD',
+          'Score Card üretimi (Target Score, Target Odds, PDO)',
+          'Sentetik veri: CTGAN ve CART',
+          'Özel Modeller: kendi modelinizi (.pkl / .zip) getirin',
+        ],
+      },
+      {
+        title: 'Sistem Entegrasyonları',
+        items: [
+          'REST API (predict) ile karar motoru entegrasyonu',
+          'Batch skorlama: veritabanından veritabanına',
+          'Kimlik ve erişim yönetimi (SSO)',
+          'E-posta ile izleme raporları ve uyarılar',
+        ],
+      },
     ],
+    ctaTitle: 'Entegrasyon ihtiyacınızı konuşalım',
+    ctaDescription:
+      'Mevcut sistemlerinize nasıl bağlanacağımızı teknik ekibinizle birlikte değerlendirelim.',
   },
-  {
-    icon: 'plug',
-    title: 'Sistem Entegrasyonları',
-    items: [
-      'REST API (predict) ile karar motoru entegrasyonu',
-      'Batch skorlama: veritabanından veritabanına',
-      'Kimlik ve erişim yönetimi (SSO)',
-      'E-posta ile izleme raporları ve uyarılar',
-    ],
-  },
-]
+})
+
+const groups = computed(() => c.value.groups.map((group, i) => ({ ...group, icon: groupIcons[i] })))
 </script>
 
 <template>
-  <PageHero
-    eyebrow="Ürün · Eklentiler"
-    title="Mevcut altyapınızla konuşan bir platform"
-    description="Hangi veri kaynaklarına bağlandığını, hangi algoritmalarla genişlediğini burada görün."
-  >
+  <PageHero :eyebrow="c.heroEyebrow" :title="c.heroTitle" :description="c.heroDescription">
     <template #actions>
-      <AppButton to="/iletisim" showTrailingIcon>Demo Talep Et</AppButton>
+      <AppButton to="/iletisim" showTrailingIcon>{{ c.cta }}</AppButton>
     </template>
   </PageHero>
 
   <section class="py-20">
     <Container>
-      <SectionHeading
-        title="Teknik değerlendirme için"
-        description="Ekibinizin erken aşamada sorduğu entegrasyon sorularına doğrudan cevap."
-      />
+      <SectionHeading :title="c.sectionTitle" :description="c.sectionDescription" />
       <div class="mt-10 grid gap-6 lg:grid-cols-3">
-        <Card v-for="g in groups" :key="g.title">
+        <Card v-for="g in groups" :key="g.icon">
           <div
             class="flex h-11 w-11 items-center justify-center rounded-xl bg-very-light-pink text-pink"
           >
@@ -81,8 +132,5 @@ const groups = [
     </Container>
   </section>
 
-  <CtaBanner
-    title="Entegrasyon ihtiyacınızı konuşalım"
-    description="Mevcut sistemlerinize nasıl bağlanacağımızı teknik ekibinizle birlikte değerlendirelim."
-  />
+  <CtaBanner :title="c.ctaTitle" :description="c.ctaDescription" />
 </template>

@@ -6,101 +6,200 @@ import Card from '@/components/ui/Card.vue'
 import BaseIcon from '@/components/ui/BaseIcon.vue'
 import CtaBanner from '@/components/sections/CtaBanner.vue'
 import { RouterLink } from 'vue-router'
+import { computed } from 'vue'
+import { useCopy } from '@/i18n'
 
-const reasons = [
-  {
-    icon: 'eye',
-    title: 'Açıklanabilir & Denetlenebilir',
-    description: 'Her tahminin gerekçesi SHAP ile denetçilere ve iş birimlerine gösterilebilir.',
-  },
-  {
-    icon: 'server',
-    title: 'On-Prem veya Cloud',
-    description: 'Verinin nerede tutulacağına kurumun altyapı politikası karar verir.',
-  },
-  {
-    icon: 'plug',
-    title: 'Mevcut Sistemlerle Entegre',
-    description:
-      'Veriyi ilişkisel veritabanlarınızdan alır; canlıdaki model karar motorlarınıza REST API ile, toplu işlerde batch ile skor sunar.',
-  },
-  {
-    icon: 'workflow',
-    title: 'Uçtan Uca Tek Platform',
-    description: 'Veri hazırlamaktan deploy’a kadar ayrı araçlar arasında geçiş gerekmez.',
-  },
-  {
-    icon: 'gitBranch',
-    title: 'Regülasyona Hazır',
-    description: 'Model risk yönetimi çerçevelerinin beklediği izlenebilirlik ve versiyonlama.',
-  },
-]
+const reasonIcons = ['eye', 'server', 'plug', 'workflow', 'gitBranch']
+const scenarioIcons = ['barChart', 'shield', 'eye']
 
-const scenarios = [
-  {
-    icon: 'barChart',
-    title: 'Tahmin Modelleme',
-    eyebrow: 'Sınıflandırma ve regresyon',
-    description:
-      'Mevcut istatistiksel yöntemlerin yanına makine öğrenmesini katın, ayrım gücünü artırın — karar sürecinizi değiştirmeden.',
-    points: [
-      'Mevcut modelinizle yan yana karşılaştırma',
-      'WOE/binning ile açıklanabilir feature engineering',
-      'Model Audit Log ile onay kaydı ve Validation Report',
+const c = useCopy({
+  en: {
+    reasons: [
+      {
+        title: 'Explainable & Auditable',
+        description:
+          'Show auditors and business teams the reasoning behind every prediction with SHAP.',
+      },
+      {
+        title: 'On-Prem or Cloud',
+        description: 'Your infrastructure policy decides where your data lives.',
+      },
+      {
+        title: 'Integrates with Your Systems',
+        description:
+          'Pulls data from your relational databases; live models serve scores to your decision engines via REST API and to bulk jobs via batch.',
+      },
+      {
+        title: 'One End-to-End Platform',
+        description: 'From data preparation to deployment, no switching between separate tools.',
+      },
+      {
+        title: 'Regulation-Ready',
+        description:
+          'The traceability and versioning that model risk management frameworks expect.',
+      },
     ],
-  },
-  {
-    icon: 'shield',
-    title: 'Risk ve Karar Modelleri',
-    eyebrow: 'Olasılık, kayıp ve eğilim tahmini',
-    description:
-      'Olasılık ve kayıp tahmini gibi modelleri; regülasyonun ya da kurum içi politikaların beklediği izlenebilirlik ve versiyonlamayla kurun.',
-    points: [
-      'Champion/challenger karşılaştırması',
-      'Zaman içinde model sapmasının (drift) izlenmesi',
-      'Denetime sunulabilir model dokümantasyonu',
+    scenarios: [
+      {
+        title: 'Predictive Modeling',
+        eyebrow: 'Classification and regression',
+        description:
+          'Add machine learning alongside your existing statistical methods and boost discriminatory power without changing your decision process.',
+        points: [
+          'Side-by-side comparison with your current model',
+          'Explainable feature engineering with WOE/binning',
+          'Approval records in the Model Audit Log, plus a Validation Report',
+        ],
+      },
+      {
+        title: 'Risk and Decision Models',
+        eyebrow: 'Probability, loss and propensity prediction',
+        description:
+          'Build probability and loss models with the traceability and versioning that regulators and internal policies expect.',
+        points: [
+          'Champion/challenger comparison',
+          'Monitoring model drift over time',
+          'Audit-ready model documentation',
+        ],
+      },
+      {
+        title: 'Model Validation',
+        eyebrow: 'Internal audit and risk committee',
+        description:
+          'Open production models to independent review and pass audits without falling back on the “black box” defense.',
+        points: [
+          'SHAP-based contribution analysis',
+          'An audit trail for every model version',
+          'Department-based access and Audit Log approval records',
+        ],
+      },
     ],
-  },
-  {
-    icon: 'eye',
-    title: 'Model Denetimi',
-    eyebrow: 'İç denetim ve risk komitesi',
-    description:
-      'Üretimdeki modelleri bağımsız incelemeye açın — "kara kutu" savunması yapmadan denetimden geçin.',
-    points: [
-      'SHAP tabanlı katkı analizleri',
-      'Tüm model versiyonlarının denetim izi',
-      'Departman bazlı erişim ve Audit Log onay kayıtları',
+    useCases: [
+      'Customer acquisition and application scoring',
+      'Marketing targeting and response prediction',
+      'Customer churn prediction',
+      'Fraud detection',
+      'Default and loss probability modeling',
+      'Early warning and collections prioritization',
+      'Model validation and independent review',
+      'Scenario and stress test analysis',
+      'Audit-ready model reporting',
+      'Portfolio-level risk monitoring',
+      'Champion/challenger model comparison',
+      'Explainability and audit documentation',
     ],
+    heroEyebrow: 'Solutions',
+    heroTitle: 'Get your models into production in minutes.',
+    heroDescription:
+      'Convex brings speed and auditability together across predictive modeling, risk modeling and model validation.',
+    heroCta: 'Request a Demo',
+    reasonsLabel: 'Why teams choose Convex',
+    caseStudyLink: 'Read the related case study',
+    pointsLabel: 'What matters in this scenario',
+    useCasesLabel: 'And more: other use cases Convex covers',
+    ctaTitle: 'Let’s assess your use case together',
+    ctaDescription: 'Let’s schedule a short demo built around your own data set and requirements.',
   },
-]
+  tr: {
+    reasons: [
+      {
+        title: 'Açıklanabilir & Denetlenebilir',
+        description:
+          'Her tahminin gerekçesi SHAP ile denetçilere ve iş birimlerine gösterilebilir.',
+      },
+      {
+        title: 'On-Prem veya Cloud',
+        description: 'Verinin nerede tutulacağına kurumun altyapı politikası karar verir.',
+      },
+      {
+        title: 'Mevcut Sistemlerle Entegre',
+        description:
+          'Veriyi ilişkisel veritabanlarınızdan alır; canlıdaki model karar motorlarınıza REST API ile, toplu işlerde batch ile skor sunar.',
+      },
+      {
+        title: 'Uçtan Uca Tek Platform',
+        description: 'Veri hazırlamaktan deploy’a kadar ayrı araçlar arasında geçiş gerekmez.',
+      },
+      {
+        title: 'Regülasyona Hazır',
+        description: 'Model risk yönetimi çerçevelerinin beklediği izlenebilirlik ve versiyonlama.',
+      },
+    ],
+    scenarios: [
+      {
+        title: 'Tahmin Modelleme',
+        eyebrow: 'Sınıflandırma ve regresyon',
+        description:
+          'Mevcut istatistiksel yöntemlerin yanına makine öğrenmesini katın, ayrım gücünü artırın — karar sürecinizi değiştirmeden.',
+        points: [
+          'Mevcut modelinizle yan yana karşılaştırma',
+          'WOE/binning ile açıklanabilir feature engineering',
+          'Model Audit Log ile onay kaydı ve Validation Report',
+        ],
+      },
+      {
+        title: 'Risk ve Karar Modelleri',
+        eyebrow: 'Olasılık, kayıp ve eğilim tahmini',
+        description:
+          'Olasılık ve kayıp tahmini gibi modelleri; regülasyonun ya da kurum içi politikaların beklediği izlenebilirlik ve versiyonlamayla kurun.',
+        points: [
+          'Champion/challenger karşılaştırması',
+          'Zaman içinde model sapmasının (drift) izlenmesi',
+          'Denetime sunulabilir model dokümantasyonu',
+        ],
+      },
+      {
+        title: 'Model Denetimi',
+        eyebrow: 'İç denetim ve risk komitesi',
+        description:
+          'Üretimdeki modelleri bağımsız incelemeye açın — "kara kutu" savunması yapmadan denetimden geçin.',
+        points: [
+          'SHAP tabanlı katkı analizleri',
+          'Tüm model versiyonlarının denetim izi',
+          'Departman bazlı erişim ve Audit Log onay kayıtları',
+        ],
+      },
+    ],
+    // Somut kullanım senaryolarının tek bakışta tarandığı, sektöre bağlı olmayan bir liste —
+    // üç ana senaryonun altını dolduruyor.
+    useCases: [
+      'Müşteri edinimi ve başvuru skorlama',
+      'Pazarlama hedefleme ve yanıt tahmini',
+      'Müşteri kaybı (churn) tahmini',
+      'Dolandırıcılık (fraud) tespiti',
+      'Temerrüt ve kayıp olasılığı modelleme',
+      'Erken uyarı ve tahsilat önceliklendirme',
+      'Model doğrulama ve bağımsız gözden geçirme',
+      'Senaryo ve stres testi analizi',
+      'Denetime sunulacak model raporlama',
+      'Portföy bazında risk izleme',
+      'Champion/challenger model karşılaştırması',
+      'Açıklanabilirlik ve denetim dokümantasyonu',
+    ],
+    heroEyebrow: 'Çözümler',
+    heroTitle: 'Modellerinizi dakikalar içinde canlıya alın.',
+    heroDescription:
+      'Convex, tahmin modelleme, risk modelleme ve model denetiminde hız ile denetlenebilirliği bir arada verir.',
+    heroCta: 'Demo Talep Et',
+    reasonsLabel: "Ekipler Convex'i neden seçiyor",
+    caseStudyLink: 'İlgili vaka çalışmasını oku',
+    pointsLabel: 'Bu senaryoda önemli olan',
+    useCasesLabel: "Ve dahası — Convex'in kapsadığı diğer senaryolar",
+    ctaTitle: 'Senaryonuzu birlikte değerlendirelim',
+    ctaDescription: 'Kendi veri setiniz ve gereksinimleriniz üzerinden kısa bir demo planlayalım.',
+  },
+})
 
-// Somut kullanım senaryolarının tek bakışta tarandığı, sektöre bağlı olmayan bir liste —
-// üç ana senaryonun altını dolduruyor.
-const useCases = [
-  'Müşteri edinimi ve başvuru skorlama',
-  'Pazarlama hedefleme ve yanıt tahmini',
-  'Müşteri kaybı (churn) tahmini',
-  'Dolandırıcılık (fraud) tespiti',
-  'Temerrüt ve kayıp olasılığı modelleme',
-  'Erken uyarı ve tahsilat önceliklendirme',
-  'Model doğrulama ve bağımsız gözden geçirme',
-  'Senaryo ve stres testi analizi',
-  'Denetime sunulacak model raporlama',
-  'Portföy bazında risk izleme',
-  'Champion/challenger model karşılaştırması',
-  'Açıklanabilirlik ve denetim dokümantasyonu',
-]
+const reasons = computed(() => c.value.reasons.map((r, i) => ({ ...r, icon: reasonIcons[i] })))
+const scenarios = computed(() =>
+  c.value.scenarios.map((s, i) => ({ ...s, icon: scenarioIcons[i] })),
+)
 </script>
 
 <template>
-  <PageHero
-    eyebrow="Çözümler"
-    title="Modellerinizi dakikalar içinde canlıya alın."
-    description="Convex, tahmin modelleme, risk modelleme ve model denetiminde hız ile denetlenebilirliği bir arada verir."
-  >
+  <PageHero :eyebrow="c.heroEyebrow" :title="c.heroTitle" :description="c.heroDescription">
     <template #actions>
-      <AppButton to="/iletisim" showTrailingIcon>Demo Talep Et</AppButton>
+      <AppButton to="/iletisim" showTrailingIcon>{{ c.heroCta }}</AppButton>
     </template>
   </PageHero>
 
@@ -108,7 +207,7 @@ const useCases = [
   <section class="border-b border-light-gray-border bg-light-gray-bg py-14">
     <Container>
       <p class="text-xs font-semibold uppercase tracking-wide text-darker-gray/60">
-        Ekipler Convex'i neden seçiyor
+        {{ c.reasonsLabel }}
       </p>
       <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-5">
         <div v-for="r in reasons" :key="r.title">
@@ -143,13 +242,13 @@ const useCases = [
               to="/vaka-calismalari"
               class="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-pink"
             >
-              İlgili vaka çalışmasını oku
+              {{ c.caseStudyLink }}
               <BaseIcon name="arrowRight" sizeClass="w-3.5 h-3.5" />
             </RouterLink>
           </div>
           <Card :class="i % 2 === 1 ? 'lg:order-1' : ''">
             <p class="text-xs font-semibold uppercase tracking-wide text-darker-gray/60">
-              Bu senaryoda önemli olan
+              {{ c.pointsLabel }}
             </p>
             <ul class="mt-3 space-y-3">
               <li
@@ -170,10 +269,14 @@ const useCases = [
   <section class="bg-light-gray-bg py-16">
     <Container>
       <p class="text-xs font-semibold uppercase tracking-wide text-darker-gray/60">
-        Ve dahası — Convex'in kapsadığı diğer senaryolar
+        {{ c.useCasesLabel }}
       </p>
       <div class="mt-6 grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
-        <div v-for="uc in useCases" :key="uc" class="flex items-start gap-2 text-sm text-navy-dark">
+        <div
+          v-for="uc in c.useCases"
+          :key="uc"
+          class="flex items-start gap-2 text-sm text-navy-dark"
+        >
           <BaseIcon name="check" sizeClass="w-4 h-4 text-pink mt-0.5 flex-shrink-0" />
           {{ uc }}
         </div>
@@ -181,8 +284,5 @@ const useCases = [
     </Container>
   </section>
 
-  <CtaBanner
-    title="Senaryonuzu birlikte değerlendirelim"
-    description="Kendi veri setiniz ve gereksinimleriniz üzerinden kısa bir demo planlayalım."
-  />
+  <CtaBanner :title="c.ctaTitle" :description="c.ctaDescription" />
 </template>

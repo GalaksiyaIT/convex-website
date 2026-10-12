@@ -4,7 +4,9 @@ import avatar3 from '@/assets/avatars/avatar-3.jpg'
 import avatar4 from '@/assets/avatars/avatar-4.jpg'
 
 // Referanslar sayfası ve Anasayfa'daki alıntı şeridinin ortak veri kaynağı.
-export const testimonials = [
+import { testimonialsEn } from '@/content/en/testimonials'
+
+const testimonialsTr = [
   {
     quote:
       'Kredi skorlama modellerimizi kurmak haftalar sürüyordu; Convex ile aynı süreci dakikalar içinde, denetim izini kaybetmeden tamamlıyoruz.',
@@ -46,3 +48,10 @@ export const testimonials = [
     avatar: avatar4,
   },
 ]
+
+// İngilizce metinler (quote, title, company, sector) aynı sırayla content/en/testimonials.js'te.
+const testimonialsEnMerged = testimonialsTr.map((item, i) => ({ ...item, ...testimonialsEn[i] }))
+
+export function getTestimonials(locale) {
+  return locale === 'tr' ? testimonialsTr : testimonialsEnMerged
+}

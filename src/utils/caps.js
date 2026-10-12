@@ -1,3 +1,5 @@
+import { locale } from '@/i18n'
+
 // Büyük harfli etiketler (eyebrow vb.) için: sayfa dili Türkçe olduğundan CSS `uppercase`
 // İngilizce terimlerdeki "i" harfini de "İ" yapıyor (EXPERİMENT PİPELİNE). Metni önceden
 // büyütüyoruz: listedeki İngilizce ürün terimleri İngilizce kurala, geri kalanı Türkçe kurala göre.
@@ -43,6 +45,7 @@ const ENGLISH_TERMS = new Set([
 ])
 
 export function caps(text = '') {
+  if (locale.value !== 'tr') return text.toLocaleUpperCase('en')
   return text
     .split(/([^A-Za-zÇĞİÖŞÜçğıöşü]+)/)
     .map((w) => w.toLocaleUpperCase(ENGLISH_TERMS.has(w.toLowerCase()) ? 'en' : 'tr'))

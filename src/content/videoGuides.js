@@ -20,6 +20,7 @@ import mgModelBuildVideoUrl from '@/assets/videos/mg-model-build.webm'
 import mgPredictionVideoUrl from '@/assets/videos/mg-yeni-dataset-prediction.webm'
 import customModelVideoUrl from '@/assets/videos/custom-model.webm'
 import { iremVideoGuides } from '@/content/iremVideoGuides'
+import { videoGuidesEn } from '@/content/en/videoGuides'
 
 // Eski (ilk) video seti: dosyalar ve detay sayfaları korunur, /yardim/videolar listesinde şimdilik gösterilmez.
 const legacyVideoGuides = [
@@ -576,7 +577,23 @@ const legacyVideoGuides = [
 ]
 
 // Listede yalnız İrem sesli yeni set (akış sırasıyla) görünür; eski set `hidden: true` ile gizlenir.
-export const videoGuides = [
+// Türkçe metin bu dosyada ve iremVideoGuides.js'te; İngilizce karşılıklar slug bazında
+// content/en/videoGuides.js'te (adım metinleri `steps` ile aynı sırada). Videoların sesi Türkçedir.
+const videoGuidesTr = [
   ...iremVideoGuides,
   ...legacyVideoGuides.map((v) => ({ ...v, hidden: true })),
 ]
+
+const videoGuidesEnMerged = videoGuidesTr.map((v) => {
+  const en = videoGuidesEn[v.slug]
+  if (!en) return v
+  return {
+    ...v,
+    ...en,
+    steps: v.steps?.map((step, i) => ({ ...step, text: en.steps?.[i] ?? step.text })),
+  }
+})
+
+export function getVideoGuides(locale) {
+  return locale === 'tr' ? videoGuidesTr : videoGuidesEnMerged
+}

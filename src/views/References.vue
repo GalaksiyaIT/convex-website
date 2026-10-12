@@ -1,35 +1,56 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import { RouterLink } from 'vue-router'
 import Container from '@/components/ui/Container.vue'
 import PageHero from '@/components/sections/PageHero.vue'
 import BaseIcon from '@/components/ui/BaseIcon.vue'
 import Badge from '@/components/ui/Badge.vue'
 import CtaBanner from '@/components/sections/CtaBanner.vue'
-import { testimonials } from '@/content/testimonials'
+import { getTestimonials } from '@/content/testimonials'
+import { locale, useCopy } from '@/i18n'
 
-const sectors = ['Tümü', ...new Set(testimonials.map((t) => t.sector))]
-const activeSector = ref('Tümü')
+const c = useCopy({
+  en: {
+    eyebrow: 'References',
+    title: 'Teams that trust Convex',
+    description: 'An evidence-packed list you can skim quickly as you wrap up your decision.',
+    all: 'All',
+    readStory: 'Read the full story',
+  },
+  tr: {
+    eyebrow: 'Referanslar',
+    title: "Convex'e güvenen ekipler",
+    description: 'Karar sürecinizin sonunda hızlıca göz atabileceğiniz, kanıt yoğun bir liste.',
+    all: 'Tümü',
+    readStory: 'Tüm hikayeyi oku',
+  },
+})
+
+// Filtre değeri: null = tümü; aksi halde aktif dildeki sektör adı.
+const ALL = null
+const testimonials = computed(() => getTestimonials(locale.value))
+const sectors = computed(() => [ALL, ...new Set(testimonials.value.map((t) => t.sector))])
+const activeSector = ref(ALL)
+// Sektör adları dile göre değiştiği için dil değişince filtreyi sıfırla.
+watch(locale, () => {
+  activeSector.value = ALL
+})
 const filtered = computed(() =>
-  activeSector.value === 'Tümü'
-    ? testimonials
-    : testimonials.filter((t) => t.sector === activeSector.value),
+  activeSector.value === ALL
+    ? testimonials.value
+    : testimonials.value.filter((t) => t.sector === activeSector.value),
 )
 </script>
 
 <template>
-  <PageHero
-    eyebrow="Referanslar"
-    title="Convex'e güvenen ekipler"
-    description="Karar sürecinizin sonunda hızlıca göz atabileceğiniz, kanıt yoğun bir liste."
-  />
+  <PageHero :eyebrow="c.eyebrow" :title="c.title" :description="c.description" />
 
   <section class="py-20">
     <Container>
       <div class="flex flex-wrap gap-2">
         <button
           v-for="s in sectors"
-          :key="s"
+          :key="s ?? 'all'"
           class="rounded-full border px-4 py-1.5 text-sm font-medium transition-colors"
           :class="
             activeSector === s
@@ -38,7 +59,7 @@ const filtered = computed(() =>
           "
           @click="activeSector = s"
         >
-          {{ s }}
+          {{ s ?? c.all }}
         </button>
       </div>
 
@@ -70,7 +91,7 @@ const filtered = computed(() =>
                 :to="t.caseStudy"
                 class="inline-flex items-center gap-1 text-xs font-medium text-pink"
               >
-                Tüm hikayeyi oku
+                {{ c.readStory }}
                 <BaseIcon name="arrowRight" sizeClass="w-3 h-3" />
               </RouterLink>
             </div>

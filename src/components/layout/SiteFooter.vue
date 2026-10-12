@@ -3,6 +3,7 @@ import { RouterLink } from 'vue-router'
 import LogoMark from '@/components/ui/LogoMark.vue'
 import BaseIcon from '@/components/ui/BaseIcon.vue'
 import { productLinks, resourceLinks, helpLinks, legalLinks, companyLinks } from '@/router/nav'
+import { t } from '@/i18n'
 
 // Şirketin gerçek sosyal medya profil linki henüz belirlenmedi; uydurma bir URL
 // koymamak için ikon şimdilik tıklanamaz bir yer tutucu olarak duruyor.
@@ -16,8 +17,12 @@ const linkedinUrl = null
         <div class="col-span-2 sm:col-span-3 lg:col-span-2">
           <LogoMark sizeClass="h-7 w-auto" />
           <p class="mt-4 max-w-xs text-sm leading-relaxed text-darker-gray">
-            Kuruluşlar için AutoML ve model risk yönetimi platformu. Galaksiya tarafından
-            geliştirilir.
+            {{
+              t({
+                en: 'The AutoML and model risk management platform for enterprises. Developed by Galaksiya.',
+                tr: 'Kuruluşlar için AutoML ve model risk yönetimi platformu. Galaksiya tarafından geliştirilir.',
+              })
+            }}
           </p>
           <div class="mt-5 flex items-center gap-3">
             <a
@@ -33,7 +38,7 @@ const linkedinUrl = null
             <span
               v-else
               class="flex h-8 w-8 items-center justify-center rounded-lg border border-light-gray-border text-darker-gray/40"
-              title="LinkedIn profili eklenecek"
+              :title="t({ en: 'LinkedIn profile coming soon', tr: 'LinkedIn profili eklenecek' })"
             >
               <BaseIcon name="linkedin" sizeClass="w-4 h-4" />
             </span>
@@ -41,54 +46,62 @@ const linkedinUrl = null
         </div>
 
         <div>
-          <h3 class="text-sm font-semibold text-navy-dark">Ürün</h3>
+          <h3 class="text-sm font-semibold text-navy-dark">
+            {{ t({ en: 'Product', tr: 'Ürün' }) }}
+          </h3>
           <ul class="mt-4 space-y-3">
             <li v-for="link in productLinks" :key="link.to">
               <RouterLink :to="link.to" class="text-sm text-darker-gray hover:text-pink">
-                {{ link.label }}
+                {{ t(link.label) }}
               </RouterLink>
             </li>
             <li>
-              <RouterLink to="/cozumler" class="text-sm text-darker-gray hover:text-pink"
-                >Çözümler</RouterLink
-              >
+              <RouterLink to="/cozumler" class="text-sm text-darker-gray hover:text-pink">{{
+                t({ en: 'Solutions', tr: 'Çözümler' })
+              }}</RouterLink>
             </li>
           </ul>
         </div>
 
         <div>
-          <h3 class="text-sm font-semibold text-navy-dark">Kaynaklar</h3>
+          <h3 class="text-sm font-semibold text-navy-dark">
+            {{ t({ en: 'Resources', tr: 'Kaynaklar' }) }}
+          </h3>
           <ul class="mt-4 space-y-3">
             <li v-for="link in resourceLinks" :key="link.to">
               <RouterLink :to="link.to" class="text-sm text-darker-gray hover:text-pink">
-                {{ link.label }}
+                {{ t(link.label) }}
               </RouterLink>
             </li>
             <li>
-              <RouterLink to="/guvenlik" class="text-sm text-darker-gray hover:text-pink"
-                >Güvenlik & Uyumluluk</RouterLink
-              >
+              <RouterLink to="/guvenlik" class="text-sm text-darker-gray hover:text-pink">{{
+                t({ en: 'Security & Compliance', tr: 'Güvenlik & Uyumluluk' })
+              }}</RouterLink>
             </li>
           </ul>
         </div>
 
         <div>
-          <h3 class="text-sm font-semibold text-navy-dark">Yardım Merkezi</h3>
+          <h3 class="text-sm font-semibold text-navy-dark">
+            {{ t({ en: 'Help Center', tr: 'Yardım Merkezi' }) }}
+          </h3>
           <ul class="mt-4 space-y-3">
             <li v-for="link in helpLinks" :key="link.to">
               <RouterLink :to="link.to" class="text-sm text-darker-gray hover:text-pink">
-                {{ link.label }}
+                {{ t(link.label) }}
               </RouterLink>
             </li>
           </ul>
         </div>
 
         <div>
-          <h3 class="text-sm font-semibold text-navy-dark">Şirket</h3>
+          <h3 class="text-sm font-semibold text-navy-dark">
+            {{ t({ en: 'Company', tr: 'Şirket' }) }}
+          </h3>
           <ul class="mt-4 space-y-3">
             <li v-for="link in companyLinks" :key="link.to">
               <RouterLink :to="link.to" class="text-sm text-darker-gray hover:text-pink">
-                {{ link.label }}
+                {{ t(link.label) }}
               </RouterLink>
             </li>
           </ul>
@@ -99,12 +112,13 @@ const linkedinUrl = null
         class="mt-12 flex flex-col gap-4 border-t border-light-gray-border pt-8 sm:flex-row sm:items-center sm:justify-between"
       >
         <p class="text-xs text-darker-gray/70">
-          © {{ new Date().getFullYear() }} Galaksiya Bilişim. Tüm hakları saklıdır.
+          © {{ new Date().getFullYear() }} Galaksiya Bilişim.
+          {{ t({ en: 'All rights reserved.', tr: 'Tüm hakları saklıdır.' }) }}
         </p>
         <ul class="flex flex-wrap gap-x-6 gap-y-2">
           <li v-for="link in legalLinks" :key="link.to">
             <RouterLink :to="link.to" class="text-xs text-darker-gray/70 hover:text-pink">
-              {{ link.label }}
+              {{ t(link.label) }}
             </RouterLink>
           </li>
         </ul>

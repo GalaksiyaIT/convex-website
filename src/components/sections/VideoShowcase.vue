@@ -1,20 +1,30 @@
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import Container from '@/components/ui/Container.vue'
 import AppButton from '@/components/ui/AppButton.vue'
 import BaseIcon from '@/components/ui/BaseIcon.vue'
+import { t } from '@/i18n'
 
-defineProps({
-  title: { type: String, default: 'Agentic AI ile çalışıyoruz' },
-  description: {
-    type: String,
-    default:
-      'Convex, yapay zeka ajanlarını iş akışına nasıl kattığımızı kısa bir videoda anlatıyor.',
-  },
-  ctaLabel: { type: String, default: 'Videoyu izle' },
+const props = defineProps({
+  title: { type: String, default: undefined },
+  description: { type: String, default: undefined },
+  ctaLabel: { type: String, default: undefined },
   // Gerçek video eklendiğinde: youtube/vimeo embed linki (ör. https://www.youtube.com/embed/XXXXXXXXXXX)
   videoUrl: { type: String, default: null },
 })
+
+const titleText = computed(
+  () => props.title ?? t({ en: 'We work with agentic AI', tr: 'Agentic AI ile çalışıyoruz' }),
+)
+const descriptionText = computed(
+  () =>
+    props.description ??
+    t({
+      en: 'A short video on how Convex brings AI agents into the workflow.',
+      tr: 'Convex, yapay zeka ajanlarını iş akışına nasıl kattığımızı kısa bir videoda anlatıyor.',
+    }),
+)
+const ctaText = computed(() => props.ctaLabel ?? t({ en: 'Watch the video', tr: 'Videoyu izle' }))
 
 const open = ref(false)
 </script>
@@ -34,19 +44,19 @@ const open = ref(false)
     <Container>
       <div class="relative grid items-center gap-12 lg:grid-cols-2">
         <div>
-          <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">{{ title }}</h2>
+          <h2 class="text-3xl font-semibold tracking-tight sm:text-4xl">{{ titleText }}</h2>
           <p class="mt-4 max-w-md text-base leading-relaxed text-very-light-blue/80">
-            {{ description }}
+            {{ descriptionText }}
           </p>
           <AppButton class="mt-8" size="lg" icon="playCircle" @click="open = true">
-            {{ ctaLabel }}
+            {{ ctaText }}
           </AppButton>
         </div>
 
         <button
           type="button"
           class="group relative mx-auto flex aspect-video w-full max-w-lg items-center justify-center rounded-2xl border border-white/10 bg-white/5 backdrop-blur-sm transition-transform hover:scale-[1.02]"
-          :aria-label="ctaLabel"
+          :aria-label="ctaText"
           @click="open = true"
         >
           <span class="absolute h-20 w-20 animate-ping rounded-full bg-pink/50" />
@@ -73,7 +83,7 @@ const open = ref(false)
             class="rounded-lg px-2 py-1 text-xs text-white/70 hover:text-white"
             @click="open = false"
           >
-            Kapat
+            {{ t({ en: 'Close', tr: 'Kapat' }) }}
           </button>
         </div>
         <div class="aspect-video">
@@ -89,7 +99,9 @@ const open = ref(false)
             class="flex h-full w-full flex-col items-center justify-center gap-2 text-center text-white/70"
           >
             <BaseIcon name="playCircle" sizeClass="w-10 h-10" />
-            <p class="text-sm">Video yakında eklenecek.</p>
+            <p class="text-sm">
+              {{ t({ en: 'Video coming soon.', tr: 'Video yakında eklenecek.' }) }}
+            </p>
           </div>
         </div>
       </div>

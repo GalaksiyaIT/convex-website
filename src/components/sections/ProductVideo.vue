@@ -4,18 +4,22 @@ import { RouterLink } from 'vue-router'
 import Container from '@/components/ui/Container.vue'
 import BaseIcon from '@/components/ui/BaseIcon.vue'
 import SectionHeading from '@/components/ui/SectionHeading.vue'
-import { videoGuides } from '@/content/videoGuides'
+import { getVideoGuides } from '@/content/videoGuides'
+import { locale, t } from '@/i18n'
 
 // Ürün sayfalarında ilgili Video Eğitim'i gömer; kaynak tek: content/videoGuides.js (slug ile).
 const props = defineProps({
   slug: { type: String, required: true },
-  eyebrow: { type: String, default: 'Videoda izleyin' },
+  eyebrow: { type: String, default: undefined },
   title: { type: String, default: '' },
   description: { type: String, default: '' },
   tone: { type: String, default: 'gray' }, // gray | white
 })
 
-const guide = computed(() => videoGuides.find((v) => v.slug === props.slug))
+const guide = computed(() => getVideoGuides(locale.value).find((v) => v.slug === props.slug))
+const eyebrowText = computed(
+  () => props.eyebrow ?? t({ en: 'Watch the video', tr: 'Videoda izleyin' }),
+)
 </script>
 
 <template>
@@ -24,7 +28,7 @@ const guide = computed(() => videoGuides.find((v) => v.slug === props.slug))
       <div class="grid gap-10 lg:grid-cols-5 lg:items-center">
         <div class="lg:col-span-2">
           <SectionHeading
-            :eyebrow="eyebrow"
+            :eyebrow="eyebrowText"
             :title="title || guide.title"
             :description="description || guide.description"
           />
@@ -32,7 +36,9 @@ const guide = computed(() => videoGuides.find((v) => v.slug === props.slug))
             :to="`/yardim/videolar/${guide.slug}`"
             class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-pink"
           >
-            Adım adım yazılı anlatımı oku
+            {{
+              t({ en: 'Read the step-by-step walkthrough', tr: 'Adım adım yazılı anlatımı oku' })
+            }}
             <BaseIcon name="arrowRight" sizeClass="w-3.5 h-3.5" />
           </RouterLink>
         </div>
