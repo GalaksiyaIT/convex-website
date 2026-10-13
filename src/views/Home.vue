@@ -10,6 +10,8 @@ import LogoStrip from '@/components/sections/LogoStrip.vue'
 import TestimonialCarousel from '@/components/sections/TestimonialCarousel.vue'
 import StatBand from '@/components/sections/StatBand.vue'
 import VideoShowcase from '@/components/sections/VideoShowcase.vue'
+import agenticVideo from '@/assets/videos/motion/agentic-ai.webm'
+import agenticPoster from '@/assets/posters/motion/agentic-ai.jpg'
 import CtaBanner from '@/components/sections/CtaBanner.vue'
 import { computed, ref, onMounted } from 'vue'
 import { useCopy, locale } from '@/i18n'
@@ -36,11 +38,11 @@ onMounted(() => {
 })
 
 const moduleMeta = [
-  { icon: 'database', to: '/urun/veri-yonetimi' },
-  { icon: 'layers', to: '/urun/experiment-pipeline' },
-  { icon: 'upload', to: '/urun/ozel-modeller' },
-  { icon: 'eye', to: '/urun/model-governance' },
-  { icon: 'rocket', to: '/urun/deployment' },
+  { icon: 'database', to: '/product/data-management' },
+  { icon: 'layers', to: '/product/experiment-pipeline' },
+  { icon: 'upload', to: '/product/custom-models' },
+  { icon: 'eye', to: '/product/model-governance' },
+  { icon: 'rocket', to: '/product/deployment' },
 ]
 
 const c = useCopy({
@@ -168,7 +170,7 @@ const modules = computed(() => c.value.modules.map((text, i) => ({ ...moduleMeta
             {{ c.heroLead }}
           </p>
           <div class="mt-8">
-            <AppButton to="/iletisim" size="lg" showTrailingIcon>{{ c.heroCta }}</AppButton>
+            <AppButton to="/contact" size="lg" showTrailingIcon>{{ c.heroCta }}</AppButton>
           </div>
         </div>
 
@@ -196,7 +198,7 @@ const modules = computed(() => c.value.modules.map((text, i) => ({ ...moduleMeta
           <div class="mt-4 flex flex-wrap items-center justify-between gap-2 text-sm">
             <span class="text-darker-gray">{{ c.videoCaption }}</span>
             <RouterLink
-              to="/yardim/videolar/tanitim-filmi"
+              to="/help/videos/product-film"
               class="inline-flex items-center gap-1.5 font-medium text-pink"
             >
               {{ c.videoLink }}
@@ -236,7 +238,7 @@ const modules = computed(() => c.value.modules.map((text, i) => ({ ...moduleMeta
     </Container>
   </section>
 
-  <VideoShowcase />
+  <VideoShowcase :video-src="agenticVideo" :poster="agenticPoster" />
 
   <!-- "Hemen altında": müşteri logosu şeridi + Vaka Çalışmaları'ndan tek cümlelik alıntı.
        Rakamları önce, alıntıyı ardından göstermek daha ikna edici oluyor (bkz. H2O.ai,
@@ -262,7 +264,7 @@ const modules = computed(() => c.value.modules.map((text, i) => ({ ...moduleMeta
         :description="c.speedDescription"
       />
       <RouterLink
-        to="/cozumler"
+        to="/solutions"
         class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-pink"
       >
         {{ c.speedLink }}

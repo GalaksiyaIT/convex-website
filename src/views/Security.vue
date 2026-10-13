@@ -127,8 +127,8 @@ const topics = computed(() => c.value.topics.map((t, i) => ({ ...t, icon: topicI
     :description="c.heroDescription"
   >
     <template #actions>
-      <AppButton to="/iletisim" showTrailingIcon>{{ c.heroCta }}</AppButton>
-      <AppButton to="/iletisim" variant="secondary">{{ c.securityDocCta }}</AppButton>
+      <AppButton to="/contact" showTrailingIcon>{{ c.heroCta }}</AppButton>
+      <AppButton to="/contact" variant="secondary">{{ c.securityDocCta }}</AppButton>
     </template>
   </PageHero>
 
@@ -165,13 +165,10 @@ const topics = computed(() => c.value.topics.map((t, i) => ({ ...t, icon: topicI
         :description="c.legalDescription"
       />
       <div class="mt-6 flex flex-wrap justify-center gap-4">
-        <RouterLink
-          to="/kvkk-aydinlatma-metni"
-          class="text-sm font-medium text-pink hover:underline"
-        >
+        <RouterLink to="/kvkk-notice" class="text-sm font-medium text-pink hover:underline">
           {{ c.kvkkLink }}
         </RouterLink>
-        <RouterLink to="/gizlilik-politikasi" class="text-sm font-medium text-pink hover:underline">
+        <RouterLink to="/privacy-policy" class="text-sm font-medium text-pink hover:underline">
           {{ c.privacyLink }}
         </RouterLink>
       </div>

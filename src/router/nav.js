@@ -4,12 +4,12 @@
 
 export const productLinks = [
   {
-    to: '/urun',
+    to: '/product',
     label: { en: 'Overview', tr: 'Genel Bakış' },
     description: { en: 'End-to-end AutoML workflow', tr: 'Uçtan uca AutoML akışı' },
   },
   {
-    to: '/urun/veri-yonetimi',
+    to: '/product/data-management',
     label: { en: 'Data Management', tr: 'Veri Yönetimi' },
     description: {
       en: 'Data ingestion, merging, versioning, synthetic data',
@@ -17,7 +17,7 @@ export const productLinks = [
     },
   },
   {
-    to: '/urun/experiment-pipeline',
+    to: '/product/experiment-pipeline',
     label: { en: 'Experiment Pipeline', tr: 'Experiment Pipeline' },
     description: {
       en: 'Data preparation, feature engineering, model training',
@@ -25,7 +25,7 @@ export const productLinks = [
     },
   },
   {
-    to: '/urun/ozel-modeller',
+    to: '/product/custom-models',
     label: { en: 'Custom Models', tr: 'Özel Modeller' },
     description: {
       en: 'Import, version and retrain external models',
@@ -33,7 +33,7 @@ export const productLinks = [
     },
   },
   {
-    to: '/urun/model-governance',
+    to: '/product/model-governance',
     label: { en: 'Model Governance', tr: 'Model Governance' },
     description: {
       en: 'Interpretation, reports, audit log, scorecard',
@@ -41,7 +41,7 @@ export const productLinks = [
     },
   },
   {
-    to: '/urun/deployment',
+    to: '/product/deployment',
     label: { en: 'Deployment & Application', tr: 'Deployment & Application' },
     description: {
       en: 'Go-live, monitoring, API and batch scoring',
@@ -49,7 +49,7 @@ export const productLinks = [
     },
   },
   {
-    to: '/urun/eklentiler',
+    to: '/product/extensions',
     label: { en: 'Extensions', tr: 'Eklentiler' },
     description: {
       en: 'Data source and algorithm integrations',
@@ -60,12 +60,12 @@ export const productLinks = [
 
 export const resourceLinks = [
   {
-    to: '/referanslar',
+    to: '/references',
     label: { en: 'References', tr: 'Referanslar' },
     description: { en: 'Customer quotes', tr: 'Müşteri alıntıları' },
   },
   {
-    to: '/vaka-calismalari',
+    to: '/case-studies',
     label: { en: 'Case Studies', tr: 'Vaka Çalışmaları' },
     description: { en: 'In-depth success stories', tr: 'Detaylı başarı hikayeleri' },
   },
@@ -80,12 +80,12 @@ export const resourceLinks = [
 ]
 
 export const primaryNav = [
-  { key: 'product', to: '/urun', label: { en: 'Product', tr: 'Ürün' }, children: productLinks },
-  { key: 'solutions', to: '/cozumler', label: { en: 'Solutions', tr: 'Çözümler' } },
-  { key: 'why', to: '/neden-convex', label: { en: 'Why Convex', tr: 'Neden Convex' } },
+  { key: 'product', to: '/product', label: { en: 'Product', tr: 'Ürün' }, children: productLinks },
+  { key: 'solutions', to: '/solutions', label: { en: 'Solutions', tr: 'Çözümler' } },
+  { key: 'why', to: '/why-convex', label: { en: 'Why Convex', tr: 'Neden Convex' } },
   {
     key: 'security',
-    to: '/guvenlik',
+    to: '/security',
     label: { en: 'Security & Compliance', tr: 'Güvenlik & Uyumluluk' },
   },
   {
@@ -97,25 +97,25 @@ export const primaryNav = [
 ]
 
 export const helpLinks = [
-  { to: '/yardim', label: { en: 'Help Center', tr: 'Yardım Merkezi' } },
-  { to: '/yardim/baslangic', label: { en: 'Getting Started', tr: 'Başlangıç Kılavuzu' } },
-  { to: '/yardim/dokumantasyon', label: { en: 'Documentation', tr: 'Dokümantasyon' } },
-  { to: '/yardim/videolar', label: { en: 'Video Tutorials', tr: 'Video Eğitimler' } },
-  { to: '/yardim/surum-notlari', label: { en: 'Release Notes', tr: 'Sürüm Notları' } },
-  { to: '/yardim/destek', label: { en: 'Support Request', tr: 'Destek Talebi' } },
+  { to: '/help', label: { en: 'Help Center', tr: 'Yardım Merkezi' } },
+  { to: '/help/getting-started', label: { en: 'Getting Started', tr: 'Başlangıç Kılavuzu' } },
+  { to: '/help/documentation', label: { en: 'Documentation', tr: 'Dokümantasyon' } },
+  { to: '/help/videos', label: { en: 'Video Tutorials', tr: 'Video Eğitimler' } },
+  { to: '/help/release-notes', label: { en: 'Release Notes', tr: 'Sürüm Notları' } },
+  { to: '/help/support', label: { en: 'Support Request', tr: 'Destek Talebi' } },
 ]
 
 export const legalLinks = [
-  { to: '/gizlilik-politikasi', label: { en: 'Privacy Policy', tr: 'Gizlilik Politikası' } },
+  { to: '/privacy-policy', label: { en: 'Privacy Policy', tr: 'Gizlilik Politikası' } },
   {
-    to: '/kvkk-aydinlatma-metni',
+    to: '/kvkk-notice',
     label: { en: 'KVKK Privacy Notice', tr: 'KVKK Aydınlatma Metni' },
   },
-  { to: '/kullanim-sartlari', label: { en: 'Terms of Use', tr: 'Kullanım Şartları' } },
-  { to: '/cerez-politikasi', label: { en: 'Cookie Policy', tr: 'Çerez Politikası' } },
+  { to: '/terms-of-use', label: { en: 'Terms of Use', tr: 'Kullanım Şartları' } },
+  { to: '/cookie-policy', label: { en: 'Cookie Policy', tr: 'Çerez Politikası' } },
 ]
 
 export const companyLinks = [
-  { to: '/hakkimizda', label: { en: 'About Us', tr: 'Hakkımızda' } },
-  { to: '/iletisim', label: { en: 'Contact / Request a Demo', tr: 'İletişim / Demo Talebi' } },
+  { to: '/about', label: { en: 'About Us', tr: 'Hakkımızda' } },
+  { to: '/contact', label: { en: 'Contact / Request a Demo', tr: 'İletişim / Demo Talebi' } },
 ]

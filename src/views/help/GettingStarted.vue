@@ -4,6 +4,14 @@ import Container from '@/components/ui/Container.vue'
 import PageHero from '@/components/sections/PageHero.vue'
 import BaseIcon from '@/components/ui/BaseIcon.vue'
 import { useCopy } from '@/i18n'
+import signInImg from '@/assets/screens/getting-started/step-sign-in.webp'
+import projectImg from '@/assets/screens/getting-started/step-project.webp'
+import datasetImg from '@/assets/screens/getting-started/step-dataset.webp'
+import experimentImg from '@/assets/screens/getting-started/step-experiment.webp'
+import resultsImg from '@/assets/screens/getting-started/step-results.webp'
+
+// Her adımın altında gerçek bir Convex ekranı (stage kayıtlarından, kişi adı içermeyen kırpımlar).
+const stepImages = [signInImg, projectImg, datasetImg, experimentImg, resultsImg]
 
 const c = useCopy({
   en: {
@@ -95,9 +103,15 @@ const c = useCopy({
           >
             {{ i + 1 }}
           </span>
-          <div>
+          <div class="min-w-0 flex-1">
             <h3 class="font-semibold text-navy-dark">{{ s.title }}</h3>
             <p class="mt-1.5 text-sm leading-relaxed text-darker-gray">{{ s.description }}</p>
+            <div
+              v-if="stepImages[i]"
+              class="mt-4 max-w-xl overflow-hidden rounded-xl border border-light-gray-border bg-white shadow-sm"
+            >
+              <img :src="stepImages[i]" :alt="s.title" loading="lazy" class="block w-full" />
+            </div>
           </div>
         </li>
       </ol>
@@ -111,7 +125,7 @@ const c = useCopy({
           {{ c.moreText }}
         </p>
         <RouterLink
-          to="/yardim/dokumantasyon"
+          to="/help/documentation"
           class="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-pink"
         >
           {{ c.moreLink }}

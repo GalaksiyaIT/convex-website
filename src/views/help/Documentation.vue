@@ -66,7 +66,7 @@ const c = useCopy({
             <ul class="mt-5 divide-y divide-light-gray-border">
               <li v-for="guide in modules[active].guides" :key="guide.title">
                 <RouterLink
-                  :to="guide.video ? `/yardim/videolar/${guide.video}` : '/yardim/dokumantasyon'"
+                  :to="guide.video ? `/help/videos/${guide.video}` : '/help/documentation'"
                   class="group flex items-center justify-between gap-4 py-3.5 text-sm"
                 >
                   <span class="text-navy-dark group-hover:text-pink">{{ guide.title }}</span>
@@ -97,7 +97,7 @@ const c = useCopy({
           {{ c.yes }}
         </button>
         <RouterLink
-          to="/yardim/destek"
+          to="/help/support"
           class="rounded-lg border border-light-gray-border px-4 py-2 text-sm font-medium text-navy-dark hover:border-pink hover:text-pink"
         >
           {{ c.no }}

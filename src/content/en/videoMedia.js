@@ -1,33 +1,33 @@
 // İngilizce (Matilda, Eleven v4) sesli videolar: dosya, kapak ve adım zamanları (slug bazında).
 // Üretim: convex-test/video/ingilizce (storyboard_en.json + en_derle.sh + site_hazirla.py).
 
-import enTanitimFilmiVideo from '@/assets/videos/en/tanitim-filmi.webm'
-import enTanitimFilmiPoster from '@/assets/posters/tanitim-filmi.jpg'
-import enTanitim01VeriVideo from '@/assets/videos/en/tanitim-01-veri.webm'
-import enTanitim01VeriPoster from '@/assets/posters/en/tanitim-01-veri.jpg'
-import enPortfoyYonetimiVideo from '@/assets/videos/en/portfoy-yonetimi.webm'
-import enPortfoyYonetimiPoster from '@/assets/posters/en/portfoy-yonetimi.jpg'
-import enTanitim02DeneyVideo from '@/assets/videos/en/tanitim-02-deney.webm'
-import enTanitim02DeneyPoster from '@/assets/posters/en/tanitim-02-deney.jpg'
-import enDeneyOlusturmaVideo from '@/assets/videos/en/deney-olusturma.webm'
-import enDeneyOlusturmaPoster from '@/assets/posters/en/deney-olusturma.jpg'
-import enProblemVeVeriKesfiVideo from '@/assets/videos/en/problem-ve-veri-kesfi.webm'
-import enProblemVeVeriKesfiPoster from '@/assets/posters/en/problem-ve-veri-kesfi.jpg'
+import enTanitimFilmiVideo from '@/assets/videos/en/product-film.webm'
+import enTanitimFilmiPoster from '@/assets/posters/en/product-film.jpg'
+import enTanitim01VeriVideo from '@/assets/videos/en/intro-data.webm'
+import enTanitim01VeriPoster from '@/assets/posters/en/intro-data.jpg'
+import enPortfoyYonetimiVideo from '@/assets/videos/en/creating-a-portfolio.webm'
+import enPortfoyYonetimiPoster from '@/assets/posters/en/creating-a-portfolio.jpg'
+import enTanitim02DeneyVideo from '@/assets/videos/en/intro-experiments.webm'
+import enTanitim02DeneyPoster from '@/assets/posters/en/intro-experiments.jpg'
+import enDeneyOlusturmaVideo from '@/assets/videos/en/creating-an-experiment.webm'
+import enDeneyOlusturmaPoster from '@/assets/posters/en/creating-an-experiment.jpg'
+import enProblemVeVeriKesfiVideo from '@/assets/videos/en/problem-and-data-exploration.webm'
+import enProblemVeVeriKesfiPoster from '@/assets/posters/en/problem-and-data-exploration.jpg'
 import enOutlierDetectionVideo from '@/assets/videos/en/outlier-detection.webm'
 import enOutlierDetectionPoster from '@/assets/posters/en/outlier-detection.jpg'
-import enTanitim03OzelModellerVideo from '@/assets/videos/en/tanitim-03-ozel-modeller.webm'
-import enTanitim03OzelModellerPoster from '@/assets/posters/en/tanitim-03-ozel-modeller.jpg'
-import enTanitim04ModelYonetisimiVideo from '@/assets/videos/en/tanitim-04-model-yonetisimi.webm'
-import enTanitim04ModelYonetisimiPoster from '@/assets/posters/en/tanitim-04-model-yonetisimi.jpg'
-import enTanitim05DagitimVideo from '@/assets/videos/en/tanitim-05-dagitim.webm'
-import enTanitim05DagitimPoster from '@/assets/posters/en/tanitim-05-dagitim.jpg'
-import enTanitim06BatchVideo from '@/assets/videos/en/tanitim-06-batch.webm'
-import enTanitim06BatchPoster from '@/assets/posters/tanitim-06-batch.jpg'
-import enHizliBakisVideo from '@/assets/videos/en/hizli-bakis.webm'
-import enHizliBakisPoster from '@/assets/posters/en/hizli-bakis.jpg'
+import enTanitim03OzelModellerVideo from '@/assets/videos/en/intro-custom-models.webm'
+import enTanitim03OzelModellerPoster from '@/assets/posters/en/intro-custom-models.jpg'
+import enTanitim04ModelYonetisimiVideo from '@/assets/videos/en/intro-model-governance.webm'
+import enTanitim04ModelYonetisimiPoster from '@/assets/posters/en/intro-model-governance.jpg'
+import enTanitim05DagitimVideo from '@/assets/videos/en/intro-deployment.webm'
+import enTanitim05DagitimPoster from '@/assets/posters/en/intro-deployment.jpg'
+import enTanitim06BatchVideo from '@/assets/videos/en/intro-batch.webm'
+import enTanitim06BatchPoster from '@/assets/posters/en/intro-batch.jpg'
+import enHizliBakisVideo from '@/assets/videos/en/quick-look.webm'
+import enHizliBakisPoster from '@/assets/posters/en/quick-look.jpg'
 
 export const videoMediaEn = {
-  'tanitim-filmi': {
+  'product-film': {
     videoUrl: enTanitimFilmiVideo,
     posterUrl: enTanitimFilmiPoster,
     stepTimes: [
@@ -38,17 +38,17 @@ export const videoMediaEn = {
       401.5, 407.5, 415.0, 424.5, 433.0, 441.0,
     ],
   },
-  'tanitim-01-veri': {
+  'intro-data': {
     videoUrl: enTanitim01VeriVideo,
     posterUrl: enTanitim01VeriPoster,
     stepTimes: [0.0, 3.5, 10.5, 17.5, 25.0, 33.0, 39.0, 48.0, 57.5, 69.0, 75.0, 82.5],
   },
-  'portfoy-yonetimi': {
+  'creating-a-portfolio': {
     videoUrl: enPortfoyYonetimiVideo,
     posterUrl: enPortfoyYonetimiPoster,
     stepTimes: [0.0, 4.0, 8.5, 12.5, 17.0, 20.5, 26.0],
   },
-  'tanitim-02-deney': {
+  'intro-experiments': {
     videoUrl: enTanitim02DeneyVideo,
     posterUrl: enTanitim02DeneyPoster,
     stepTimes: [
@@ -56,12 +56,12 @@ export const videoMediaEn = {
       125.0, 132.0, 140.0,
     ],
   },
-  'deney-olusturma': {
+  'creating-an-experiment': {
     videoUrl: enDeneyOlusturmaVideo,
     posterUrl: enDeneyOlusturmaPoster,
     stepTimes: [0.0, 5.0, 8.5, 13.0, 17.5, 21.0, 26.0, 30.5],
   },
-  'problem-ve-veri-kesfi': {
+  'problem-and-data-exploration': {
     videoUrl: enProblemVeVeriKesfiVideo,
     posterUrl: enProblemVeVeriKesfiPoster,
     stepTimes: [0.0, 5.0, 10.5, 16.0, 22.0],
@@ -71,24 +71,24 @@ export const videoMediaEn = {
     posterUrl: enOutlierDetectionPoster,
     stepTimes: [0.0, 4.5, 10.0, 15.5, 20.5],
   },
-  'tanitim-03-ozel-modeller': {
+  'intro-custom-models': {
     videoUrl: enTanitim03OzelModellerVideo,
     posterUrl: enTanitim03OzelModellerPoster,
     stepTimes: [2.5, 8.0, 14.0, 21.0],
   },
-  'tanitim-04-model-yonetisimi': {
+  'intro-model-governance': {
     videoUrl: enTanitim04ModelYonetisimiVideo,
     posterUrl: enTanitim04ModelYonetisimiPoster,
     stepTimes: [
       0.0, 7.5, 17.0, 27.5, 36.5, 41.0, 45.5, 52.0, 56.0, 62.5, 68.0, 74.0, 80.0, 86.0, 96.0, 101.0,
     ],
   },
-  'tanitim-05-dagitim': {
+  'intro-deployment': {
     videoUrl: enTanitim05DagitimVideo,
     posterUrl: enTanitim05DagitimPoster,
     stepTimes: [2.5, 7.5, 13.5, 22.0, 27.0, 33.0, 40.5, 50.0],
   },
-  'tanitim-06-batch': {
+  'intro-batch': {
     videoUrl: enTanitim06BatchVideo,
     posterUrl: enTanitim06BatchPoster,
     stepTimes: [2.5, 10.5],

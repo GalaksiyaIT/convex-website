@@ -231,9 +231,16 @@ const capabilities = computed(() =>
 <template>
   <PageHero :eyebrow="c.heroEyebrow" :title="c.heroTitle" :description="c.heroDescription">
     <template #actions>
-      <AppButton to="/iletisim" showTrailingIcon>{{ c.cta }}</AppButton>
+      <AppButton to="/contact" showTrailingIcon>{{ c.cta }}</AppButton>
     </template>
   </PageHero>
+
+  <ProductVideo
+    tone="white"
+    slug="intro-model-governance"
+    :title="c.videoTitle"
+    :description="c.videoDescription"
+  />
 
   <!-- Domino Data Lab'ın Model Risk Management sayfasındaki gibi, yeteneklere
        geçmeden önce mevcut sürecin neden yetersiz kaldığını kısaca çerçeveliyoruz. -->
@@ -286,12 +293,6 @@ const capabilities = computed(() =>
       </div>
     </Container>
   </section>
-
-  <ProductVideo
-    slug="tanitim-04-model-yonetisimi"
-    :title="c.videoTitle"
-    :description="c.videoDescription"
-  />
 
   <section class="py-20">
     <Container>

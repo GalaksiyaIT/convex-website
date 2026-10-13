@@ -37,7 +37,7 @@ import { locale, t } from '@/i18n'
       </ul>
       <p>
         Haklarınızı kullanmak için
-        <RouterLink to="/iletisim" class="text-pink underline">iletişim sayfamız</RouterLink>
+        <RouterLink to="/contact" class="text-pink underline">iletişim sayfamız</RouterLink>
         üzerinden bize ulaşabilirsiniz.
       </p>
     </template>
@@ -69,7 +69,7 @@ import { locale, t } from '@/i18n'
       </ul>
       <p>
         To exercise your rights, you can reach us through our
-        <RouterLink to="/iletisim" class="text-pink underline">contact page</RouterLink>.
+        <RouterLink to="/contact" class="text-pink underline">contact page</RouterLink>.
       </p>
     </template>
   </LegalLayout>

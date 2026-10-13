@@ -24,7 +24,7 @@ import iremTanitim06BatchPoster from '@/assets/posters/tanitim-06-batch.jpg'
 
 export const iremVideoGuides = [
   {
-    slug: 'tanitim-filmi',
+    slug: 'product-film',
     title: 'Convex tanıtım filmi',
     module: 'Tanıtım',
     thumbnailLabel: 'Tanıtım Filmi',
@@ -266,7 +266,7 @@ export const iremVideoGuides = [
     ],
   },
   {
-    slug: 'tanitim-01-veri',
+    slug: 'intro-data',
     // Genel tanıtımın bölümü: Yardım Merkezi listesinde gösterilmez, ürün sayfasında gömülü.
     hidden: true,
     title: 'Veri: yükleme, birleştirme, sentetik veri ve sürümleme',
@@ -328,7 +328,7 @@ export const iremVideoGuides = [
     ],
   },
   {
-    slug: 'portfoy-yonetimi',
+    slug: 'creating-a-portfolio',
     title: 'Portföy oluşturma',
     module: 'Portföy',
     thumbnailLabel: 'Portföy',
@@ -351,7 +351,7 @@ export const iremVideoGuides = [
     ],
   },
   {
-    slug: 'tanitim-02-deney',
+    slug: 'intro-experiments',
     // Genel tanıtımın bölümü: Yardım Merkezi listesinde gösterilmez, ürün sayfasında gömülü.
     hidden: true,
     title: 'Deney: kodsuz makine öğrenmesi iş akışı',
@@ -441,7 +441,7 @@ export const iremVideoGuides = [
     ],
   },
   {
-    slug: 'deney-olusturma',
+    slug: 'creating-an-experiment',
     title: 'Deney oluşturma ve başlatma',
     module: 'Deney',
     thumbnailLabel: 'Deney Oluşturma',
@@ -449,7 +449,7 @@ export const iremVideoGuides = [
       'Projenizde yeni bir deney oluşturun, veri setini seçin ve iş akışını saniyeler içinde başlatın.',
     videoUrl: iremDeneyOlusturmaUrl,
     posterUrl: iremDeneyOlusturmaPoster,
-    next: 'problem-ve-veri-kesfi',
+    next: 'problem-and-data-exploration',
     body: [
       "Convex'te ilk deneyinizi saniyeler içinde başlatın. Projenizi açın. Deney Oluştur (Create Experiment) ile deneyinize bir ad verin. Veri setini ve sürümünü seçin.",
       'Deneyiniz oluşturuldu. Deney Kurulumunu Başlat (Start Experiment Setup) ile ortamı hazırlayın. Kısa süre içinde deney hazır. Deneyi Başlat (Start Experiment) ile iş akışı açılır.',
@@ -469,7 +469,7 @@ export const iremVideoGuides = [
     ],
   },
   {
-    slug: 'problem-ve-veri-kesfi',
+    slug: 'problem-and-data-exploration',
     title: 'Problem tanımı ve veri keşfi',
     module: 'Deney',
     thumbnailLabel: 'Problem ve Keşif',
@@ -516,7 +516,7 @@ export const iremVideoGuides = [
     ],
   },
   {
-    slug: 'tanitim-03-ozel-modeller',
+    slug: 'intro-custom-models',
     // Genel tanıtımın bölümü: Yardım Merkezi listesinde gösterilmez, ürün sayfasında gömülü.
     hidden: true,
     title: 'Özel modeller: getir, sürümle, yeniden eğit',
@@ -550,7 +550,7 @@ export const iremVideoGuides = [
     ],
   },
   {
-    slug: 'tanitim-04-model-yonetisimi',
+    slug: 'intro-model-governance',
     // Genel tanıtımın bölümü: Yardım Merkezi listesinde gösterilmez, ürün sayfasında gömülü.
     hidden: true,
     title: 'Model yönetişimi',
@@ -620,7 +620,7 @@ export const iremVideoGuides = [
     ],
   },
   {
-    slug: 'tanitim-05-dagitim',
+    slug: 'intro-deployment',
     // Genel tanıtımın bölümü: Yardım Merkezi listesinde gösterilmez, ürün sayfasında gömülü.
     hidden: true,
     title: 'Altyapı ve model dağıtımı',
@@ -668,7 +668,7 @@ export const iremVideoGuides = [
     ],
   },
   {
-    slug: 'tanitim-06-batch',
+    slug: 'intro-batch',
     // Genel tanıtımın bölümü: Yardım Merkezi listesinde gösterilmez, ürün sayfasında gömülü.
     hidden: true,
     title: 'Batch skorlama',

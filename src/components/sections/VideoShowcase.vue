@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, watch, onBeforeUnmount } from 'vue'
 import Container from '@/components/ui/Container.vue'
 import AppButton from '@/components/ui/AppButton.vue'
 import BaseIcon from '@/components/ui/BaseIcon.vue'
@@ -11,6 +11,9 @@ const props = defineProps({
   ctaLabel: { type: String, default: undefined },
   // Gerçek video eklendiğinde: youtube/vimeo embed linki (ör. https://www.youtube.com/embed/XXXXXXXXXXX)
   videoUrl: { type: String, default: null },
+  // Sitede barındırılan video dosyası (öncelikli) ve önizleme karesi.
+  videoSrc: { type: String, default: null },
+  poster: { type: String, default: null },
 })
 
 const titleText = computed(
@@ -27,6 +30,17 @@ const descriptionText = computed(
 const ctaText = computed(() => props.ctaLabel ?? t({ en: 'Watch the video', tr: 'Videoyu izle' }))
 
 const open = ref(false)
+
+// Pencere açıkken Esc ile kapanır; kapanınca video DOM'dan kalktığı için durur.
+function onKey(e) {
+  if (e.key === 'Escape') open.value = false
+}
+watch(open, (v) => {
+  if (typeof window === 'undefined') return
+  if (v) window.addEventListener('keydown', onKey)
+  else window.removeEventListener('keydown', onKey)
+})
+onBeforeUnmount(() => typeof window !== 'undefined' && window.removeEventListener('keydown', onKey))
 </script>
 
 <template>
@@ -59,6 +73,13 @@ const open = ref(false)
           :aria-label="ctaText"
           @click="open = true"
         >
+          <img
+            v-if="poster"
+            :src="poster"
+            alt=""
+            loading="lazy"
+            class="absolute inset-0 h-full w-full rounded-2xl object-cover opacity-90"
+          />
           <span class="absolute h-20 w-20 animate-ping rounded-full bg-pink/50" />
           <span
             class="relative flex h-20 w-20 items-center justify-center rounded-full bg-pink text-white shadow-lg shadow-pink/40 transition-transform group-hover:scale-110"
@@ -87,8 +108,17 @@ const open = ref(false)
           </button>
         </div>
         <div class="aspect-video">
+          <video
+            v-if="videoSrc"
+            :src="videoSrc"
+            :poster="poster"
+            class="h-full w-full"
+            controls
+            autoplay
+            playsinline
+          />
           <iframe
-            v-if="videoUrl"
+            v-else-if="videoUrl"
             :src="videoUrl"
             class="h-full w-full"
             allow="autoplay; encrypted-media; picture-in-picture"

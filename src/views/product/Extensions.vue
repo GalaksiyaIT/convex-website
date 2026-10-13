@@ -8,6 +8,9 @@ import BaseIcon from '@/components/ui/BaseIcon.vue'
 import SectionHeading from '@/components/ui/SectionHeading.vue'
 import CtaBanner from '@/components/sections/CtaBanner.vue'
 import { useCopy } from '@/i18n'
+import LoopVideo from '@/components/ui/LoopVideo.vue'
+import dataInScoresOutVideo from '@/assets/videos/motion/data-in-scores-out.webm'
+import dataInScoresOutPoster from '@/assets/posters/motion/data-in-scores-out.jpg'
 
 const groupIcons = ['database', 'cpu', 'plug']
 
@@ -102,9 +105,24 @@ const groups = computed(() => c.value.groups.map((group, i) => ({ ...group, icon
 <template>
   <PageHero :eyebrow="c.heroEyebrow" :title="c.heroTitle" :description="c.heroDescription">
     <template #actions>
-      <AppButton to="/iletisim" showTrailingIcon>{{ c.cta }}</AppButton>
+      <AppButton to="/contact" showTrailingIcon>{{ c.cta }}</AppButton>
     </template>
   </PageHero>
+
+  <!-- Claude Motion filmi: veriyi veritabanından alma → batch skorlama → REST ile anlık skor. -->
+  <section class="bg-light-gray-bg py-16">
+    <Container>
+      <div
+        class="mx-auto max-w-5xl overflow-hidden rounded-2xl border border-light-gray-border shadow-xl shadow-navy-dark/10"
+      >
+        <LoopVideo
+          :src="dataInScoresOutVideo"
+          :poster="dataInScoresOutPoster"
+          :label="c.heroTitle"
+        />
+      </div>
+    </Container>
+  </section>
 
   <section class="py-20">
     <Container>

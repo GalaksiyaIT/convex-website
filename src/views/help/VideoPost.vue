@@ -100,7 +100,7 @@ const nextGuide = computed(() => {
         <div class="py-14 sm:py-16">
           <div>
             <RouterLink
-              to="/yardim/videolar"
+              to="/help/videos"
               class="inline-flex items-center gap-1.5 text-sm font-medium text-pink"
             >
               <BaseIcon name="arrowRight" sizeClass="w-3.5 h-3.5 rotate-180" />
@@ -187,7 +187,7 @@ const nextGuide = computed(() => {
           </p>
           <RouterLink
             v-if="nextGuide"
-            :to="`/yardim/videolar/${nextGuide.slug}`"
+            :to="`/help/videos/${nextGuide.slug}`"
             class="group flex items-center justify-between gap-4 rounded-2xl border border-light-gray-border p-5 transition-colors hover:border-pink/40 hover:bg-very-light-pink"
           >
             <span>
@@ -210,7 +210,7 @@ const nextGuide = computed(() => {
       <Container narrow class="text-center">
         <h1 class="text-2xl font-semibold text-navy-dark">{{ c.notFound }}</h1>
         <RouterLink
-          to="/yardim/videolar"
+          to="/help/videos"
           class="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-pink"
         >
           {{ c.back }}

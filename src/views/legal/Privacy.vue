@@ -36,11 +36,9 @@ import { locale, t } from '@/i18n'
       <h2>İletişim</h2>
       <p>
         Gizlilik uygulamalarımızla ilgili sorularınız için
-        <RouterLink to="/iletisim" class="text-pink underline">iletişim sayfamızdan</RouterLink>
+        <RouterLink to="/contact" class="text-pink underline">iletişim sayfamızdan</RouterLink>
         bize ulaşabilirsiniz. Kişisel verilerinizin işlenmesine dair haklarınız için
-        <RouterLink to="/kvkk-aydinlatma-metni" class="text-pink underline"
-          >KVKK Aydınlatma Metni</RouterLink
-        >
+        <RouterLink to="/kvkk-notice" class="text-pink underline">KVKK Aydınlatma Metni</RouterLink>
         sayfasını inceleyebilirsiniz.
       </p>
     </template>
@@ -72,11 +70,9 @@ import { locale, t } from '@/i18n'
       <h2>Contact</h2>
       <p>
         For questions about our privacy practices, you can reach us through our
-        <RouterLink to="/iletisim" class="text-pink underline">contact page</RouterLink>. For your
+        <RouterLink to="/contact" class="text-pink underline">contact page</RouterLink>. For your
         rights regarding the processing of your personal data, please see the
-        <RouterLink to="/kvkk-aydinlatma-metni" class="text-pink underline"
-          >KVKK Privacy Notice</RouterLink
-        >
+        <RouterLink to="/kvkk-notice" class="text-pink underline">KVKK Privacy Notice</RouterLink>
         page.
       </p>
     </template>

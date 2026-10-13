@@ -43,7 +43,7 @@ const ctaText = computed(() => props.ctaLabel ?? t({ en: 'Request a Demo', tr: '
             {{ descriptionText }}
           </p>
         </div>
-        <AppButton to="/iletisim" size="lg" showTrailingIcon class="shrink-0">
+        <AppButton to="/contact" size="lg" showTrailingIcon class="shrink-0">
           {{ ctaText }}
         </AppButton>
       </div>

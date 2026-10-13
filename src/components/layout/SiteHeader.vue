@@ -80,9 +80,9 @@ function closeMobile() {
           </div>
         </div>
         <RouterLink
-          to="/yardim"
+          to="/help"
           class="whitespace-nowrap rounded-lg px-3 py-2 text-sm font-medium transition-colors"
-          :class="route.path.startsWith('/yardim') ? 'text-pink' : 'text-navy-dark hover:text-pink'"
+          :class="route.path.startsWith('/help') ? 'text-pink' : 'text-navy-dark hover:text-pink'"
         >
           {{ t({ en: 'Help Center', tr: 'Yardım Merkezi' }) }}
         </RouterLink>
@@ -97,7 +97,7 @@ function closeMobile() {
         >
           {{ t({ en: 'Go to App', tr: 'Uygulamaya Git' }) }}
         </a>
-        <AppButton to="/iletisim" size="sm" class="ml-2 whitespace-nowrap">{{
+        <AppButton to="/contact" size="sm" class="ml-2 whitespace-nowrap">{{
           t({ en: 'Request a Demo', tr: 'Demo Talep Et' })
         }}</AppButton>
       </div>
@@ -151,7 +151,7 @@ function closeMobile() {
           </div>
         </div>
         <RouterLink
-          to="/yardim"
+          to="/help"
           class="block py-2 text-sm font-semibold text-navy-dark"
           @click="closeMobile"
         >
@@ -161,7 +161,7 @@ function closeMobile() {
           <a :href="APP_URL" class="text-sm font-medium text-navy-dark">{{
             t({ en: 'Go to App', tr: 'Uygulamaya Git' })
           }}</a>
-          <AppButton to="/iletisim" @click="closeMobile">{{
+          <AppButton to="/contact" @click="closeMobile">{{
             t({ en: 'Request a Demo', tr: 'Demo Talep Et' })
           }}</AppButton>
         </div>

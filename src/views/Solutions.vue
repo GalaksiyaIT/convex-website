@@ -2,15 +2,46 @@
 import Container from '@/components/ui/Container.vue'
 import PageHero from '@/components/sections/PageHero.vue'
 import AppButton from '@/components/ui/AppButton.vue'
-import Card from '@/components/ui/Card.vue'
 import BaseIcon from '@/components/ui/BaseIcon.vue'
 import CtaBanner from '@/components/sections/CtaBanner.vue'
 import { RouterLink } from 'vue-router'
-import { computed } from 'vue'
+import { computed, onMounted, onBeforeUnmount } from 'vue'
+import predictiveVideo from '@/assets/videos/solutions/predictive-modeling.webm'
+import predictivePoster from '@/assets/posters/solutions/predictive-modeling.jpg'
+import riskVideo from '@/assets/videos/solutions/risk-and-decision-models.webm'
+import riskPoster from '@/assets/posters/solutions/risk-and-decision-models.jpg'
+import validationVideo from '@/assets/videos/solutions/model-validation.webm'
+import validationPoster from '@/assets/posters/solutions/model-validation.jpg'
 import { useCopy } from '@/i18n'
 
 const reasonIcons = ['eye', 'server', 'plug', 'workflow', 'gitBranch']
 const scenarioIcons = ['barChart', 'shield', 'eye']
+// Her senaryonun yanında Claude Motion ile üretilmiş 15 sn'lik sessiz döngü (gerçek Convex ekranları).
+const scenarioMedia = [
+  { video: predictiveVideo, poster: predictivePoster },
+  { video: riskVideo, poster: riskPoster },
+  { video: validationVideo, poster: validationPoster },
+]
+const reduceMotion =
+  typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+const videoEls = []
+// Videolar ekrana girince oynar, çıkınca durur (otomatik oynatma ertelense de görünür olunca başlar).
+onMounted(() => {
+  if (reduceMotion || typeof IntersectionObserver === 'undefined') return
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        const v = e.target
+        v.muted = true
+        if (e.isIntersecting) v.play().catch(() => {})
+        else v.pause()
+      }
+    },
+    { threshold: 0.35 },
+  )
+  for (const v of videoEls) if (v) io.observe(v)
+  onBeforeUnmount(() => io.disconnect())
+})
 
 const c = useCopy({
   en: {
@@ -192,14 +223,14 @@ const c = useCopy({
 
 const reasons = computed(() => c.value.reasons.map((r, i) => ({ ...r, icon: reasonIcons[i] })))
 const scenarios = computed(() =>
-  c.value.scenarios.map((s, i) => ({ ...s, icon: scenarioIcons[i] })),
+  c.value.scenarios.map((s, i) => ({ ...s, icon: scenarioIcons[i], ...scenarioMedia[i] })),
 )
 </script>
 
 <template>
   <PageHero :eyebrow="c.heroEyebrow" :title="c.heroTitle" :description="c.heroDescription">
     <template #actions>
-      <AppButton to="/iletisim" showTrailingIcon>{{ c.heroCta }}</AppButton>
+      <AppButton to="/contact" showTrailingIcon>{{ c.heroCta }}</AppButton>
     </template>
   </PageHero>
 
@@ -238,19 +269,10 @@ const scenarios = computed(() =>
             </p>
             <h2 class="mt-1 text-2xl font-semibold text-navy-dark">{{ s.title }}</h2>
             <p class="mt-3 text-base leading-relaxed text-darker-gray">{{ s.description }}</p>
-            <RouterLink
-              to="/vaka-calismalari"
-              class="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-pink"
-            >
-              {{ c.caseStudyLink }}
-              <BaseIcon name="arrowRight" sizeClass="w-3.5 h-3.5" />
-            </RouterLink>
-          </div>
-          <Card :class="i % 2 === 1 ? 'lg:order-1' : ''">
-            <p class="text-xs font-semibold uppercase tracking-wide text-darker-gray/60">
+            <p class="mt-6 text-xs font-semibold uppercase tracking-wide text-darker-gray/60">
               {{ c.pointsLabel }}
             </p>
-            <ul class="mt-3 space-y-3">
+            <ul class="mt-3 space-y-2.5">
               <li
                 v-for="p in s.points"
                 :key="p"
@@ -260,7 +282,32 @@ const scenarios = computed(() =>
                 {{ p }}
               </li>
             </ul>
-          </Card>
+            <RouterLink
+              to="/case-studies"
+              class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-pink"
+            >
+              {{ c.caseStudyLink }}
+              <BaseIcon name="arrowRight" sizeClass="w-3.5 h-3.5" />
+            </RouterLink>
+          </div>
+          <div
+            class="overflow-hidden rounded-2xl border border-light-gray-border bg-very-light-pink shadow-xl shadow-navy-dark/10"
+            :class="i % 2 === 1 ? 'lg:order-1' : ''"
+          >
+            <video
+              :ref="(el) => (videoEls[i] = el)"
+              :src="s.video"
+              :poster="s.poster"
+              class="aspect-video w-full"
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              :autoplay="!reduceMotion"
+              :controls="reduceMotion"
+              :aria-label="s.title"
+            />
+          </div>
         </div>
       </div>
     </Container>

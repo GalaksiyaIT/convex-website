@@ -1,7 +1,7 @@
 // English copy for the blog, keyed by slug. Non-text fields (date, relatedTo) come from
 // src/content/blogPosts.js.
 export const blogPostsEn = {
-  'automl-kredi-skorlama-tamamlar-mi': {
+  'automl-replace-or-complement-credit-scoring': {
     tag: 'AutoML',
     title: 'Will AutoML replace your credit scoring model, or complement it?',
     excerpt:
@@ -14,7 +14,7 @@ export const blogPostsEn = {
     ],
     relatedLabel: 'See champion/challenger comparison in Experiment Pipeline',
   },
-  'model-risk-yonetiminde-denetim-izi': {
+  'audit-trail-in-model-risk-management': {
     tag: 'Model Risk Management',
     title: 'Why the audit trail matters as much as accuracy in model risk management',
     excerpt:
@@ -26,7 +26,7 @@ export const blogPostsEn = {
     ],
     relatedLabel: 'See how the Model Governance module keeps the audit trail',
   },
-  'woe-binning-yeniden-bakis': {
+  'woe-binning-revisited': {
     tag: 'Feature Engineering',
     title: 'WOE/binning revisited: when is it still the best choice?',
     excerpt:
@@ -38,7 +38,7 @@ export const blogPostsEn = {
     ],
     relatedLabel: 'Explore the feature engineering steps in Experiment Pipeline',
   },
-  'kredi-risk-modellerinde-aciklanabilirlik': {
+  'explainability-in-credit-risk-models': {
     tag: 'Regulation',
     title: 'Explainability in credit risk models: what do regulators expect?',
     excerpt:

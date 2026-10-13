@@ -44,7 +44,7 @@ const c = useCopy({
       </p>
       <div class="mt-8 flex justify-center gap-4">
         <AppButton to="/">{{ c.home }}</AppButton>
-        <AppButton to="/yardim" variant="secondary">{{ c.help }}</AppButton>
+        <AppButton to="/help" variant="secondary">{{ c.help }}</AppButton>
       </div>
     </Container>
   </section>

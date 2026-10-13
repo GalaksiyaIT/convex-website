@@ -75,7 +75,7 @@ function formatDate(value) {
       </div>
       <p class="mt-10 text-center text-sm text-darker-gray/70">
         {{ c.footerBefore }}
-        <RouterLink to="/iletisim" class="font-medium text-pink hover:underline">{{
+        <RouterLink to="/contact" class="font-medium text-pink hover:underline">{{
           c.footerLink
         }}</RouterLink
         >{{ c.footerAfter }}

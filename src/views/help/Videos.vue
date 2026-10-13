@@ -67,7 +67,7 @@ onMounted(() => {
         <RouterLink
           v-for="(v, i) in videos"
           :key="v.slug"
-          :to="`/yardim/videolar/${v.slug}`"
+          :to="`/help/videos/${v.slug}`"
           class="group block"
         >
           <div

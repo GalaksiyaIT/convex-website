@@ -10,23 +10,35 @@ import SectionHeading from '@/components/ui/SectionHeading.vue'
 import CtaBanner from '@/components/sections/CtaBanner.vue'
 import ProductVideo from '@/components/sections/ProductVideo.vue'
 import { useCopy } from '@/i18n'
+import dataImg from '@/assets/screens/product/step-data.webp'
+import featuresImg from '@/assets/screens/product/step-features.webp'
+import trainingImg from '@/assets/screens/product/step-training.webp'
+import interpretImg from '@/assets/screens/product/step-interpret.webp'
+import governanceImg from '@/assets/screens/product/step-governance.webp'
+import deployImg from '@/assets/screens/product/step-deploy.webp'
 
+// Her adımın yanında gerçek bir Convex ekranı (stage kayıtlarından, kişi adı içermeyen kırpımlar).
 const stepMeta = [
-  { icon: 'upload', to: '/urun/veri-yonetimi' },
-  { icon: 'layers' },
-  { icon: 'cpu', to: '/urun/experiment-pipeline', extraTo: '/urun/ozel-modeller' },
-  { icon: 'eye' },
-  { icon: 'shield', to: '/urun/model-governance' },
-  { icon: 'rocket', to: '/urun/deployment' },
+  { icon: 'upload', to: '/product/data-management', image: dataImg },
+  { icon: 'layers', image: featuresImg },
+  {
+    icon: 'cpu',
+    to: '/product/experiment-pipeline',
+    extraTo: '/product/custom-models',
+    image: trainingImg,
+  },
+  { icon: 'eye', image: interpretImg },
+  { icon: 'shield', to: '/product/model-governance', image: governanceImg },
+  { icon: 'rocket', to: '/product/deployment', image: deployImg },
 ]
 
 const moduleMeta = [
-  { to: '/urun/veri-yonetimi', icon: 'database' },
-  { to: '/urun/experiment-pipeline', icon: 'layers' },
-  { to: '/urun/ozel-modeller', icon: 'upload' },
-  { to: '/urun/model-governance', icon: 'eye' },
-  { to: '/urun/deployment', icon: 'rocket' },
-  { to: '/urun/eklentiler', icon: 'plug' },
+  { to: '/product/data-management', icon: 'database' },
+  { to: '/product/experiment-pipeline', icon: 'layers' },
+  { to: '/product/custom-models', icon: 'upload' },
+  { to: '/product/model-governance', icon: 'eye' },
+  { to: '/product/deployment', icon: 'rocket' },
+  { to: '/product/extensions', icon: 'plug' },
 ]
 
 const c = useCopy({
@@ -172,6 +184,7 @@ const steps = computed(() =>
     return {
       icon: meta.icon,
       to: meta.to,
+      image: meta.image,
       title: text.title,
       description: text.description,
       quote: text.quote,
@@ -188,9 +201,16 @@ const modules = computed(() =>
 <template>
   <PageHero :eyebrow="c.heroEyebrow" :title="c.heroTitle" :description="c.heroDescription">
     <template #actions>
-      <AppButton to="/iletisim" showTrailingIcon>{{ c.cta }}</AppButton>
+      <AppButton to="/contact" showTrailingIcon>{{ c.cta }}</AppButton>
     </template>
   </PageHero>
+
+  <ProductVideo
+    slug="product-film"
+    :eyebrow="c.videoEyebrow"
+    :title="c.videoTitle"
+    :description="c.videoDescription"
+  />
 
   <section class="py-20">
     <Container>
@@ -231,17 +251,21 @@ const modules = computed(() =>
               <BaseIcon name="arrowRight" sizeClass="w-3.5 h-3.5" />
             </RouterLink>
           </div>
+          <div
+            v-if="step.image"
+            class="overflow-hidden rounded-xl border border-light-gray-border bg-white shadow-sm sm:w-72 sm:flex-shrink-0"
+          >
+            <img
+              :src="step.image"
+              :alt="step.title"
+              loading="lazy"
+              class="aspect-[16/10] w-full object-cover object-left-top"
+            />
+          </div>
         </div>
       </div>
     </Container>
   </section>
-
-  <ProductVideo
-    slug="tanitim-filmi"
-    :eyebrow="c.videoEyebrow"
-    :title="c.videoTitle"
-    :description="c.videoDescription"
-  />
 
   <section class="py-20">
     <Container>

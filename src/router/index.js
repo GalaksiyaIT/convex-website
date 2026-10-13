@@ -44,6 +44,54 @@ const DEFAULT_DESCRIPTION = {
   tr: "Convex; model geliştirme, risk modelleme ve model governance'ı tek platformda birleştiren AutoML platformudur.",
 }
 
+// Türkçe adresler -> İngilizce adresler (2026-10-13). Yönlendirme rotaları aşağıda.
+const LEGACY_PATHS = {
+  '/urun/veri-yonetimi': '/product/data-management',
+  '/urun/experiment-pipeline': '/product/experiment-pipeline',
+  '/urun/ozel-modeller': '/product/custom-models',
+  '/urun/model-governance': '/product/model-governance',
+  '/urun/deployment': '/product/deployment',
+  '/urun/eklentiler': '/product/extensions',
+  '/product/integrations': '/product/extensions',
+  '/urun': '/product',
+  '/cozumler': '/solutions',
+  '/neden-convex': '/why-convex',
+  '/guvenlik': '/security',
+  '/referanslar': '/references',
+  '/vaka-calismalari': '/case-studies',
+  '/hakkimizda': '/about',
+  '/iletisim/tesekkur': '/contact/thank-you',
+  '/iletisim': '/contact',
+  '/yardim/baslangic': '/help/getting-started',
+  '/yardim/dokumantasyon': '/help/documentation',
+  '/yardim/videolar': '/help/videos',
+  '/yardim/surum-notlari': '/help/release-notes',
+  '/yardim/destek': '/help/support',
+  '/yardim': '/help',
+  '/gizlilik-politikasi': '/privacy-policy',
+  '/kvkk-aydinlatma-metni': '/kvkk-notice',
+  '/kullanim-sartlari': '/terms-of-use',
+  '/cerez-politikasi': '/cookie-policy',
+}
+const LEGACY_VIDEO = {
+  'tanitim-filmi': 'product-film',
+  'tanitim-01-veri': 'intro-data',
+  'portfoy-yonetimi': 'creating-a-portfolio',
+  'tanitim-02-deney': 'intro-experiments',
+  'deney-olusturma': 'creating-an-experiment',
+  'problem-ve-veri-kesfi': 'problem-and-data-exploration',
+  'tanitim-03-ozel-modeller': 'intro-custom-models',
+  'tanitim-04-model-yonetisimi': 'intro-model-governance',
+  'tanitim-05-dagitim': 'intro-deployment',
+  'tanitim-06-batch': 'intro-batch',
+}
+const LEGACY_BLOG = {
+  'automl-kredi-skorlama-tamamlar-mi': 'automl-replace-or-complement-credit-scoring',
+  'model-risk-yonetiminde-denetim-izi': 'audit-trail-in-model-risk-management',
+  'woe-binning-yeniden-bakis': 'woe-binning-revisited',
+  'kredi-risk-modellerinde-aciklanabilirlik': 'explainability-in-credit-risk-models',
+}
+
 const router = createRouter({
   history: createWebHistory(),
   scrollBehavior(to, from, savedPosition) {
@@ -51,6 +99,16 @@ const router = createRouter({
     return { top: 0 }
   },
   routes: [
+    // Eski Türkçe adresler İngilizce adreslere yönlenir (paylaşılmış bağlantılar kırılmasın).
+    ...Object.entries(LEGACY_PATHS).map(([path, redirect]) => ({ path, redirect })),
+    ...Object.entries(LEGACY_BLOG).map(([slug, to]) => ({
+      path: `/blog/${slug}`,
+      redirect: `/blog/${to}`,
+    })),
+    {
+      path: '/yardim/videolar/:slug',
+      redirect: (to) => `/help/videos/${LEGACY_VIDEO[to.params.slug] ?? to.params.slug}`,
+    },
     {
       path: '/',
       name: 'home',
@@ -62,7 +120,7 @@ const router = createRouter({
     },
 
     {
-      path: '/urun',
+      path: '/product',
       name: 'product',
       component: Product,
       meta: {
@@ -74,7 +132,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/urun/veri-yonetimi',
+      path: '/product/data-management',
       name: 'data-management',
       component: DataManagement,
       meta: {
@@ -86,7 +144,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/urun/experiment-pipeline',
+      path: '/product/experiment-pipeline',
       name: 'experiment-pipeline',
       component: ExperimentPipeline,
       meta: {
@@ -98,7 +156,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/urun/ozel-modeller',
+      path: '/product/custom-models',
       name: 'custom-models',
       component: CustomModels,
       meta: {
@@ -110,7 +168,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/urun/model-governance',
+      path: '/product/model-governance',
       name: 'model-governance',
       component: ModelGovernance,
       meta: {
@@ -122,7 +180,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/urun/deployment',
+      path: '/product/deployment',
       name: 'deployment',
       component: Deployment,
       meta: {
@@ -134,7 +192,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/urun/eklentiler',
+      path: '/product/extensions',
       name: 'extensions',
       component: Extensions,
       meta: {
@@ -147,7 +205,7 @@ const router = createRouter({
     },
 
     {
-      path: '/cozumler',
+      path: '/solutions',
       name: 'solutions',
       component: Solutions,
       meta: {
@@ -159,7 +217,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/neden-convex',
+      path: '/why-convex',
       name: 'why-convex',
       component: WhyConvex,
       meta: {
@@ -171,7 +229,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/guvenlik',
+      path: '/security',
       name: 'security',
       component: Security,
       meta: {
@@ -205,7 +263,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/referanslar',
+      path: '/references',
       name: 'references',
       component: References,
       meta: {
@@ -217,7 +275,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/vaka-calismalari',
+      path: '/case-studies',
       name: 'case-studies',
       component: CaseStudies,
       meta: {
@@ -229,7 +287,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/hakkimizda',
+      path: '/about',
       name: 'about',
       component: About,
       meta: {
@@ -241,7 +299,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/iletisim',
+      path: '/contact',
       name: 'contact',
       component: Contact,
       meta: {
@@ -253,7 +311,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/iletisim/tesekkur',
+      path: '/contact/thank-you',
       name: 'contact-thank-you',
       component: ContactThankYou,
       meta: {
@@ -266,7 +324,7 @@ const router = createRouter({
     },
 
     {
-      path: '/yardim',
+      path: '/help',
       name: 'help',
       component: Help,
       meta: {
@@ -278,7 +336,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/yardim/baslangic',
+      path: '/help/getting-started',
       name: 'help-getting-started',
       component: GettingStarted,
       meta: {
@@ -290,7 +348,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/yardim/dokumantasyon',
+      path: '/help/documentation',
       name: 'help-docs',
       component: Documentation,
       meta: {
@@ -302,7 +360,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/yardim/videolar',
+      path: '/help/videos',
       name: 'help-videos',
       component: Videos,
       meta: {
@@ -314,7 +372,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/yardim/videolar/:slug',
+      path: '/help/videos/:slug',
       name: 'help-video-post',
       component: VideoPost,
       meta: {
@@ -322,7 +380,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/yardim/surum-notlari',
+      path: '/help/release-notes',
       name: 'help-release-notes',
       component: ReleaseNotes,
       meta: {
@@ -334,7 +392,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/yardim/destek',
+      path: '/help/support',
       name: 'help-support',
       component: Support,
       meta: {
@@ -344,7 +402,7 @@ const router = createRouter({
     },
 
     {
-      path: '/gizlilik-politikasi',
+      path: '/privacy-policy',
       name: 'privacy',
       component: Privacy,
       meta: {
@@ -356,7 +414,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/kvkk-aydinlatma-metni',
+      path: '/kvkk-notice',
       name: 'kvkk',
       component: Kvkk,
       meta: {
@@ -368,7 +426,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/kullanim-sartlari',
+      path: '/terms-of-use',
       name: 'terms',
       component: Terms,
       meta: {
@@ -380,7 +438,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/cerez-politikasi',
+      path: '/cookie-policy',
       name: 'cookies',
       component: Cookies,
       meta: {

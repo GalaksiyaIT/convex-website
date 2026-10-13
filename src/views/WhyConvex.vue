@@ -9,6 +9,9 @@ import SectionHeading from '@/components/ui/SectionHeading.vue'
 import StatBand from '@/components/sections/StatBand.vue'
 import CtaBanner from '@/components/sections/CtaBanner.vue'
 import { useCopy } from '@/i18n'
+import LoopVideo from '@/components/ui/LoopVideo.vue'
+import fullVisibilityVideo from '@/assets/videos/motion/full-visibility.webm'
+import fullVisibilityPoster from '@/assets/posters/motion/full-visibility.jpg'
 
 // "Convex Go Brochure"nun "Delayed deployment = Delayed impact" slaytından (Sayfa 2) —
 // sektör araştırması rakamları, sorunu somutlaştırmak için sayfanın en üstüne konuldu.
@@ -80,13 +83,13 @@ const c = useCopy({
       {
         q: 'How does it talk to our existing systems?',
         a: 'It pulls data from your relational databases with queries and keeps it current with Sync. Live models serve scores to your decision engines and core systems via REST API, and to bulk jobs via batch. Details are on the Extensions page.',
-        to: '/urun/eklentiler',
+        to: '/product/extensions',
         linkLabel: 'Go to the Extensions page',
       },
       {
         q: 'Where does our data live?',
         a: 'On-prem or cloud: you decide where your data is stored. Encryption and KVKK details are on the Security & Compliance page.',
-        to: '/guvenlik',
+        to: '/security',
         linkLabel: 'Go to the Security & Compliance page',
       },
     ],
@@ -179,13 +182,13 @@ const c = useCopy({
       {
         q: 'Mevcut sistemlerimizle nasıl konuşur?',
         a: 'Veriyi ilişkisel veritabanlarınızdan sorguyla alır, Sync ile güncel tutar. Canlıdaki model karar motorlarınıza ve çekirdek sistemlerinize REST API ile, toplu işlerde batch ile skor sunar. Detaylar Eklentiler sayfasında.',
-        to: '/urun/eklentiler',
+        to: '/product/extensions',
         linkLabel: 'Eklentiler sayfasına git',
       },
       {
         q: 'Verimiz nerede duruyor?',
         a: 'On-prem veya cloud — verinizin nerede tutulacağına siz karar verirsiniz. Şifreleme ve KVKK detayları Güvenlik & Uyumluluk sayfasında.',
-        to: '/guvenlik',
+        to: '/security',
         linkLabel: 'Güvenlik & Uyumluluk sayfasına git',
       },
     ],
@@ -223,7 +226,7 @@ const c = useCopy({
 <template>
   <PageHero :eyebrow="c.heroEyebrow" :title="c.heroTitle" :description="c.heroDescription">
     <template #actions>
-      <AppButton to="/iletisim" showTrailingIcon>{{ c.heroCta }}</AppButton>
+      <AppButton to="/contact" showTrailingIcon>{{ c.heroCta }}</AppButton>
     </template>
   </PageHero>
 
@@ -295,28 +298,41 @@ const c = useCopy({
        raporlarından esinlenildi. Eyebrow, kaynağın kendi özellik adı olan "Full transparency"
        ile birebir eşleşsin diye "Şeffaflık" olarak seçildi. -->
   <section class="bg-navy-dark py-20 text-white">
-    <Container narrow>
-      <p class="text-xs font-semibold uppercase tracking-wide text-pink">
-        {{ c.transparencyEyebrow }}
-      </p>
-      <h2 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight">
-        {{ c.transparencyTitle }}
-      </h2>
-      <blockquote class="mt-5 border-l-2 border-pink pl-4 text-base italic text-very-light-blue/90">
-        "Ensure full visibility and explainability for auditors and regulators with ease."
-        <footer class="mt-1 text-xs not-italic text-very-light-blue/60">
-          {{ c.brochureSource }}
-        </footer>
-      </blockquote>
-      <p class="mt-4 text-base leading-relaxed text-very-light-blue/80">
-        {{ c.transparencyLead }}
-      </p>
-      <div class="mt-6 flex flex-wrap gap-2">
-        <Badge v-for="r in c.explainabilityReports" :key="r" tone="pink">{{ r }}</Badge>
+    <Container>
+      <div class="grid gap-12 lg:grid-cols-2 lg:items-center">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-wide text-pink">
+            {{ c.transparencyEyebrow }}
+          </p>
+          <h2 class="mt-2 text-2xl sm:text-3xl font-semibold tracking-tight">
+            {{ c.transparencyTitle }}
+          </h2>
+          <blockquote
+            class="mt-5 border-l-2 border-pink pl-4 text-base italic text-very-light-blue/90"
+          >
+            "Ensure full visibility and explainability for auditors and regulators with ease."
+            <footer class="mt-1 text-xs not-italic text-very-light-blue/60">
+              {{ c.brochureSource }}
+            </footer>
+          </blockquote>
+          <p class="mt-4 text-base leading-relaxed text-very-light-blue/80">
+            {{ c.transparencyLead }}
+          </p>
+          <div class="mt-6 flex flex-wrap gap-2">
+            <Badge v-for="r in c.explainabilityReports" :key="r" tone="pink">{{ r }}</Badge>
+          </div>
+          <p class="mt-6 text-sm leading-relaxed text-very-light-blue/70">
+            {{ c.transparencyBody }}
+          </p>
+        </div>
+        <div class="overflow-hidden rounded-2xl border border-white/10 shadow-2xl shadow-black/30">
+          <LoopVideo
+            :src="fullVisibilityVideo"
+            :poster="fullVisibilityPoster"
+            :label="c.transparencyTitle"
+          />
+        </div>
       </div>
-      <p class="mt-6 text-sm leading-relaxed text-very-light-blue/70">
-        {{ c.transparencyBody }}
-      </p>
     </Container>
   </section>
 

@@ -29,7 +29,7 @@ jobs:
           # Türkçe seçeneğini açmak için repo Settings → Secrets and variables → Actions →
           # Variables altında VITE_ENABLE_TURKISH=true tanımlayıp yeniden deploy edin.
           VITE_ENABLE_TURKISH: ${{ vars.VITE_ENABLE_TURKISH }}
-      # GitHub Pages alt sayfalarda (ör. /urun) yenilemede 404 döner; SPA'nın
+      # GitHub Pages alt sayfalarda (ör. /product) yenilemede 404 döner; SPA'nın
       # istemci tarafı router'ı devralsın diye aynı index.html 404.html olarak da yayınlanır.
       - run: cp dist/index.html dist/404.html
       - uses: actions/upload-pages-artifact@v3

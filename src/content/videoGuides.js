@@ -23,7 +23,7 @@ import { iremVideoGuides } from '@/content/iremVideoGuides'
 import { videoGuidesEn } from '@/content/en/videoGuides'
 import { videoMediaEn } from '@/content/en/videoMedia'
 
-// Eski (ilk) video seti: dosyalar ve detay sayfaları korunur, /yardim/videolar listesinde şimdilik gösterilmez.
+// Eski (ilk) video seti: dosyalar ve detay sayfaları korunur, /help/videos listesinde şimdilik gösterilmez.
 const legacyVideoGuides = [
   {
     slug: 'giris',

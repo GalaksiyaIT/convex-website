@@ -33,7 +33,7 @@ const eyebrowText = computed(
             :description="description || guide.description"
           />
           <RouterLink
-            :to="`/yardim/videolar/${guide.slug}`"
+            :to="`/help/videos/${guide.slug}`"
             class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-pink"
           >
             {{

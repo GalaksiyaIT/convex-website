@@ -56,7 +56,7 @@ const linkedinUrl = null
               </RouterLink>
             </li>
             <li>
-              <RouterLink to="/cozumler" class="text-sm text-darker-gray hover:text-pink">{{
+              <RouterLink to="/solutions" class="text-sm text-darker-gray hover:text-pink">{{
                 t({ en: 'Solutions', tr: 'Çözümler' })
               }}</RouterLink>
             </li>
@@ -74,7 +74,7 @@ const linkedinUrl = null
               </RouterLink>
             </li>
             <li>
-              <RouterLink to="/guvenlik" class="text-sm text-darker-gray hover:text-pink">{{
+              <RouterLink to="/security" class="text-sm text-darker-gray hover:text-pink">{{
                 t({ en: 'Security & Compliance', tr: 'Güvenlik & Uyumluluk' })
               }}</RouterLink>
             </li>

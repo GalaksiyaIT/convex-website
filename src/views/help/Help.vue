@@ -125,10 +125,10 @@ const c = useCopy({
 })
 
 const shortcutPaths = [
-  '/yardim/baslangic',
-  '/yardim/dokumantasyon',
-  '/yardim/videolar',
-  '/yardim/surum-notlari',
+  '/help/getting-started',
+  '/help/documentation',
+  '/help/videos',
+  '/help/release-notes',
 ]
 
 const shortcuts = computed(() => {
@@ -230,7 +230,7 @@ const filteredFaqs = computed(() => {
         </details>
         <p v-if="!filteredFaqs.length" class="text-sm text-darker-gray">
           {{ c.noResults }}
-          <RouterLink to="/yardim/destek" class="font-medium text-pink hover:underline">{{
+          <RouterLink to="/help/support" class="font-medium text-pink hover:underline">{{
             c.openTicket
           }}</RouterLink
           >.
@@ -243,7 +243,7 @@ const filteredFaqs = computed(() => {
     <Container narrow class="text-center">
       <p class="text-sm text-darker-gray">{{ c.notFound }}</p>
       <RouterLink
-        to="/yardim/destek"
+        to="/help/support"
         class="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-pink"
       >
         {{ c.openTicket }}

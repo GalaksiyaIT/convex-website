@@ -83,7 +83,7 @@ const BATCH = [
 ]
 
 export const iremVideoGuidesEn = {
-  'tanitim-filmi': {
+  'product-film': {
     title: 'Convex product film',
     module: 'Introduction',
     thumbnailLabel: 'Product Film',
@@ -105,7 +105,7 @@ export const iremVideoGuidesEn = {
     ],
     steps: [...DATA, ...EXPERIMENT, ...CUSTOM_MODELS, ...GOVERNANCE, ...DEPLOYMENT, ...BATCH],
   },
-  'tanitim-01-veri': {
+  'intro-data': {
     title: 'Data: import, merging, synthetic data and versioning',
     module: 'Introduction · Data',
     thumbnailLabel: '01 · Data',
@@ -114,7 +114,7 @@ export const iremVideoGuidesEn = {
     body: [p(...DATA.slice(0, 4)), p(...DATA.slice(4, 8)), p(...DATA.slice(8, 12)), TAGLINE],
     steps: [...DATA],
   },
-  'portfoy-yonetimi': {
+  'creating-a-portfolio': {
     title: 'Creating a portfolio',
     module: 'Portfolio',
     thumbnailLabel: 'Portfolio',
@@ -134,7 +134,7 @@ export const iremVideoGuidesEn = {
       'Who created it is recorded too.',
     ],
   },
-  'tanitim-02-deney': {
+  'intro-experiments': {
     title: 'Experiments: a no-code machine learning workflow',
     module: 'Introduction · Experiment',
     thumbnailLabel: '02 · Experiment',
@@ -149,7 +149,7 @@ export const iremVideoGuidesEn = {
     ],
     steps: [...EXPERIMENT],
   },
-  'deney-olusturma': {
+  'creating-an-experiment': {
     title: 'Creating and starting an experiment',
     module: 'Experiment',
     thumbnailLabel: 'Creating an Experiment',
@@ -170,7 +170,7 @@ export const iremVideoGuidesEn = {
       'Start Experiment opens the workflow.',
     ],
   },
-  'problem-ve-veri-kesfi': {
+  'problem-and-data-exploration': {
     title: 'Problem definition and data exploration',
     module: 'Experiment',
     thumbnailLabel: 'Problem and Exploration',
@@ -206,7 +206,7 @@ export const iremVideoGuidesEn = {
       'Review the results and remove the outlier records.',
     ],
   },
-  'tanitim-03-ozel-modeller': {
+  'intro-custom-models': {
     title: 'Custom models: import, version, retrain',
     module: 'Introduction · Custom Models',
     thumbnailLabel: '03 · Custom Models',
@@ -215,7 +215,7 @@ export const iremVideoGuidesEn = {
     body: [p(...CUSTOM_MODELS), TAGLINE],
     steps: [...CUSTOM_MODELS],
   },
-  'tanitim-04-model-yonetisimi': {
+  'intro-model-governance': {
     title: 'Model governance',
     module: 'Introduction · Model Governance',
     thumbnailLabel: '04 · Model Governance',
@@ -230,7 +230,7 @@ export const iremVideoGuidesEn = {
     ],
     steps: [...GOVERNANCE],
   },
-  'tanitim-05-dagitim': {
+  'intro-deployment': {
     title: 'Infrastructure and model deployment',
     module: 'Introduction · Deployment',
     thumbnailLabel: '05 · Deployment',
@@ -239,7 +239,7 @@ export const iremVideoGuidesEn = {
     body: [p(...DEPLOYMENT.slice(0, 4)), p(...DEPLOYMENT.slice(4, 8)), TAGLINE],
     steps: [...DEPLOYMENT],
   },
-  'tanitim-06-batch': {
+  'intro-batch': {
     title: 'Batch scoring',
     module: 'Introduction · Batch',
     thumbnailLabel: '06 · Batch',

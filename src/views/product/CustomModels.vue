@@ -117,9 +117,15 @@ const capabilities = computed(() =>
 <template>
   <PageHero :eyebrow="c.heroEyebrow" :title="c.heroTitle" :description="c.heroDescription">
     <template #actions>
-      <AppButton to="/iletisim" showTrailingIcon>{{ c.cta }}</AppButton>
+      <AppButton to="/contact" showTrailingIcon>{{ c.cta }}</AppButton>
     </template>
   </PageHero>
+
+  <ProductVideo
+    slug="intro-custom-models"
+    :title="c.videoTitle"
+    :description="c.videoDescription"
+  />
 
   <section class="py-20">
     <Container>
@@ -137,12 +143,6 @@ const capabilities = computed(() =>
       </div>
     </Container>
   </section>
-
-  <ProductVideo
-    slug="tanitim-03-ozel-modeller"
-    :title="c.videoTitle"
-    :description="c.videoDescription"
-  />
 
   <CtaBanner :title="c.ctaTitle" :description="c.ctaDescription" />
 </template>

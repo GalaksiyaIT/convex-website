@@ -14,7 +14,7 @@ const testimonialsTr = [
     title: 'Model Risk Yönetimi Direktörü',
     company: 'Örnek Banka',
     sector: 'Bankacılık',
-    caseStudy: '/vaka-calismalari',
+    caseStudy: '/case-studies',
     avatar: avatar1,
   },
   {
@@ -24,7 +24,7 @@ const testimonialsTr = [
     title: 'İç Denetim Yöneticisi',
     company: 'Örnek Finans',
     sector: 'Finans',
-    caseStudy: '/vaka-calismalari',
+    caseStudy: '/case-studies',
     avatar: avatar2,
   },
   {
@@ -34,7 +34,7 @@ const testimonialsTr = [
     title: 'Veri Bilimi Ekip Lideri',
     company: 'Örnek Katılım Bankası',
     sector: 'Bankacılık',
-    caseStudy: '/vaka-calismalari',
+    caseStudy: '/case-studies',
     avatar: avatar3,
   },
   {
@@ -44,7 +44,7 @@ const testimonialsTr = [
     title: 'Bilgi Teknolojileri Direktörü',
     company: 'Örnek Faktoring',
     sector: 'Finans',
-    caseStudy: '/vaka-calismalari',
+    caseStudy: '/case-studies',
     avatar: avatar4,
   },
 ]
