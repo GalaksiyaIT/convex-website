@@ -78,13 +78,23 @@ onBeforeUnmount(() => typeof window !== 'undefined' && window.removeEventListene
             :src="poster"
             alt=""
             loading="lazy"
-            class="absolute inset-0 h-full w-full rounded-2xl object-cover opacity-90"
+            class="absolute inset-0 h-full w-full rounded-2xl object-cover"
           />
-          <span class="absolute h-20 w-20 animate-ping rounded-full bg-pink/50" />
+          <!-- Kapak varken oynat düğmesi kapaktaki başlığın üstüne binmesin diye sağ alt köşede. -->
           <span
-            class="relative flex h-20 w-20 items-center justify-center rounded-full bg-pink text-white shadow-lg shadow-pink/40 transition-transform group-hover:scale-110"
+            class="absolute flex items-center justify-center"
+            :class="poster ? 'bottom-4 right-4' : ''"
           >
-            <BaseIcon name="playCircle" sizeClass="w-10 h-10" />
+            <span
+              class="absolute animate-ping rounded-full bg-pink/50"
+              :class="poster ? 'h-14 w-14' : 'h-20 w-20'"
+            />
+            <span
+              class="relative flex items-center justify-center rounded-full bg-pink text-white shadow-lg shadow-pink/40 transition-transform group-hover:scale-110"
+              :class="poster ? 'h-14 w-14' : 'h-20 w-20'"
+            >
+              <BaseIcon name="playCircle" :sizeClass="poster ? 'w-7 h-7' : 'w-10 h-10'" />
+            </span>
           </span>
         </button>
       </div>
