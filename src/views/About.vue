@@ -6,6 +6,7 @@ import Card from '@/components/ui/Card.vue'
 import BaseIcon from '@/components/ui/BaseIcon.vue'
 import SectionHeading from '@/components/ui/SectionHeading.vue'
 import CtaBanner from '@/components/sections/CtaBanner.vue'
+import NeuralNetworkAnimation from '@/components/ui/NeuralNetworkAnimation.vue'
 import { useCopy } from '@/i18n'
 
 const c = useCopy({
@@ -15,6 +16,7 @@ const c = useCopy({
     description:
       'Convex is Galaksiya’s AutoML and model risk management product for regulated, data-intensive industries.',
     whoTitle: 'Who we are',
+    networkCaption: 'People, products and customers: one connected network.',
     whoP1:
       'Galaksiya takes its name from the way every star, planet and cell in the universe connects to form a single whole. The company sees its people, products and customers the same way:',
     whoP2:
@@ -49,6 +51,7 @@ const c = useCopy({
     description:
       "Convex, Galaksiya'nın regüle ve veri yoğun sektörlere yönelik AutoML ve model risk yönetimi ürünüdür.",
     whoTitle: 'Kim olduğumuz',
+    networkCaption: 'Çalışanlar, ürünler ve müşteriler: tek bir ağ.',
     whoP1:
       'Galaksiya adını, evrendeki her yıldızın, gezegenin ve hücrenin birbirine bağlanarak tek bir bütün oluşturmasından alır. Şirket de çalışanlarını, ürünlerini ve müşterilerini aynı şekilde görür:',
     whoP2:
@@ -87,23 +90,41 @@ const values = computed(() => c.value.values.map((v, i) => ({ ...v, icon: valueI
   <PageHero :eyebrow="c.eyebrow" :title="c.title" :description="c.description" />
 
   <section class="py-20">
-    <Container narrow>
-      <SectionHeading :title="c.whoTitle" />
-      <p class="mt-4 text-base leading-relaxed text-darker-gray">
-        {{ c.whoP1 }}
-      </p>
-      <blockquote
-        class="mt-5 border-l-2 border-pink pl-4 text-base italic leading-relaxed text-darker-gray"
-      >
-        "we position all our employees, products, solutions, and customers as members of a network"
-        <footer class="mt-1 text-xs not-italic text-darker-gray/60">— Galaksiya, "About Us"</footer>
-      </blockquote>
-      <p class="mt-5 text-base leading-relaxed text-darker-gray">
-        {{ c.whoP2 }}
-      </p>
-      <p class="mt-4 text-base leading-relaxed text-darker-gray">
-        {{ c.whoP3 }}
-      </p>
+    <Container>
+      <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,26rem)] lg:items-center">
+        <div>
+          <SectionHeading :title="c.whoTitle" />
+          <p class="mt-4 text-base leading-relaxed text-darker-gray">
+            {{ c.whoP1 }}
+          </p>
+          <blockquote
+            class="mt-5 border-l-2 border-pink pl-4 text-base italic leading-relaxed text-darker-gray"
+          >
+            "we position all our employees, products, solutions, and customers as members of a
+            network"
+            <footer class="mt-1 text-xs not-italic text-darker-gray/60">
+              — Galaksiya, "About Us"
+            </footer>
+          </blockquote>
+          <p class="mt-5 text-base leading-relaxed text-darker-gray">
+            {{ c.whoP2 }}
+          </p>
+          <p class="mt-4 text-base leading-relaxed text-darker-gray">
+            {{ c.whoP3 }}
+          </p>
+        </div>
+        <!-- "Ağ" metaforunun görseli: Convex'in eğitim ekranındaki dal animasyonu. -->
+        <figure
+          class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-navy-dark via-navy-dark to-purple p-8 text-center shadow-xl shadow-navy-dark/10"
+        >
+          <div class="flex justify-center">
+            <NeuralNetworkAnimation :size="300" :show-progress="false" />
+          </div>
+          <figcaption class="mt-4 text-sm font-medium text-white/85">
+            {{ c.networkCaption }}
+          </figcaption>
+        </figure>
+      </div>
     </Container>
   </section>
 

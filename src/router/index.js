@@ -1,5 +1,5 @@
 import { watch } from 'vue'
-import { createRouter, createWebHistory } from 'vue-router'
+import { createMemoryHistory, createRouter, createWebHistory } from 'vue-router'
 import { getBlogPosts } from '@/content/blogPosts'
 import { getVideoGuides } from '@/content/videoGuides'
 import { locale, t } from '@/i18n'
@@ -92,8 +92,10 @@ const LEGACY_BLOG = {
   'kredi-risk-modellerinde-aciklanabilirlik': 'explainability-in-credit-risk-models',
 }
 
+// Tarayıcı dışında (build sonrası sayfa başlıklarını üreten scripts/prerender-meta.mjs)
+// bellek geçmişi kullanılır.
 const router = createRouter({
-  history: createWebHistory(),
+  history: typeof window !== 'undefined' ? createWebHistory() : createMemoryHistory(),
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) return savedPosition
     return { top: 0 }
@@ -472,7 +474,8 @@ function setMetaTag(name, content) {
   tag.setAttribute('content', content)
 }
 
-function applyRouteMeta(to) {
+// Sayfanın başlığı ve açıklaması; build sonrası statik HTML'ler de bunu kullanır.
+export function getRouteMeta(to) {
   let title = t(to.meta?.title)
   let description = t(to.meta?.description ?? DEFAULT_DESCRIPTION)
 
@@ -488,7 +491,12 @@ function applyRouteMeta(to) {
     description = guide?.description ?? t(DEFAULT_DESCRIPTION)
   }
 
-  document.title = title ? `${title} · ${SITE_NAME}` : SITE_NAME
+  return { title: title ? `${title} · ${SITE_NAME}` : SITE_NAME, description }
+}
+
+function applyRouteMeta(to) {
+  const { title, description } = getRouteMeta(to)
+  document.title = title
   setMetaTag('description', description)
 }
 

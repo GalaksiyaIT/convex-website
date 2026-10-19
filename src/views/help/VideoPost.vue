@@ -6,6 +6,7 @@ import Badge from '@/components/ui/Badge.vue'
 import BaseIcon from '@/components/ui/BaseIcon.vue'
 import CtaBanner from '@/components/sections/CtaBanner.vue'
 import { getVideoGuides } from '@/content/videoGuides'
+import { videoMediaEn } from '@/content/en/videoMedia'
 import { locale, useCopy } from '@/i18n'
 
 const route = useRoute()
@@ -34,6 +35,10 @@ const c = useCopy({
     notFound: 'Video bulunamadı',
   },
 })
+// Türkçe seslendirme notu yalnız İngilizce sesli kaydı olmayan (eski) videolarda görünür.
+const showNarrationNote = computed(
+  () => !!c.value.narrationNote && !videoMediaEn[guide.value?.slug],
+)
 const duration = ref(guide.value?.duration ?? null)
 const videoEl = ref(null)
 const currentTime = ref(0)
@@ -84,10 +89,12 @@ watch(
 
 // Sıradaki video: `next` alanı (seri) varsa o, yoksa listede görünen sıradaki video.
 // `comingNext`: serinin henüz yayımlanmamış sıradaki bölümü (yalnız yazı).
+// Bölüm filmleri (`chapter`) listede gizli ama kendi `next` zinciriyle birbirine bağlı.
 const nextGuide = computed(() => {
   const g = guide.value
-  if (!g || g.hidden) return null
+  if (!g || (g.hidden && !g.chapter)) return null
   if (g.next) return videoGuides.value.find((v) => v.slug === g.next) ?? null
+  if (g.hidden) return null
   const visible = videoGuides.value.filter((v) => !v.hidden)
   return visible[visible.findIndex((v) => v.slug === g.slug) + 1] ?? null
 })
@@ -139,7 +146,7 @@ const nextGuide = computed(() => {
               @timeupdate="currentTime = $event.target.currentTime"
             />
           </div>
-          <p v-if="c.narrationNote" class="mt-3 text-xs italic text-darker-gray/70">
+          <p v-if="showNarrationNote" class="mt-3 text-xs italic text-darker-gray/70">
             {{ c.narrationNote }}
           </p>
 

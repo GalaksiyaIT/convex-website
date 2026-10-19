@@ -13,29 +13,32 @@ import VideoShowcase from '@/components/sections/VideoShowcase.vue'
 import agenticVideo from '@/assets/videos/motion/agentic-ai.webm'
 import agenticPoster from '@/assets/posters/motion/agentic-ai.jpg'
 import CtaBanner from '@/components/sections/CtaBanner.vue'
-import { computed, ref, onMounted } from 'vue'
+import { computed, ref } from 'vue'
 import { useCopy, locale } from '@/i18n'
 import hizliBakisTrUrl from '@/assets/videos/irem/hizli-bakis.webm'
 import hizliBakisTrPoster from '@/assets/posters/hizli-bakis.jpg'
 import { quickLookEn } from '@/content/en/videoMedia'
+import heroLayers from '@/assets/screens/hero-layers.webp'
 
-const heroVideo = ref(null)
-// Hızlı bakış döngüsü dile göre: İngilizce ekran yazılı sürüm ya da Türkçe.
+// Hero görseli: gerçek ekranlardan katmanlı kompozisyon (okunur boyutta). Hızlı bakış
+// döngüsü (36 sn) görselin üstündeki oynat düğmesiyle bir pencerede açılır; <dialog>
+// odak yönetimini ve Esc ile kapanmayı tarayıcıya bırakır.
+const tourDialog = ref(null)
+const tourVideo = ref(null)
 const hizliBakisUrl = computed(() =>
   locale.value === 'tr' ? hizliBakisTrUrl : quickLookEn.videoUrl,
 )
 const hizliBakisPoster = computed(() =>
   locale.value === 'tr' ? hizliBakisTrPoster : quickLookEn.posterUrl,
 )
-const reduceMotion =
-  typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
 
-onMounted(() => {
-  const v = heroVideo.value
-  if (!v) return
-  v.muted = true // autoplay için tarayıcılar sessiz olmasını şart koşar
-  if (!reduceMotion) v.play().catch(() => {})
-})
+function openTour() {
+  tourDialog.value?.showModal()
+  tourVideo.value?.play().catch(() => {})
+}
+function onTourClose() {
+  tourVideo.value?.pause()
+}
 
 const moduleMeta = [
   { icon: 'database', to: '/product/data-management' },
@@ -83,7 +86,10 @@ const c = useCopy({
     heroCta: 'Request a Demo',
     videoLabel:
       'A quick look at Convex: data joining, experiment, training, validation, deployment and monitoring screens',
-    videoCaption: 'A quick tour of the product',
+    tourButton: 'Watch the 36-second tour',
+    heroImageAlt:
+      'Convex screens: a Model Report with ROC and PRC AUC scores, model training progress and a Validation Report stability table',
+    closeLabel: 'Close',
     videoLink: 'Watch the full product film (7 min)',
     flowEyebrow: 'One platform, one flow',
     flowTitle: 'From data to production in minutes',
@@ -132,7 +138,10 @@ const c = useCopy({
     heroCta: 'Demo Talep Et',
     videoLabel:
       "Convex'e hızlı bakış: veri birleştirme, deney, eğitim, doğrulama, dağıtım ve izleme ekranları",
-    videoCaption: 'Ürün ekranlarından kısa bir tur',
+    tourButton: '36 saniyelik turu izle',
+    heroImageAlt:
+      'Convex ekranları: ROC ve PRC AUC skorlarıyla Model Report, model eğitim ilerlemesi ve Validation Report stabilite tablosu',
+    closeLabel: 'Kapat',
     videoLink: 'Tam tanıtım filmini izle (7 dk)',
     flowEyebrow: 'Tek platformda tek akış',
     flowTitle: 'Veriden canlıya, dakikalar içinde',
@@ -160,7 +169,9 @@ const modules = computed(() => c.value.modules.map((text, i) => ({ ...moduleMeta
       class="pointer-events-none absolute top-40 -left-24 h-72 w-72 rounded-full bg-very-light-blue blur-3xl"
     />
     <Container>
-      <div class="relative grid gap-12 py-16 sm:py-24 lg:grid-cols-2 lg:items-center">
+      <div
+        class="relative grid gap-12 py-16 sm:py-24 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-center"
+      >
         <div>
           <Eyebrow>{{ c.heroEyebrow }}</Eyebrow>
           <h1 class="mt-5 text-4xl sm:text-5xl font-semibold tracking-tight text-navy-dark">
@@ -174,29 +185,26 @@ const modules = computed(() => c.value.modules.map((text, i) => ({ ...moduleMeta
           </div>
         </div>
 
-        <!-- Hızlı bakış: gerçek ürün ekranlarından 36 sn'lik sessiz döngü (tanıtım filmi
-             çekimlerinden; kişi adı/token görünen kareler çıkarıldı). Hareketi azaltma tercihi
-             olanlarda otomatik oynatılmaz, kapak + oynatıcı kontrolleri gösterilir. -->
+        <!-- Gerçek ekranlardan katmanlı görsel: Model Report, eğitim ilerlemesi ve
+             Validation Report (kişi adı/token içermeyen kareler). -->
         <div class="relative">
-          <div
-            class="overflow-hidden rounded-2xl border border-light-gray-border bg-navy-dark shadow-2xl shadow-navy-dark/10"
-          >
-            <video
-              ref="heroVideo"
-              :src="hizliBakisUrl"
-              :poster="hizliBakisPoster"
-              class="aspect-video w-full"
-              muted
-              loop
-              playsinline
-              preload="metadata"
-              :controls="reduceMotion"
-              :autoplay="!reduceMotion"
-              :aria-label="c.videoLabel"
-            />
-          </div>
+          <img
+            :src="heroLayers"
+            :alt="c.heroImageAlt"
+            width="1200"
+            height="680"
+            class="w-full lg:-mr-8 lg:w-[calc(100%+2rem)]"
+            fetchpriority="high"
+          />
           <div class="mt-4 flex flex-wrap items-center justify-between gap-2 text-sm">
-            <span class="text-darker-gray">{{ c.videoCaption }}</span>
+            <button
+              type="button"
+              class="inline-flex items-center gap-2 rounded-full bg-button-pink py-2 pl-3 pr-4 font-medium text-white shadow-sm shadow-pink/20 transition-colors hover:bg-pink"
+              @click="openTour"
+            >
+              <BaseIcon name="playCircle" sizeClass="w-4 h-4" />
+              {{ c.tourButton }}
+            </button>
             <RouterLink
               to="/help/videos/product-film"
               class="inline-flex items-center gap-1.5 font-medium text-pink"
@@ -209,6 +217,31 @@ const modules = computed(() => c.value.modules.map((text, i) => ({ ...moduleMeta
       </div>
     </Container>
   </section>
+
+  <dialog
+    ref="tourDialog"
+    class="m-auto w-[min(92vw,1100px)] rounded-2xl bg-navy-dark p-0 backdrop:bg-navy-dark/80"
+    :aria-label="c.videoLabel"
+    @close="onTourClose"
+  >
+    <form method="dialog" class="flex justify-end p-2">
+      <button class="rounded-lg p-2 text-white/80 hover:text-white" :aria-label="c.closeLabel">
+        <BaseIcon name="close" sizeClass="w-5 h-5" />
+      </button>
+    </form>
+    <video
+      ref="tourVideo"
+      :src="hizliBakisUrl"
+      :poster="hizliBakisPoster"
+      class="aspect-video w-full"
+      controls
+      loop
+      muted
+      playsinline
+      preload="none"
+      :aria-label="c.videoLabel"
+    />
+  </dialog>
 
   <!-- Üç modül özeti — site planında hero içeriğinin bir parçası olarak tarif edilir. -->
   <section class="py-20">

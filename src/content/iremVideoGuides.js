@@ -269,6 +269,8 @@ export const iremVideoGuides = [
     slug: 'intro-data',
     // Genel tanıtımın bölümü: Yardım Merkezi listesinde gösterilmez, ürün sayfasında gömülü.
     hidden: true,
+    chapter: true,
+    next: 'intro-experiments',
     title: 'Veri: yükleme, birleştirme, sentetik veri ve sürümleme',
     module: 'Tanıtım · Veri',
     thumbnailLabel: '01 · Veri',
@@ -354,6 +356,8 @@ export const iremVideoGuides = [
     slug: 'intro-experiments',
     // Genel tanıtımın bölümü: Yardım Merkezi listesinde gösterilmez, ürün sayfasında gömülü.
     hidden: true,
+    chapter: true,
+    next: 'intro-custom-models',
     title: 'Deney: kodsuz makine öğrenmesi iş akışı',
     module: 'Tanıtım · Deney',
     thumbnailLabel: '02 · Deney',
@@ -519,6 +523,8 @@ export const iremVideoGuides = [
     slug: 'intro-custom-models',
     // Genel tanıtımın bölümü: Yardım Merkezi listesinde gösterilmez, ürün sayfasında gömülü.
     hidden: true,
+    chapter: true,
+    next: 'intro-model-governance',
     title: 'Özel modeller: getir, sürümle, yeniden eğit',
     module: 'Tanıtım · Özel Modeller',
     thumbnailLabel: '03 · Özel Modeller',
@@ -553,6 +559,8 @@ export const iremVideoGuides = [
     slug: 'intro-model-governance',
     // Genel tanıtımın bölümü: Yardım Merkezi listesinde gösterilmez, ürün sayfasında gömülü.
     hidden: true,
+    chapter: true,
+    next: 'intro-deployment',
     title: 'Model yönetişimi',
     module: 'Tanıtım · Model Yönetişimi',
     thumbnailLabel: '04 · Model Yönetişimi',
@@ -623,6 +631,8 @@ export const iremVideoGuides = [
     slug: 'intro-deployment',
     // Genel tanıtımın bölümü: Yardım Merkezi listesinde gösterilmez, ürün sayfasında gömülü.
     hidden: true,
+    chapter: true,
+    next: 'intro-batch',
     title: 'Altyapı ve model dağıtımı',
     module: 'Tanıtım · Dağıtım',
     thumbnailLabel: '05 · Dağıtım',
@@ -671,6 +681,7 @@ export const iremVideoGuides = [
     slug: 'intro-batch',
     // Genel tanıtımın bölümü: Yardım Merkezi listesinde gösterilmez, ürün sayfasında gömülü.
     hidden: true,
+    chapter: true,
     title: 'Batch skorlama',
     module: 'Tanıtım · Batch',
     thumbnailLabel: '06 · Batch',

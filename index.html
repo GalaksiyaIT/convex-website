@@ -10,10 +10,9 @@
       content="Convex is an AutoML platform that unifies model development, governance and auditing on a single platform, from data preparation to deployment and monitoring."
     />
 
-    <!-- Open Graph / Twitter — statik varsayılanlar; her rota kendi <title> ve
-         description'ını src/router/index.js'teki afterEach hook'uyla ayarlıyor,
-         ancak bu site SSR/prerender kullanmadığından paylaşım kartlarında (link
-         önizlemesi) hâlâ bu varsayılanlar görünür. -->
+    <!-- Open Graph / Twitter — varsayılanlar. Build sonrası scripts/prerender-meta.mjs
+         sitemap'teki her sayfa için başlık, açıklama, og:url ve canonical'ı doldurulmuş
+         ayrı bir HTML yazar; tarayıcıda src/router/index.js aynı bilgiyi günceller. -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Convex" />
     <meta property="og:title" content="Convex — AutoML and Model Risk Management" />

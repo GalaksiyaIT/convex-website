@@ -10,8 +10,9 @@ import { locale, t } from '@/i18n'
   >
     <template v-if="locale === 'tr'">
       <p>
-        Bu Kullanım Şartları, convex.ai kurumsal web sitesini ("Site") ziyaret eden veya kullanan
-        herkes için geçerlidir. Siteyi kullanarak bu şartları kabul etmiş sayılırsınız.
+        Bu Kullanım Şartları, convexweb.galaksiya.net kurumsal web sitesini ("Site") ziyaret eden
+        veya kullanan herkes için geçerlidir. Siteyi kullanarak bu şartları kabul etmiş
+        sayılırsınız.
       </p>
       <h2>Sitenin amacı</h2>
       <p>
@@ -37,8 +38,9 @@ import { locale, t } from '@/i18n'
     </template>
     <template v-else>
       <p>
-        These Terms of Use apply to everyone who visits or uses the convex.ai corporate website (the
-        "Site"). By using the Site, you are deemed to have accepted these terms.
+        These Terms of Use apply to everyone who visits or uses the convexweb.galaksiya.net
+        corporate website (the "Site"). By using the Site, you are deemed to have accepted these
+        terms.
       </p>
       <h2>Purpose of the Site</h2>
       <p>

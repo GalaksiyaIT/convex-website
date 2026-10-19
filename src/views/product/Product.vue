@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import Container from '@/components/ui/Container.vue'
 import PageHero from '@/components/sections/PageHero.vue'
@@ -51,6 +51,8 @@ const c = useCopy({
     stepsTitle: 'The process, step by step',
     stepsDescription: 'Not an abstract promise — a real production workflow.',
     exploreModule: 'Explore the module',
+    enlarge: 'Enlarge',
+    close: 'Close',
     steps: [
       {
         title: 'Data Ingestion',
@@ -118,6 +120,8 @@ const c = useCopy({
     stepsTitle: 'Adım adım süreç',
     stepsDescription: 'Soyut bir vaat değil, gerçek bir üretim akışı.',
     exploreModule: 'Modülü incele',
+    enlarge: 'Büyüt',
+    close: 'Kapat',
     steps: [
       {
         title: 'Veri Yükleme',
@@ -178,6 +182,14 @@ const c = useCopy({
   },
 })
 
+// Adım görseli büyütme penceresi (<dialog>: odak ve Esc tarayıcıda).
+const imageDialog = ref(null)
+const openStep = ref(null)
+function openImage(step) {
+  openStep.value = step
+  imageDialog.value?.showModal()
+}
+
 const steps = computed(() =>
   stepMeta.map((meta, i) => {
     const text = c.value.steps[i]
@@ -219,20 +231,20 @@ const modules = computed(() =>
         <div
           v-for="(step, i) in steps"
           :key="step.icon"
-          class="flex flex-col gap-4 rounded-2xl border border-light-gray-border p-6 sm:flex-row sm:items-start"
+          class="grid gap-6 rounded-2xl border border-light-gray-border p-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,30rem)] lg:items-start"
         >
-          <div class="flex items-center gap-4 sm:w-64 sm:flex-shrink-0">
-            <span
-              class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-very-light-pink text-sm font-semibold text-pink"
-              >{{ i + 1 }}</span
-            >
-            <div class="flex items-center gap-2">
-              <BaseIcon :name="step.icon" sizeClass="w-4 h-4 text-purple" />
-              <h3 class="font-semibold text-navy-dark">{{ step.title }}</h3>
+          <div>
+            <div class="flex items-center gap-4">
+              <span
+                class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full bg-very-light-pink text-sm font-semibold text-pink"
+                >{{ i + 1 }}</span
+              >
+              <div class="flex items-center gap-2">
+                <BaseIcon :name="step.icon" sizeClass="w-4 h-4 text-purple" />
+                <h3 class="font-semibold text-navy-dark">{{ step.title }}</h3>
+              </div>
             </div>
-          </div>
-          <div class="flex-1">
-            <p class="text-sm leading-relaxed text-darker-gray">{{ step.description }}</p>
+            <p class="mt-4 text-sm leading-relaxed text-darker-gray">{{ step.description }}</p>
             <p v-if="step.quote" class="mt-2 text-sm italic text-pink/80">{{ step.quote }}</p>
             <RouterLink
               v-if="step.to"
@@ -251,17 +263,25 @@ const modules = computed(() =>
               <BaseIcon name="arrowRight" sizeClass="w-3.5 h-3.5" />
             </RouterLink>
           </div>
-          <div
+          <!-- Ekran görüntüsü okunur boyutta; tıklayınca tam boy açılır. -->
+          <button
             v-if="step.image"
-            class="overflow-hidden rounded-xl border border-light-gray-border bg-white shadow-sm sm:w-72 sm:flex-shrink-0"
+            type="button"
+            class="group relative block cursor-zoom-in overflow-hidden rounded-xl border border-light-gray-border bg-white shadow-sm"
+            :aria-label="`${c.enlarge}: ${step.title}`"
+            @click="openImage(step)"
           >
             <img
               :src="step.image"
               :alt="step.title"
               loading="lazy"
-              class="aspect-[16/10] w-full object-cover object-left-top"
+              class="max-h-80 w-full object-cover object-left-top"
             />
-          </div>
+            <span
+              class="absolute bottom-2 right-2 rounded-md bg-navy-dark/75 px-2 py-1 text-xs font-medium text-white opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100"
+              >{{ c.enlarge }}</span
+            >
+          </button>
         </div>
       </div>
     </Container>
@@ -286,4 +306,24 @@ const modules = computed(() =>
   </section>
 
   <CtaBanner />
+
+  <dialog
+    ref="imageDialog"
+    class="m-auto max-h-[92vh] w-[min(94vw,1100px)] rounded-2xl bg-white p-0 backdrop:bg-navy-dark/80"
+    :aria-label="openStep?.title"
+    @click.self="imageDialog?.close()"
+  >
+    <div class="flex items-center justify-between border-b border-light-gray-border px-5 py-3">
+      <span class="text-sm font-semibold text-navy-dark">{{ openStep?.title }}</span>
+      <form method="dialog">
+        <button
+          class="rounded-lg p-1.5 text-darker-gray hover:text-navy-dark"
+          :aria-label="c.close"
+        >
+          <BaseIcon name="close" sizeClass="w-5 h-5" />
+        </button>
+      </form>
+    </div>
+    <img v-if="openStep" :src="openStep.image" :alt="openStep.title" class="w-full" />
+  </dialog>
 </template>

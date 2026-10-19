@@ -10,8 +10,8 @@ import { locale, t } from '@/i18n'
   >
     <template v-if="locale === 'tr'">
       <p>
-        Bu Çerez Politikası, convex.ai kurumsal web sitesinde kullanılan çerezleri ve benzer
-        teknolojileri açıklar.
+        Bu Çerez Politikası, convexweb.galaksiya.net kurumsal web sitesinde kullanılan çerezleri ve
+        benzer teknolojileri açıklar.
       </p>
       <h2>Çerez nedir?</h2>
       <p>
@@ -36,8 +36,8 @@ import { locale, t } from '@/i18n'
     </template>
     <template v-else>
       <p>
-        This Cookie Policy explains the cookies and similar technologies used on the convex.ai
-        corporate website.
+        This Cookie Policy explains the cookies and similar technologies used on the
+        convexweb.galaksiya.net corporate website.
       </p>
       <h2>What is a cookie?</h2>
       <p>

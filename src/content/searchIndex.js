@@ -151,8 +151,9 @@ export function buildSearchIndex(lang) {
   })
 
   // Her video eğitimi kendi yazılı sayfasıyla ayrı ayrı aranabilir (blogEntries ile aynı desen).
+  // Bölüm filmleri listede yok ama kendi sayfalarıyla aranabilir.
   const videoEntries = getVideoGuides(lang)
-    .filter((v) => !v.hidden)
+    .filter((v) => !v.hidden || v.chapter)
     .map((v) => ({
       title: v.title,
       description: `${l.videos} · ${v.module}`,

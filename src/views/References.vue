@@ -6,6 +6,7 @@ import PageHero from '@/components/sections/PageHero.vue'
 import BaseIcon from '@/components/ui/BaseIcon.vue'
 import Badge from '@/components/ui/Badge.vue'
 import CtaBanner from '@/components/sections/CtaBanner.vue'
+import LogoStrip from '@/components/sections/LogoStrip.vue'
 import { getTestimonials } from '@/content/testimonials'
 import { locale, useCopy } from '@/i18n'
 
@@ -44,6 +45,13 @@ const filtered = computed(() =>
 
 <template>
   <PageHero :eyebrow="c.eyebrow" :title="c.title" :description="c.description" />
+
+  <!-- Kurum logoları: ana sayfadaki şeritle aynı kaynak. -->
+  <section class="bg-light-gray-bg">
+    <Container>
+      <LogoStrip class="border-t-0" />
+    </Container>
+  </section>
 
   <section class="py-20">
     <Container>
